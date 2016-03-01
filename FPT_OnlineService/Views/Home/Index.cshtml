@@ -1,0 +1,160 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="home-div">
+    <div>
+        <article id="article" class="container ng-scope" ng-controller="NewsController">
+            <div id="" class="">
+                <!-- Wrapper for slides -->
+                <div class="">
+                    <div class="item active">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 box" id="box-1">
+                            <div class="inner">
+                                <h2 class="box-header">News Page</h2>
+                                <div class="box-news list-group" id="box-left">
+
+                                    <!-- ngRepeat: content in leftContent --><div class="list-group-item ng-scope" ng-repeat="content in leftContent" data-toggle="popover" data-title="Thông báo DSSV thi lần 2 giữa kỳ tiếng Trung Block 1 SPRING2016 ngày 24.02.2016" data-html="true" data-content="">
+
+
+                                        <h5 class="list-group-item-heading" id="title-2634" />
+
+                                        <div ng-switch="" on="content.ordering">
+                                            <!-- ngSwitchWhen: 0 -->
+                                            <!-- ngSwitchDefault:  -->
+                                            <div ng-switch-default="" class="ng-scope">
+                                                <a href="http://international.fpt.edu.vn">  <span class="text-info ng-binding">Vist FU international website for more information.</span></a>
+                                            </div>
+                                            <p class="list-group-item-text ng-binding">
+                                                <i class="glyphicon glyphicon-user"></i>
+                                                trangttp
+
+                                                <i class="glyphicon glyphicon-time"></i>
+                                                2016-02-23 16:40:32
+                                            </p>
+                                        </div>
+                                        <br>
+                                        <div ng-switch="" on="content.ordering">
+                                            <!-- ngSwitchWhen: 0 -->
+                                            <!-- ngSwitchDefault:  -->
+                                            <div ng-switch-default="" class="ng-scope">
+                                                <a href="http://fpt.edu.vn"> <span class="text-info ng-binding">Vietnamese? Vist FU local website for more information.</span></a>
+                                            </div>
+                                            <p class="list-group-item-text ng-binding">
+                                                <i class="glyphicon glyphicon-user"></i>
+                                                trangttp
+
+                                                <i class="glyphicon glyphicon-time"></i>
+                                                2016-02-23 16:40:32
+                                            </p>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 box" id="box-1" style="float:right;padding-top:1%">
+                    <img src="~/images/homepic.jpg" alt="Smiley face" height="198" width="440" />
+                </div>
+
+
+                <div class="">
+                    <div class="item active">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 box" id="box-1">
+                            <div class="inner">
+                                <h2 class="box-header">Current Dialogue</h2>
+                                <div class="box-news list-group" id="box-left" ng-init="loadLeft()">
+
+                                    <div class="list-group-item ng-scope" ng-repeat="content in leftContent" data-toggle="popover" data-title="Thông báo DSSV thi lần 2 giữa kỳ tiếng Trung Block 1 SPRING2016 ngày 24.02.2016" data-html="true" data-content="">
+
+                                        <h5 class="list-group-item-heading" id="title-2634" />
+                                        <div ng-switch="" on="content.ordering">
+                                            <!-- ngSwitchWhen: 0 -->
+                                            <!-- ngSwitchDefault:  -->
+                                            <div ng-switch-default="" class="ng-scope">
+                                                <a href="https://uniap.fpt.edu.vn">  <span class="text-info ng-binding">Quick login to FU Uniap?</span></a>
+                                            </div>
+                                            <p class="list-group-item-text ng-binding">
+                                                <i class="glyphicon glyphicon-user"></i>
+                                                trangttp
+
+                                                <i class="glyphicon glyphicon-time"></i>
+                                                2016-02-23 16:40:32
+                                            </p>
+                                        </div>
+                                        <br>
+                                        <div ng-switch="" on="content.ordering">
+                                            <!-- ngSwitchWhen: 0 -->
+                                            <!-- ngSwitchDefault:  -->
+                                            <div ng-switch-default="" class="ng-scope">
+                                                <a href="#"> <span class="text-info ng-binding">Thông báo DSSV thi lần 2 giữa kỳ tiếng Trung Block 1 SPRING2016 ngày 24.02.2016</span></a>
+                                            </div>
+                                            <p class="list-group-item-text ng-binding">
+                                                <i class="glyphicon glyphicon-user"></i>
+                                                trangttp
+
+                                                <i class="glyphicon glyphicon-time"></i>
+                                                2016-02-23 16:40:32
+                                            </p>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-section">
+                    <div class="row">
+                        <div style="float:left">
+                            <h2 style="font-style:italic;text-decoration:underline;">Please contact us via.....</h2>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default"><div id="SkypeButton_Call" style="height:0.5%"></div></button>
+                                <button type="button" class="btn btn-default" onclick="javascript: $.getScript('../scripts/custom.js' , function (){ chat() ; } );">Chat</button>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        Our Contacts<span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li class=" dropdown-header">
+                                            Telephone No: And Email Address.
+                                        </li>
+                                        <li>(+84) 0000 000 00</li>
+                                        <li>Email: FuOnlineservice2016@gmail.com</li>
+                                        <li class="divider"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <img src="~/images/contact.jpg" height="160" , width="180" alt="contact image" />
+                        </div>
+                    </div>
+                </div>
+                <!-- Controls -->
+                <a class="left carousel-control visible-xs" href="#swipe-pane" data-slide="prev">
+                    <span class="icon-prev"></span>
+                </a>
+                <a class="right carousel-control visible-xs" href="#swipe-pane" data-slide="next">
+                    <span class="icon-next"></span>
+                </a>
+            </div>
+
+        </article>
+    </div>
+
+    <div>
+
+
+        <script type="text/javascript" src="http://www.skypeassets.com/i/scom/js/skype-uri.js"></script>
+
+        <script src="~/Scripts/custom.js"></script>
+
+
+    </div>
+</div>

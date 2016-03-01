@@ -1,0 +1,7 @@
+C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\DAL\bin\Debug\DAL.dll
+C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\DAL\bin\Debug\DAL.pdb
+C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\DAL\bin\Debug\Entity.dll
+C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\DAL\bin\Debug\Entity.pdb
+C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\DAL\obj\Debug\DAL.dll
+C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\DAL\obj\Debug\DAL.pdb
