@@ -32,6 +32,7 @@ namespace FPT_OnlineService.DAL
                 UserInfo.Name = dr.GetString(0).Trim();
                 UserInfo.Username = dr.GetString(1).Trim();
                 UserInfo.Email = dr.GetString(2).Trim();
+                UserInfo.Role = "Student";
             }
             conn.Close();
         }

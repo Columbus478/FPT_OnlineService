@@ -21,8 +21,6 @@ C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_Onli
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Debug\Microsoft.Owin.Security.Google.dll
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Debug\Entity.dll
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Debug\DAL.dll
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Debug\FPT_OnlineService.pdb
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Debug\System.Web.Helpers.xml
@@ -41,8 +39,6 @@ C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_Onli
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Debug\Microsoft.Owin.Security.Google.xml
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Debug\Entity.pdb
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Debug\DAL.pdb
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\obj\Debug\FPT_OnlineService.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\obj\Debug\FPT_OnlineService.Tests.dll
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\obj\Debug\FPT_OnlineService.Tests.pdb

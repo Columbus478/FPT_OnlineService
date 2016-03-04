@@ -15,7 +15,7 @@ namespace FPT_OnlineService.Controllers
     public class StaffController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        
+
         //GET All Forms
         public ActionResult Index(string sortOrder, string searchString)
         {
@@ -27,12 +27,12 @@ namespace FPT_OnlineService.Controllers
                         select f;
             if (!String.IsNullOrEmpty(searchString))
             {
-                //forms = forms.Where(f => f.StudentName.Contains(searchString));
+                forms = forms.Where(f => f.RollNo.Contains(searchString));
             }
             switch (sortOrder)
             {
                 case "type_desc":
-                    //forms = forms.OrderByDescending(f => f.StudentName);
+                    forms = forms.OrderByDescending(f => f.Type);
                     break;
                 case "Date":
                     forms = forms.OrderBy(f => f.Date);
@@ -45,6 +45,64 @@ namespace FPT_OnlineService.Controllers
                     break;
             }
             return View(forms.ToList());
+        }
+
+        public ActionResult Approved()
+        {
+            return View();
+        }
+
+        public ActionResult Rejected()
+        {
+            return View();
+        }
+
+        public ActionResult InProgress()
+        {
+            return View();
+        }
+
+        //Form Details
+        /*
+        public ActionResult Staff(int? id)
+        {
+
+            retutn false;
+        }
+         * */
+        // GET: SuspendSemesterForms/Edit/5
+        public ActionResult StaffEndorsement(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SuspendSemesterForm suspendSemesterForm = db.SuspendSemesterForms.Find(id);
+            if (suspendSemesterForm == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", suspendSemesterForm.FormID);
+            return View(suspendSemesterForm);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult StaffEndorsement([Bind(Include = "FormID,PreviousSemester,TwoPrevSemester")] SuspendSemesterForm suspendSemesterForm, string FormStatus,string isWeekBefore)
+        {
+            SuspendSemesterForm ssf = db.SuspendSemesterForms.Find(suspendSemesterForm.FormID);
+            Form f = db.Forms.Find(suspendSemesterForm.FormID);
+            f.Status = FormStatus;
+            if(isWeekBefore.Equals("on"))
+                f.isWeekBefore = "True";
+            else
+                f.isWeekBefore = "False";
+            ssf.PreviousSemester = suspendSemesterForm.PreviousSemester;
+            ssf.TwoPrevSemester = suspendSemesterForm.TwoPrevSemester;
+            db.Entry(ssf).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index","Staff");
         }
     }
 }

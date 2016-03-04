@@ -13,7 +13,7 @@ namespace FPT_OnlineService.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201602291301167_All"; }
+            get { return "201603031209034_All"; }
         }
         
         string IMigrationMetadata.Source

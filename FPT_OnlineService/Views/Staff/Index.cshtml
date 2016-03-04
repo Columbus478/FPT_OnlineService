@@ -9,7 +9,7 @@
 @using (Html.BeginForm())
 {
     <p>
-        Find by student name: @Html.TextBox("SearchString")
+        Find by student rollno: @Html.TextBox("SearchString")
         <input type="submit" value="Search" />
     </p>
 }
@@ -47,10 +47,7 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |                
-                @Html.ActionLink("Details", "Details", "Forms", new { id = item.ID }, null) |                
-                @Html.ActionLink("Forward", "Forward", new { id = item.ID }) | 
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Details", "StaffEndorsement", "Staff", new { id = item.ID }, null) 
             </td>
         </tr>
     }

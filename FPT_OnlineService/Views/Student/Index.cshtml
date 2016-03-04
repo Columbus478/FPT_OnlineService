@@ -6,13 +6,6 @@
 
 <h2>New</h2>
 
-@using (Html.BeginForm())
-{
-    <p>
-        Find by student name: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
-    </p>
-}
 
 <table class="table">
     <tr>
@@ -33,27 +26,27 @@
 
     @foreach (var item in Model)
     {
-        if(item.RollNo == FPT_OnlineService.DAL.UserInfo.Username)
-        { 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RollNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details","Form", new { id = item.ID },null) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        </tr>
+        if (item.RollNo.Equals(FPT_OnlineService.DAL.UserInfo.Username) && item.Status.Equals("New"))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RollNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Forms", new { id = item.ID }, null)|
+                    @Html.ActionLink("Details", "Details", "Forms", new { id = item.ID }, null)|
+                    @Html.ActionLink("Delete", "Delete", "Forms", new { id = item.ID }, null)
+                </td>
+            </tr>
         }
     }
 </table>

@@ -4,10 +4,8 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>CourseRegForm</h4>
+    <h4>Course Registration Form</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -41,26 +39,25 @@
         <dd>
             @Html.DisplayFor(model => model.Subject)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Class)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Class)
-        </dd>
-
+        
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.FormID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div>
+    <p>
+        @if (!FPT_OnlineService.DAL.UserInfo.Username.Equals(null))
+        {
+            if (FPT_OnlineService.DAL.UserInfo.Role.Equals("Student"))
+            {
+                @Html.ActionLink("Edit", "Edit","Forms", new { id = Model.FormID }) @:&nbsp;
+                @Html.ActionLink("Back to List", "Index","Student")
+            }
+            else if (FPT_OnlineService.DAL.UserInfo.Role.Contains("Staff"))
+            {
+                @Html.ActionLink("Forward", "Forward","Staff", new { id = Model.FormID }) @:&nbsp;
+                @Html.ActionLink("Reject", "Reject", "Staff", new { id = Model.FormID }) @:&nbsp;
+                @Html.ActionLink("Approve", "Approve", "Staff", new { id = Model.FormID }) @:&nbsp;
+                @Html.ActionLink("Back to List", "Index","Staff")
+            }
+        }
+    </p>
+</div>

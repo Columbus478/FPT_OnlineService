@@ -22,6 +22,8 @@ namespace FPT_OnlineService.Models
 
         public string Status { get; set; }
 
+        public string isWeekBefore { get; set; }
+
         [ForeignKey("Student")]
         public string RollNo { get; set; }
 
@@ -33,7 +35,6 @@ namespace FPT_OnlineService.Models
         public virtual RequestForm RequestForm { get; set; }
     }
 
-
     public class DropOutForm
     {
         [Key]
@@ -42,7 +43,7 @@ namespace FPT_OnlineService.Models
 
         [Required]
         [StringLength(10, ErrorMessage = "Please input your correct rollno", MinimumLength = 6)]
-        [Display(Name = "Class (Lớp)")]
+        [Display(Name = "Student Class (Lớp)")]
         public string Class { get; set; }
 
         [Required]
@@ -70,18 +71,24 @@ namespace FPT_OnlineService.Models
         [Display(Name = "Phone(Số điện thoại)")]
         public int StudentPhone { get; set; }
 
-        [Required]
-        [Display(Name = "Semester no")]
-        public int SemesterNo { get; set; }
-
+        //Spring Fall Summer
         [Required]
         [Display(Name = "Semester season")]
         public string SemesterSeason { get; set; }
 
+        //2013 2014
         [Required]
         [Display(Name = "Semester year")]
         public string SemesterYear { get; set; }
 
+        //Staff Part
+        [Display(Name = "Previous semester")]
+        public string PreviousSemester { get; set; }
+
+
+        [Display(Name = "Semester before the last")]
+        public string TwoPrevSemester { get; set; }
+        
         public virtual Form Form { get; set; }
     }
 
@@ -95,21 +102,18 @@ namespace FPT_OnlineService.Models
         [Display(Name = "Phone(Số điện thoại)")]
         public int StudentPhone { get; set; }
 
-        [Required]
-        [Display(Name = "Semester no")]
-        public int SemesterNo { get; set; }
-
-        [Required]
-        [Display(Name = "Block no")]
-        public int BlockNo { get; set; }
-
+        //Spring Fall Summer
         [Required]
         [Display(Name = "Semester season")]
         public string SemesterSeason { get; set; }
 
         [Required]
-        [Display(Name = "Semester year")]
-        public string SemesterYear { get; set; }
+        [Display(Name = "Subject code")]
+        public string SubjectCode { get; set; }
+
+        [Required]
+        [Display(Name = "Subject Name")]
+        public string SubjectName { get; set; }
 
         public virtual Form Form { get; set; }
 
@@ -122,26 +126,22 @@ namespace FPT_OnlineService.Models
         public int FormID { get; set; }
 
         [Required]
-        [Display(Name = "REQUEST FOR: )")]
+        [Display(Name = "Request Title: ")]
         public string RequestTitle { get; set; }
         
         [Required]
-        [Display(Name = "Phone(Số điện thoại)")]
+        [Display(Name = "Phone(Số điện thoại): ")]
         public int StudentPhone { get; set; }
 
         [Required]
-        [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email: ")]
-        public int StudentEmail { get; set; }
-
-        [Required]
         [StringLength(10, ErrorMessage = "Please input your correct details", MinimumLength = 6)]
-        [Display(Name = "Course name/Class (Lớp)")]
+        [Display(Name = "Student Class (Lớp): ")]
         public string Class { get; set; }
 
         [Required]
-        [Display(Name = "I am requesting for/I would like to explain my problem as followed:")]
-        public string Batch { get; set; }
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "I am requesting for/I would like to explain my problem as followed: ")]
+        public string Description { get; set; }
 
         public virtual Form Form { get; set; }
     }
@@ -163,13 +163,6 @@ namespace FPT_OnlineService.Models
         [Required]
         [Display(Name = "Subject(Môn đăng ký)")]
         public string Subject { get; set; }
-
-        [Required]
-        [Display(Name = "Status(Tình trạng môn học)")]
-        public string Status { get; set; }
-
-        [Display(Name = "Class/time (optional)")]
-        public string Class { get; set; }
         
         public virtual Form Form { get; set; }
     }

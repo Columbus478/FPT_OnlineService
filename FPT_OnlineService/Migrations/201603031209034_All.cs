@@ -15,8 +15,6 @@ namespace FPT_OnlineService.Migrations
                         StudentPhone = c.Int(nullable: false),
                         SubjectCode = c.String(nullable: false),
                         Subject = c.String(nullable: false),
-                        Status = c.String(nullable: false),
-                        Class = c.String(),
                     })
                 .PrimaryKey(t => t.FormID)
                 .ForeignKey("dbo.Forms", t => t.FormID)
@@ -62,6 +60,7 @@ namespace FPT_OnlineService.Migrations
                         StudentEmail = c.Int(nullable: false),
                         Class = c.String(nullable: false, maxLength: 10),
                         Batch = c.String(nullable: false),
+                        Description = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.FormID)
                 .ForeignKey("dbo.Forms", t => t.FormID)
@@ -158,7 +157,6 @@ namespace FPT_OnlineService.Migrations
                     {
                         FormID = c.Int(nullable: false),
                         StudentPhone = c.Int(nullable: false),
-                        SemesterNo = c.Int(nullable: false),
                         SemesterSeason = c.String(nullable: false),
                         SemesterYear = c.String(nullable: false),
                     })
@@ -172,8 +170,6 @@ namespace FPT_OnlineService.Migrations
                     {
                         FormID = c.Int(nullable: false),
                         StudentPhone = c.Int(nullable: false),
-                        SemesterNo = c.Int(nullable: false),
-                        BlockNo = c.Int(nullable: false),
                         SemesterSeason = c.String(nullable: false),
                         SemesterYear = c.String(nullable: false),
                     })

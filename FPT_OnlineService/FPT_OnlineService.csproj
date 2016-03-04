@@ -177,12 +177,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602291301167_All.cs" />
-    <Compile Include="Migrations\201602291301167_All.Designer.cs">
-      <DependentUpon>201602291301167_All.cs</DependentUpon>
+    <Compile Include="Migrations\201603031209034_All.cs" />
+    <Compile Include="Migrations\201603031209034_All.Designer.cs">
+      <DependentUpon>201603031209034_All.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603031424032_All1.cs" />
+    <Compile Include="Migrations\201603031424032_All1.Designer.cs">
+      <DependentUpon>201603031424032_All1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603031847343_All2.cs" />
+    <Compile Include="Migrations\201603031847343_All2.Designer.cs">
+      <DependentUpon>201603031847343_All2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603032013001_All3.cs" />
+    <Compile Include="Migrations\201603032013001_All3.Designer.cs">
+      <DependentUpon>201603032013001_All3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CheckBoxListItem.cs" />
     <Compile Include="Models\FormsViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -289,6 +302,12 @@
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Forms\Details.cshtml" />
+    <Content Include="Views\Request.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CheckBoxListItem.cshtml" />
+    <Content Include="Views\Staff\StaffEndorsement.cshtml" />
+    <Content Include="Views\Staff\Approved.cshtml" />
+    <Content Include="Views\Staff\Rejected.cshtml" />
+    <Content Include="Views\Staff\InProgress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -307,12 +326,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201602291301167_All.resx">
-      <DependentUpon>201602291301167_All.cs</DependentUpon>
-    </EmbeddedResource>
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <EmbeddedResource Include="Migrations\201603031209034_All.resx">
+      <DependentUpon>201603031209034_All.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603031424032_All1.resx">
+      <DependentUpon>201603031424032_All1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603031847343_All2.resx">
+      <DependentUpon>201603031847343_All2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603032013001_All3.resx">
+      <DependentUpon>201603032013001_All3.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
