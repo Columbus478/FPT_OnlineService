@@ -193,6 +193,14 @@
     <Compile Include="Migrations\201603032013001_All3.Designer.cs">
       <DependentUpon>201603032013001_All3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603040627377_Tuition.cs" />
+    <Compile Include="Migrations\201603040627377_Tuition.Designer.cs">
+      <DependentUpon>201603040627377_Tuition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603040712045_All4.cs" />
+    <Compile Include="Migrations\201603040712045_All4.Designer.cs">
+      <DependentUpon>201603040712045_All4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CheckBoxListItem.cs" />
@@ -297,17 +305,24 @@
     <Content Include="Views\Forms\SuspendSemesterEdit.cshtml" />
     <Content Include="Views\Forms\SuspendSubjectCreate.cshtml" />
     <Content Include="Views\Forms\SuspendSubjectDelete.cshtml" />
-    <Content Include="Views\Forms\SuspendSubjectDetailsSuspendSubject.cshtml" />
+    <Content Include="Views\Forms\SuspendSubjectDetails.cshtml" />
     <Content Include="Views\Forms\SuspendSubjectEdit.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Forms\Details.cshtml" />
     <Content Include="Views\Request.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CheckBoxListItem.cshtml" />
-    <Content Include="Views\Staff\StaffEndorsement.cshtml" />
+    <Content Include="Views\Staff\SuspendSemesterEndorsement.cshtml" />
     <Content Include="Views\Staff\Approved.cshtml" />
     <Content Include="Views\Staff\Rejected.cshtml" />
     <Content Include="Views\Staff\InProgress.cshtml" />
+    <Content Include="Views\Staff\SuspendSubjectEndorsement.cshtml" />
+    <Content Include="Views\Staff\DropOutEndorsement.cshtml" />
+    <Content Include="Views\Staff\CourseRegEndorsement.cshtml" />
+    <Content Include="Views\Staff\RequestEndorsement.cshtml" />
+    <Content Include="Views\Student\InProgress.cshtml" />
+    <Content Include="Views\Student\Rejected.cshtml" />
+    <Content Include="Views\Student\Approved.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -340,6 +355,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603032013001_All3.resx">
       <DependentUpon>201603032013001_All3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603040627377_Tuition.resx">
+      <DependentUpon>201603040627377_Tuition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603040712045_All4.resx">
+      <DependentUpon>201603040712045_All4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -57,7 +57,7 @@ namespace FPT_OnlineService.Controllers
         //Edit Form
         public ActionResult Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -77,6 +77,38 @@ namespace FPT_OnlineService.Controllers
                     return RedirectToAction("DropOutEdit", new { id = id });
                 case ("General Request"):
                     return RedirectToAction("RequestEdit", new { id = id });
+                /*
+            case (""):
+                break;*/
+                default:
+                    break;
+            }
+            return View();
+        }
+
+        //Edit Form
+        public ActionResult Delete(int id)
+        {
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //string formType = CheckFormType(id);
+            Form form = db.Forms.Find(id);
+            string formType = form.Type;
+
+            switch (formType)
+            {
+                case ("Course Registration"):
+                    return RedirectToAction("CourseRegDelete", new { id = id });
+                case ("Suspend Subject"):
+                    return RedirectToAction("SuspendSubjectDelete", new { id = id });
+                case ("Suspend Semester"):
+                    return RedirectToAction("SuspendSemesterDelete", new { id = id });
+                case ("Drop Out"):
+                    return RedirectToAction("DropOutDelete", new { id = id });
+                case ("General Request"):
+                    return RedirectToAction("RequestDelete", new { id = id });
                 /*
             case (""):
                 break;*/
@@ -166,7 +198,12 @@ namespace FPT_OnlineService.Controllers
                 crf.SubjectCode = courseRegForm.SubjectCode;
                 db.Entry(crf).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (DAL.UserInfo.Role.Equals("Student"))
+                    return RedirectToAction("Index", "Student");
+                else if (DAL.UserInfo.Role.Contains("Staff"))
+                    return RedirectToAction("Index", "Staff");
+                else
+                    return RedirectToAction("Index", "Home");
             }
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", courseRegForm.FormID);
             return View(courseRegForm);
@@ -184,7 +221,12 @@ namespace FPT_OnlineService.Controllers
                 ssf.TwoPrevSemester = suspendSemesterForm.TwoPrevSemester;
                 db.Entry(ssf).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (DAL.UserInfo.Role.Equals("Student"))
+                    return RedirectToAction("Index", "Student");
+                else if (DAL.UserInfo.Role.Contains("Staff"))
+                    return RedirectToAction("Index", "Staff");
+                else
+                    return RedirectToAction("Index", "Home");
             }
 
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", suspendSemesterForm.FormID);
@@ -213,8 +255,15 @@ namespace FPT_OnlineService.Controllers
         {
             CourseRegForm courseRegForm = db.CourseRegForms.Find(id);
             db.CourseRegForms.Remove(courseRegForm);
+            Form form = db.Forms.Find(id);
+            db.Forms.Remove(form);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            if (DAL.UserInfo.Role.Equals("Student"))
+                return RedirectToAction("Index", "Student");
+            else if (DAL.UserInfo.Role.Contains("Staff"))
+                return RedirectToAction("Index", "Staff");
+            else
+                return RedirectToAction("Index", "Home");
         }
 
         // GET: SuspendSubjectForms/Details/5
@@ -295,7 +344,12 @@ namespace FPT_OnlineService.Controllers
             {
                 db.Entry(suspendSubjectForm).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (DAL.UserInfo.Role.Equals("Student"))
+                    return RedirectToAction("Index", "Student");
+                else if (DAL.UserInfo.Role.Contains("Staff"))
+                    return RedirectToAction("Index", "Staff");
+                else
+                    return RedirectToAction("Index", "Home");
             }
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", suspendSubjectForm.FormID);
             return View(suspendSubjectForm);
@@ -323,8 +377,15 @@ namespace FPT_OnlineService.Controllers
         {
             SuspendSubjectForm suspendSubjectForm = db.SuspendSubjectForms.Find(id);
             db.SuspendSubjectForms.Remove(suspendSubjectForm);
+            Form form = db.Forms.Find(id);
+            db.Forms.Remove(form);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            if (DAL.UserInfo.Role.Equals("Student"))
+                return RedirectToAction("Index", "Student");
+            else if (DAL.UserInfo.Role.Contains("Staff"))
+                return RedirectToAction("Index", "Staff");
+            else
+                return RedirectToAction("Index", "Home");
         }
 
 
@@ -405,7 +466,12 @@ namespace FPT_OnlineService.Controllers
             {
                 db.Entry(suspendSemesterForm).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (DAL.UserInfo.Role.Equals("Student"))
+                    return RedirectToAction("Index", "Student");
+                else if (DAL.UserInfo.Role.Contains("Staff"))
+                    return RedirectToAction("Index", "Staff");
+                else
+                    return RedirectToAction("Index", "Home");
             }
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", suspendSemesterForm.FormID);
             return View(suspendSemesterForm);
@@ -414,7 +480,7 @@ namespace FPT_OnlineService.Controllers
         // GET: SuspendSemesterForms/Delete/5
         public ActionResult SuspendSemesterDelete(int? id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -433,8 +499,15 @@ namespace FPT_OnlineService.Controllers
         {
             SuspendSemesterForm suspendSemesterForm = db.SuspendSemesterForms.Find(id);
             db.SuspendSemesterForms.Remove(suspendSemesterForm);
+            Form form = db.Forms.Find(id);
+            db.Forms.Remove(form);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            if(DAL.UserInfo.Role.Equals("Student"))
+                return RedirectToAction("Index","Student");
+            else if(DAL.UserInfo.Role.Contains("Staff"))
+                return RedirectToAction("Index","Staff");
+            else
+                return RedirectToAction("Index", "Home");
         }
 
 
@@ -515,7 +588,12 @@ namespace FPT_OnlineService.Controllers
             {
                 db.Entry(requestForm).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (DAL.UserInfo.Role.Equals("Student"))
+                    return RedirectToAction("Index", "Student");
+                else if (DAL.UserInfo.Role.Contains("Staff"))
+                    return RedirectToAction("Index", "Staff");
+                else
+                    return RedirectToAction("Index", "Home");
             }
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", requestForm.FormID);
             return View(requestForm);
@@ -543,8 +621,15 @@ namespace FPT_OnlineService.Controllers
         {
             RequestForm requestForm = db.RequestForms.Find(id);
             db.RequestForms.Remove(requestForm);
+            Form form = db.Forms.Find(id);
+            db.Forms.Remove(form);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            if (DAL.UserInfo.Role.Equals("Student"))
+                return RedirectToAction("Index", "Student");
+            else if (DAL.UserInfo.Role.Contains("Staff"))
+                return RedirectToAction("Index", "Staff");
+            else
+                return RedirectToAction("Index", "Home");
         }
 
         // GET: DropOutForms/Details/5
@@ -624,7 +709,12 @@ namespace FPT_OnlineService.Controllers
             {
                 db.Entry(dropOutForm).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (DAL.UserInfo.Role.Equals("Student"))
+                    return RedirectToAction("Index", "Student");
+                else if (DAL.UserInfo.Role.Contains("Staff"))
+                    return RedirectToAction("Index", "Staff");
+                else
+                    return RedirectToAction("Index", "Home");
             }
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", dropOutForm.FormID);
             return View(dropOutForm);
@@ -652,8 +742,15 @@ namespace FPT_OnlineService.Controllers
         {
             DropOutForm dropOutForm = db.DropOutForms.Find(id);
             db.DropOutForms.Remove(dropOutForm);
+            Form form = db.Forms.Find(id);
+            db.Forms.Remove(form);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            if (DAL.UserInfo.Role.Equals("Student"))
+                return RedirectToAction("Index", "Student");
+            else if (DAL.UserInfo.Role.Contains("Staff"))
+                return RedirectToAction("Index", "Staff");
+            else
+                return RedirectToAction("Index", "Home");
         }
 
 

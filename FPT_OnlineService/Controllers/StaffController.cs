@@ -69,9 +69,47 @@ namespace FPT_OnlineService.Controllers
 
             retutn false;
         }
+        public ActionResult StaffEndorsement(int? id)
+        {
+
+            return
+        }
          * */
         // GET: SuspendSemesterForms/Edit/5
+
+
         public ActionResult StaffEndorsement(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //string formType = CheckFormType(id);
+            Form form = db.Forms.Find(id);
+            string formType = form.Type;
+
+            switch (formType)
+            {
+                case ("Course Registration"):
+                    return RedirectToAction("CourseRegEndorsement", new { id = id });
+                case ("Suspend Subject"):
+                    return RedirectToAction("SuspendSubjectEndorsement", new { id = id });
+                case ("Suspend Semester"):
+                    return RedirectToAction("SuspendSemesterEndorsement", new { id = id });
+                case ("Drop Out"):
+                    return RedirectToAction("DropOutEndorsement", new { id = id });
+                case ("General Request"):
+                    return RedirectToAction("RequestEndorsement", new { id = id });
+                /*
+            case (""):
+                break;*/
+                default:
+                    break;
+            }
+            return View();
+        }
+
+        public ActionResult SuspendSemesterEndorsement(int? id)
         {
             if (id == null)
             {
@@ -89,15 +127,21 @@ namespace FPT_OnlineService.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult StaffEndorsement([Bind(Include = "FormID,PreviousSemester,TwoPrevSemester")] SuspendSemesterForm suspendSemesterForm, string FormStatus,string isWeekBefore)
+        public ActionResult SuspendSemesterEndorsement([Bind(Include = "FormID,PreviousSemester,TwoPrevSemester")] SuspendSemesterForm suspendSemesterForm, string FormStatus, string isWeekBefore, string TuitionFee)
         {
             SuspendSemesterForm ssf = db.SuspendSemesterForms.Find(suspendSemesterForm.FormID);
             Form f = db.Forms.Find(suspendSemesterForm.FormID);
             f.Status = FormStatus;
-            if(isWeekBefore.Equals("on"))
+            if (isWeekBefore.Equals("on"))
                 f.isWeekBefore = "True";
             else
                 f.isWeekBefore = "False";
+            f.ApprovedBy = DAL.UserInfo.Name;
+
+            if (TuitionFee.Equals("on"))
+                ssf.TuitionFee = "True";
+            else
+                ssf.TuitionFee = "False";
             ssf.PreviousSemester = suspendSemesterForm.PreviousSemester;
             ssf.TwoPrevSemester = suspendSemesterForm.TwoPrevSemester;
             db.Entry(ssf).State = EntityState.Modified;

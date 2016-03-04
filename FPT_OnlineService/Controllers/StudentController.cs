@@ -38,5 +38,20 @@ namespace FPT_OnlineService.Controllers
             }
             return View(forms.ToList());
         }
+
+        public ActionResult Approved()
+        {
+            return View();
+        }
+
+        public ActionResult Rejected()
+        {
+            return View();
+        }
+
+        public ActionResult InProgress()
+        {
+            return View();
+        }
     }
 }

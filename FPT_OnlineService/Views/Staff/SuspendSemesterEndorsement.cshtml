@@ -50,6 +50,15 @@
             </dd>
 
             <dt>
+                @Html.DisplayNameFor(model => model.TuitionFee)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TuitionFee)
+            </dd>
+
+
+            <dt>
                 @Html.DisplayNameFor(model => model.PreviousSemester)
             </dt>
 
@@ -78,26 +87,43 @@
             {
 
                     <div class="form-horizontal">
-                        <h4>Course Registration Form</h4>
                         <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
+                            @Html.Label("Tuition fee complete :", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="checkbox" name="TuitionFee" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             @Html.Label("Submitted A week before :", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                <input type="checkbox" name="isWeekBefore" checked="checked"/>
+                                <input type="checkbox" name="isWeekBefore" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.PreviousSemester, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.PreviousSemester, new { htmlAttributes = new { @class = "form-control" } })
+                                <select class="form-control" id="PreviousSemester" name="PreviousSemester">
+                                    <option></option>
+                                    <option value="Studied">Studied</option>
+                                    <option value="Drop Out">Dropped Out</option>
+                                    <option value="Suspended">Suspended</option>
+                                    <option value="Retake">Retake</option>
+                                </select>
                                 @Html.ValidationMessageFor(model => model.PreviousSemester, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.TwoPrevSemester, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.TwoPrevSemester, new { htmlAttributes = new { @class = "form-control" } })
+                                <select class="form-control" id="TwoPrevSemester" name="TwoPrevSemester">
+                                    <option></option>
+                                    <option value="Studied">Studied</option>
+                                    <option value="Drop Out">Droped Out</option>
+                                    <option value="Suspended">Suspended</option>
+                                    <option value="Retake">Retake</option>
+                                </select>
                                 @Html.ValidationMessageFor(model => model.TwoPrevSemester, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -105,6 +131,7 @@
                             @Html.Label( "Approve/Reject :", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 <select class="form-control" id="FormStatus" name="FormStatus">
+                                    <option></option>
                                     <option value="Rejected">Reject</option>
                                     <option value="Approved">Approve</option>
                                 </select>

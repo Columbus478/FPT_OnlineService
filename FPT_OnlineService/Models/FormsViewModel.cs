@@ -24,6 +24,8 @@ namespace FPT_OnlineService.Models
 
         public string isWeekBefore { get; set; }
 
+        public string ApprovedBy { get; set; }
+
         [ForeignKey("Student")]
         public string RollNo { get; set; }
 
@@ -57,6 +59,16 @@ namespace FPT_OnlineService.Models
         [Required]
         [Display(Name = "Reason (Lý do)")]
         public string Reason { get; set; }
+
+        [Display(Name = "Student Library Status")]
+        public string LibraryStatus { get; set; }
+
+        [Display(Name = "Student Account Status")]
+        public string AccountStatus { get; set; }
+
+        [Required]
+        [Display(Name = "Accademic Head Endorsement")]
+        public string AcademicHeadEndorse { get; set; }
         
         public virtual Form Form { get; set; }
     }
@@ -76,6 +88,9 @@ namespace FPT_OnlineService.Models
         [Display(Name = "Semester season")]
         public string SemesterSeason { get; set; }
 
+        [Display(Name = "Tuition Fee")]
+        public string TuitionFee { get; set; }
+
         //2013 2014
         [Required]
         [Display(Name = "Semester year")]
@@ -84,7 +99,6 @@ namespace FPT_OnlineService.Models
         //Staff Part
         [Display(Name = "Previous semester")]
         public string PreviousSemester { get; set; }
-
 
         [Display(Name = "Semester before the last")]
         public string TwoPrevSemester { get; set; }
@@ -163,6 +177,12 @@ namespace FPT_OnlineService.Models
         [Required]
         [Display(Name = "Subject(Môn đăng ký)")]
         public string Subject { get; set; }
+
+        [Display(Name = "Course is available")]
+        public string CourseAvailable { get; set; }
+
+        [Display(Name = "Tuition Fee")]
+        public string TuitionFee { get; set; }
         
         public virtual Form Form { get; set; }
     }
