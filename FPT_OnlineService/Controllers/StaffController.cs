@@ -62,22 +62,6 @@ namespace FPT_OnlineService.Controllers
             return View();
         }
 
-        //Form Details
-        /*
-        public ActionResult Staff(int? id)
-        {
-
-            retutn false;
-        }
-        public ActionResult StaffEndorsement(int? id)
-        {
-
-            return
-        }
-         * */
-        // GET: SuspendSemesterForms/Edit/5
-
-
         public ActionResult StaffEndorsement(int? id)
         {
             if (id == null)
@@ -123,8 +107,7 @@ namespace FPT_OnlineService.Controllers
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", suspendSemesterForm.FormID);
             return View(suspendSemesterForm);
         }
-
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SuspendSemesterEndorsement([Bind(Include = "FormID,PreviousSemester,TwoPrevSemester")] SuspendSemesterForm suspendSemesterForm, string FormStatus, string isWeekBefore, string TuitionFee)
@@ -139,14 +122,153 @@ namespace FPT_OnlineService.Controllers
             f.ApprovedBy = DAL.UserInfo.Name;
 
             if (TuitionFee.Equals("on"))
-                ssf.TuitionFee = "True";
+                ssf.TuitionFee = true;
             else
-                ssf.TuitionFee = "False";
+                ssf.TuitionFee = false;
             ssf.PreviousSemester = suspendSemesterForm.PreviousSemester;
             ssf.TwoPrevSemester = suspendSemesterForm.TwoPrevSemester;
             db.Entry(ssf).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index","Staff");
+            return RedirectToAction("Index", "Staff");
         }
+
+        
+        public ActionResult SuspendSubjectEndorsement(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SuspendSubjectForm suspendSubjectForm = db.SuspendSubjectForms.Find(id);
+            if (suspendSubjectForm == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", suspendSubjectForm.FormID);
+            return View(suspendSubjectForm);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SuspendSubjectEndorsement([Bind(Include = "FormID")] SuspendSubjectForm suspendSubjectForm, string FormStatus, string isWeekBefore, string NotAllSubject)
+        {
+            SuspendSubjectForm ssf = db.SuspendSubjectForms.Find(suspendSubjectForm.FormID);
+            Form f = db.Forms.Find(suspendSubjectForm.FormID);
+            f.Status = FormStatus;
+            if (isWeekBefore.Equals("on"))
+                f.isWeekBefore = "True";
+            else
+                f.isWeekBefore = "False";
+            f.ApprovedBy = DAL.UserInfo.Name;
+
+            if (NotAllSubject.Equals("on"))
+                ssf.NotAllSubject = "True";
+            else
+                ssf.NotAllSubject = "False";
+            db.Entry(ssf).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Staff");
+        }
+
+        public ActionResult CourseRegEndorsement(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CourseRegForm courseRegForm = db.CourseRegForms.Find(id);
+            if (courseRegForm == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", courseRegForm.FormID);
+            return View(courseRegForm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CourseRegEndorsement([Bind(Include = "FormID")] CourseRegForm courseRegForm, string FormStatus, string isWeekBefore, List<string> CoursesAvailable)
+        {
+            CourseRegForm crf = db.CourseRegForms.Find(courseRegForm.FormID);
+            Form f = db.Forms.Find(courseRegForm.FormID);
+            f.Status = FormStatus;
+            if (isWeekBefore.Equals("on"))
+                f.isWeekBefore = "True";
+            else
+                f.isWeekBefore = "False";
+            f.ApprovedBy = DAL.UserInfo.Name;
+
+            db.Entry(crf).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Staff");
+        }
+
+        public ActionResult DropOutEndorsement(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DropOutForm dropOutForm = db.DropOutForms.Find(id);
+            if (dropOutForm == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", dropOutForm.FormID);
+            return View(dropOutForm);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DropOutEndorsement([Bind(Include = "FormID")] DropOutForm dropOutForm, string FormStatus, string isWeekBefore, string TuitionFee)
+        {
+            DropOutForm dof = db.DropOutForms.Find(dropOutForm.FormID);
+            Form f = db.Forms.Find(dropOutForm.FormID);
+            f.Status = FormStatus;
+            if (isWeekBefore.Equals("on"))
+                f.isWeekBefore = "True";
+            else
+                f.isWeekBefore = "False";
+            f.ApprovedBy = DAL.UserInfo.Name;
+
+            db.Entry(dof).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Staff");
+        }
+
+
+        public ActionResult RequestEndorsement(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            RequestForm requestForm = db.RequestForms.Find(id);
+            if (requestForm == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", requestForm.FormID);
+            return View(requestForm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RequestEndorsement([Bind(Include = "FormID")] RequestForm requestForm, string FormStatus, string isWeekBefore, string TuitionFee)
+        {
+            RequestForm rf = db.RequestForms.Find(requestForm.FormID);
+            Form f = db.Forms.Find(requestForm.FormID);
+            f.Status = FormStatus;
+            if (isWeekBefore.Equals("on"))
+                f.isWeekBefore = "True";
+            else
+                f.isWeekBefore = "False";
+            f.ApprovedBy = DAL.UserInfo.Name;
+
+            db.Entry(rf).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Staff");
+        }
+
     }
 }

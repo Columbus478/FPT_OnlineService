@@ -1,4 +1,4 @@
-﻿@model FPT_OnlineService.Models.SuspendSemesterForm
+﻿@model FPT_OnlineService.Models.SuspendSubjectForm
 
 <!DOCTYPE html>
 
@@ -13,7 +13,7 @@
         @Html.AntiForgeryToken()
 
     <div>
-        <h4>Suspend Semester Form</h4>
+        <h4>Suspend Subject Form</h4>
         <hr />
         <dl class="dl-horizontal">            
             @Html.HiddenFor(model => model.FormID)
@@ -42,27 +42,27 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.SemesterYear)
+                @Html.DisplayNameFor(model => model.SubjectCode)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.SemesterYear)
+                @Html.DisplayFor(model => model.SubjectCode)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.PreviousSemester)
+                @Html.DisplayNameFor(model => model.SubjectName)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.PreviousSemester)
+                @Html.DisplayFor(model => model.SubjectName)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.TwoPrevSemester)
+                @Html.DisplayNameFor(model => model.NotAllSubject)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.TwoPrevSemester)
+                @Html.DisplayFor(model => model.NotAllSubject)
             </dd>
         </dl>
     </div>
@@ -84,20 +84,6 @@
                             @Html.Label("Submitted A week before :", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 <input type="checkbox" name="isWeekBefore" checked="checked"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.PreviousSemester, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.PreviousSemester, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.PreviousSemester, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.TwoPrevSemester, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.TwoPrevSemester, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.TwoPrevSemester, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">

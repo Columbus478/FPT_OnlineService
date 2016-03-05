@@ -201,6 +201,18 @@
     <Compile Include="Migrations\201603040712045_All4.Designer.cs">
       <DependentUpon>201603040712045_All4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603040847099_All5.cs" />
+    <Compile Include="Migrations\201603040847099_All5.Designer.cs">
+      <DependentUpon>201603040847099_All5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603041410504_All6.cs" />
+    <Compile Include="Migrations\201603041410504_All6.Designer.cs">
+      <DependentUpon>201603041410504_All6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603050741077_All7.cs" />
+    <Compile Include="Migrations\201603050741077_All7.Designer.cs">
+      <DependentUpon>201603050741077_All7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CheckBoxListItem.cs" />
@@ -361,6 +373,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603040712045_All4.resx">
       <DependentUpon>201603040712045_All4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603040847099_All5.resx">
+      <DependentUpon>201603040847099_All5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603041410504_All6.resx">
+      <DependentUpon>201603041410504_All6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603050741077_All7.resx">
+      <DependentUpon>201603050741077_All7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

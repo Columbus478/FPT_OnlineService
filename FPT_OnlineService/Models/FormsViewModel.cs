@@ -66,7 +66,6 @@ namespace FPT_OnlineService.Models
         [Display(Name = "Student Account Status")]
         public string AccountStatus { get; set; }
 
-        [Required]
         [Display(Name = "Accademic Head Endorsement")]
         public string AcademicHeadEndorse { get; set; }
         
@@ -89,7 +88,7 @@ namespace FPT_OnlineService.Models
         public string SemesterSeason { get; set; }
 
         [Display(Name = "Tuition Fee")]
-        public string TuitionFee { get; set; }
+        public bool TuitionFee { get; set; }
 
         //2013 2014
         [Required]
@@ -128,6 +127,10 @@ namespace FPT_OnlineService.Models
         [Required]
         [Display(Name = "Subject Name")]
         public string SubjectName { get; set; }
+
+
+        [Display(Name = "Not All Subject")]
+        public string NotAllSubject { get; set; }
 
         public virtual Form Form { get; set; }
 
@@ -178,8 +181,8 @@ namespace FPT_OnlineService.Models
         [Display(Name = "Subject(Môn đăng ký)")]
         public string Subject { get; set; }
 
-        [Display(Name = "Course is available")]
-        public string CourseAvailable { get; set; }
+        [Display(Name = "Courses available")]
+        public List<string> CoursesAvailable { get; set; }
 
         [Display(Name = "Tuition Fee")]
         public string TuitionFee { get; set; }
