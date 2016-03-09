@@ -18,8 +18,15 @@ namespace FPT_OnlineService.Controllers
         // GET: Forms
         public ActionResult Index()
         {
-            var courseRegForms = db.CourseRegForms.Include(c => c.Form);
-            return View(courseRegForms.ToList());
+            string role = "";
+            if (!string.IsNullOrEmpty(FPT_OnlineService.Models.User.UserRole))
+                role = FPT_OnlineService.Models.User.UserRole;
+            if (User.IsInRole("FPT-Staff") || role.Equals("FPT-Staff"))
+                return RedirectToAction("Index", "Staff");
+            else if (User.IsInRole("Student") || role.Equals("Student"))
+                return RedirectToAction("Index", "Student");
+            else
+                return RedirectToAction("Index", "Home");
         }
 
         // GET: Forms/Details/5
@@ -77,9 +84,6 @@ namespace FPT_OnlineService.Controllers
                     return RedirectToAction("DropOutEdit", new { id = id });
                 case ("General Request"):
                     return RedirectToAction("RequestEdit", new { id = id });
-                /*
-            case (""):
-                break;*/
                 default:
                     break;
             }

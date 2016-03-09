@@ -56,5 +56,14 @@ namespace FPT_OnlineService.DAL
             }
             conn.Close();
         }
+
+        public static void SetUserNull()
+        {
+            UserInfo.ID = null;
+            UserInfo.Name = null;
+            UserInfo.Username = null;
+            UserInfo.Email = null;
+            UserInfo.Role = null;
+        }
     }
 }

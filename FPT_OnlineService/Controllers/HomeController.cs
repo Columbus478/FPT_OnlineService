@@ -12,7 +12,15 @@ namespace FPT_OnlineService.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            string role = "";
+            if (!string.IsNullOrEmpty(FPT_OnlineService.Models.User.UserRole))
+                role = FPT_OnlineService.Models.User.UserRole;
+            if(User.IsInRole("FPT-Staff") || role.Equals("FPT-Staff"))
+                return RedirectToAction("Index", "Staff");
+            else if (User.IsInRole("Student") || role.Equals("Student"))
+                return RedirectToAction("Index", "Student");
+            else
+                return View();
         }
 
         public ActionResult HomePage()

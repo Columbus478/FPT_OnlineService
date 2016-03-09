@@ -1,8 +1,53 @@
-﻿
+﻿@model IEnumerable<FPT_OnlineService.Models.Form>
+
 @{
-    ViewBag.Title = "Approved";
-    Layout = "~/Views/Shared/_StaffLayout.cshtml";
+    ViewBag.Title = "Rejected";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
 }
 
-<h2>Approved</h2>
+<h2>Rejected</h2>
 
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Form Type", "Index", new { sortOrder = ViewBag.TypeSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RollNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.ActionLink("Submission Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.RollNo.Equals(FPT_OnlineService.DAL.UserInfo.Username) && item.Status.Equals("Rejected"))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RollNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Forms", new { id = item.ID }, null)|
+                    @Html.ActionLink("Details", "Details", "Forms", new { id = item.ID }, null)|
+                    @Html.ActionLink("Delete", "Delete", "Forms", new { id = item.ID }, null)
+                </td>
+            </tr>
+        }
+    }
+</table>

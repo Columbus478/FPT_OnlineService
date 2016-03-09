@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<FPT_OnlineService.Models.Form>
 
 @{
-    ViewBag.Title = "Rejected";
+    ViewBag.Title = "New";
     Layout = "~/Views/Shared/_StaffLayout.cshtml";
 }
 
-<h2>Rejected</h2>
+<h2>New</h2>
 
 @using (Html.BeginForm())
 {
@@ -34,7 +34,7 @@
 
     @foreach (var item in Model)
     {
-        if (item.Status.Equals("Rejected"))
+        if (item.Status.Equals("New"))
         {
             <tr>
                 <td>

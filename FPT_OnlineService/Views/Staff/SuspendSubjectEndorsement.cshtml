@@ -1,4 +1,9 @@
 ﻿@model FPT_OnlineService.Models.SuspendSubjectForm
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_StaffLayout.cshtml";
+}
+
 
 <!DOCTYPE html>
 
@@ -64,6 +69,14 @@
             <dd>
                 @Html.DisplayFor(model => model.NotAllSubject)
             </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Form.EndorsedBy)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Form.EndorsedBy)
+            </dd>
         </dl>
     </div>
     <p>
@@ -83,7 +96,13 @@
                         <div class="form-group">
                             @Html.Label("Submitted A week before :", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                <input type="checkbox" name="isWeekBefore" checked="checked"/>
+                                <input type="checkbox" name="IsWeekBefore" class="big-checkbox"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Not All Subject :", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.CheckBoxFor(model => model.NotAllSubject, htmlAttributes: new { @class = "big-checkbox" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -102,13 +121,13 @@
                             <input type="submit" value="Endorse" class="btn btn-default" />
                         </div>
                     </div>
-                @Html.ActionLink("Forward", "Forward", "Staff", new { id = Model.FormID }) @:&nbsp;
-                @Html.ActionLink("Reject", "Reject", "Staff", new { id = Model.FormID }) @:&nbsp;
-                @Html.ActionLink("Approve", "Approve", "Staff", new { id = Model.FormID }) @:&nbsp;
-                @Html.ActionLink("Back to List", "Index", "Staff")
             }
         }
 </p>
+    @Html.ActionLink("Forward", "Forward", "Staff", new { id = Model.FormID }) @:&nbsp;
+    @Html.ActionLink("Reject", "Reject", "Staff", new { id = Model.FormID }) @:&nbsp;
+    @Html.ActionLink("Approve", "Approve", "Staff", new { id = Model.FormID }) @:&nbsp;
+    @Html.ActionLink("Back to List", "Index", "Staff")
     }
 </body>
 </html>

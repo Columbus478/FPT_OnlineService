@@ -1,4 +1,9 @@
 ﻿@model FPT_OnlineService.Models.CourseRegForm
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_StaffLayout.cshtml";
+}
+
 
 <!DOCTYPE html>
 
@@ -24,13 +29,36 @@
             <dd>
                 @Html.DisplayFor(model => model.Form.Type)
             </dd>
-    
             <dt>
                 @Html.DisplayNameFor(model => model.StudentPhone)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.StudentPhone)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SubjectCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SubjectCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Subject)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Subject)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Form.EndorsedBy)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Form.EndorsedBy)
             </dd>
         </dl>
     </div>
@@ -51,9 +79,28 @@
                         <div class="form-group">
                             @Html.Label("Submitted A week before :", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                <input type="checkbox" name="isWeekBefore" checked="checked"/>
+                                <input type="checkbox" name="IsWeekBefore" checked="checked"/>
                             </div>
                         </div>
+                        <div class="form-group">
+                            @Html.Label("Tuition fee complete :", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.CheckBoxFor(model => model.TuitionFee, htmlAttributes: new { @class = "big-checkbox" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CoursesAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.CoursesAvailable, new SelectList(new List<Object>{
+                                   new { value = "Studied" , text = "Studied"  },
+                                   new { value = "Drop Out" , text = "Droped Out" },
+                                   new { value = "Suspended" , text = "Suspended"},
+                                   new { value = "Retake" , text = "Retake"} }, "value", "text"),
+                                   htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             @Html.Label( "Approve/Reject :", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">

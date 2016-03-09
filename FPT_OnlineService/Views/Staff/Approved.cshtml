@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<FPT_OnlineService.Models.Form>
+
 @{
     ViewBag.Title = "Approved";
     Layout = "~/Views/Shared/_StaffLayout.cshtml";
@@ -6,3 +7,52 @@
 
 <h2>Approved</h2>
 
+@using (Html.BeginForm())
+{
+    <p>
+        Find by student rollno: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Form Type", "Index", new { sortOrder = ViewBag.TypeSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RollNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.ActionLink("Submission Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.Status.Equals("Approved"))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RollNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.ActionLink("Form Details", "StaffEndorsement", "Staff", new { id = item.ID }, null)
+                </td>
+            </tr>
+        }
+    }
+</table>

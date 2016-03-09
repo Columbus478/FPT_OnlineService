@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<FPT_OnlineService.Models.Form>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "All";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
 }
 
-<h2>New</h2>
+<h2>All</h2>
 
 
 <table class="table">
@@ -26,7 +27,7 @@
 
     @foreach (var item in Model)
     {
-        if (item.RollNo.Equals(FPT_OnlineService.DAL.UserInfo.Username) && item.Status.Equals("New"))
+        if (item.RollNo.Equals(FPT_OnlineService.DAL.UserInfo.Username))
         {
             <tr>
                 <td>

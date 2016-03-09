@@ -12,6 +12,23 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayName("Student Name: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayName(FPT_OnlineService.DAL.UserInfo.Name)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayName("Student RollNo: ")
+        </dt>
+
+        <dd>
+            @Html.DisplayName(FPT_OnlineService.DAL.UserInfo.Username)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Form.Type)
         </dt>
 

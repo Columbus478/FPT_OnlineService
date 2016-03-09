@@ -47,19 +47,124 @@ namespace FPT_OnlineService.Controllers
             return View(forms.ToList());
         }
 
-        public ActionResult Approved()
+        public ActionResult New(string sortOrder, string searchString)
         {
-            return View();
+            string id = User.Identity.GetUserId();
+            //DAL.DALUser.GetStudent(User.Identity.GetUserId(), User.Identity.GetUserName());
+            ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            var forms = from f in db.Forms
+                        select f;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                forms = forms.Where(f => f.RollNo.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "type_desc":
+                    forms = forms.OrderByDescending(f => f.Type);
+                    break;
+                case "Date":
+                    forms = forms.OrderBy(f => f.Date);
+                    break;
+                case "date_desc":
+                    forms = forms.OrderByDescending(f => f.Date);
+                    break;
+                default:
+                    forms = forms.OrderBy(f => f.Date);
+                    break;
+            }
+            return View(forms.ToList());
         }
 
-        public ActionResult Rejected()
+        public ActionResult Approved(string sortOrder, string searchString)
         {
-            return View();
+            string id = User.Identity.GetUserId();
+            //DAL.DALUser.GetStudent(User.Identity.GetUserId(), User.Identity.GetUserName());
+            ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            var forms = from f in db.Forms
+                        select f;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                forms = forms.Where(f => f.RollNo.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "type_desc":
+                    forms = forms.OrderByDescending(f => f.Type);
+                    break;
+                case "Date":
+                    forms = forms.OrderBy(f => f.Date);
+                    break;
+                case "date_desc":
+                    forms = forms.OrderByDescending(f => f.Date);
+                    break;
+                default:
+                    forms = forms.OrderBy(f => f.Date);
+                    break;
+            }
+            return View(forms.ToList());
         }
 
-        public ActionResult InProgress()
+        public ActionResult Rejected(string sortOrder, string searchString)
         {
-            return View();
+            string id = User.Identity.GetUserId();
+            //DAL.DALUser.GetStudent(User.Identity.GetUserId(), User.Identity.GetUserName());
+            ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            var forms = from f in db.Forms
+                        select f;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                forms = forms.Where(f => f.RollNo.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "type_desc":
+                    forms = forms.OrderByDescending(f => f.Type);
+                    break;
+                case "Date":
+                    forms = forms.OrderBy(f => f.Date);
+                    break;
+                case "date_desc":
+                    forms = forms.OrderByDescending(f => f.Date);
+                    break;
+                default:
+                    forms = forms.OrderBy(f => f.Date);
+                    break;
+            }
+            return View(forms.ToList());
+        }
+
+        public ActionResult InProgress(string sortOrder, string searchString)
+        {
+            string id = User.Identity.GetUserId();
+            //DAL.DALUser.GetStudent(User.Identity.GetUserId(), User.Identity.GetUserName());
+            ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            var forms = from f in db.Forms
+                        select f;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                forms = forms.Where(f => f.RollNo.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "type_desc":
+                    forms = forms.OrderByDescending(f => f.Type);
+                    break;
+                case "Date":
+                    forms = forms.OrderBy(f => f.Date);
+                    break;
+                case "date_desc":
+                    forms = forms.OrderByDescending(f => f.Date);
+                    break;
+                default:
+                    forms = forms.OrderBy(f => f.Date);
+                    break;
+            }
+            return View(forms.ToList());
         }
 
         public ActionResult StaffEndorsement(int? id)
@@ -100,6 +205,13 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SuspendSemesterForm suspendSemesterForm = db.SuspendSemesterForms.Find(id);
+
+            AllFormModel allFormModels = new AllFormModel()
+            {
+                Form = db.Forms.Find(id),
+                SuspendSubjectForm = db.SuspendSubjectForms.Find(id)
+            };
+
             if (suspendSemesterForm == null)
             {
                 return HttpNotFound();
@@ -110,18 +222,20 @@ namespace FPT_OnlineService.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuspendSemesterEndorsement([Bind(Include = "FormID,PreviousSemester,TwoPrevSemester")] SuspendSemesterForm suspendSemesterForm, string FormStatus, string isWeekBefore, string TuitionFee)
+        public ActionResult SuspendSemesterEndorsement([Bind(Include = "FormID,Status,PreviousSemester,TwoPrevSemester")] SuspendSemesterForm suspendSemesterForm, string IsWeekBefore, string FormStatus, string TuitionFee)
         {
             SuspendSemesterForm ssf = db.SuspendSemesterForms.Find(suspendSemesterForm.FormID);
             Form f = db.Forms.Find(suspendSemesterForm.FormID);
             f.Status = FormStatus;
-            if (isWeekBefore.Equals("on"))
-                f.isWeekBefore = "True";
+            if (IsWeekBefore.Equals("on"))
+                f.IsWeekBefore = true;
             else
-                f.isWeekBefore = "False";
-            f.ApprovedBy = DAL.UserInfo.Name;
+                f.IsWeekBefore = false;
+            f.EndorsedBy = DAL.UserInfo.Name;
+            if (f.Status.Equals("Approved"))
+                f.ApprovalDate = DateTime.Now.ToString();
 
-            if (TuitionFee.Equals("on"))
+            if (TuitionFee.Equals("true"))
                 ssf.TuitionFee = true;
             else
                 ssf.TuitionFee = false;
@@ -140,6 +254,14 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SuspendSubjectForm suspendSubjectForm = db.SuspendSubjectForms.Find(id);
+
+            AllFormModel allFormModels = new AllFormModel()
+            {
+                Form = db.Forms.Find(id),
+                SuspendSubjectForm = db.SuspendSubjectForms.Find(id)
+            };
+
+
             if (suspendSubjectForm == null)
             {
                 return HttpNotFound();
@@ -150,21 +272,23 @@ namespace FPT_OnlineService.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuspendSubjectEndorsement([Bind(Include = "FormID")] SuspendSubjectForm suspendSubjectForm, string FormStatus, string isWeekBefore, string NotAllSubject)
+        public ActionResult SuspendSubjectEndorsement([Bind(Include = "FormID")] SuspendSubjectForm suspendSubjectForm, string FormStatus, string IsWeekBefore, string NotAllSubject)
         {
             SuspendSubjectForm ssf = db.SuspendSubjectForms.Find(suspendSubjectForm.FormID);
             Form f = db.Forms.Find(suspendSubjectForm.FormID);
             f.Status = FormStatus;
-            if (isWeekBefore.Equals("on"))
-                f.isWeekBefore = "True";
+            if (IsWeekBefore.Equals("on"))
+                f.IsWeekBefore = true;
             else
-                f.isWeekBefore = "False";
-            f.ApprovedBy = DAL.UserInfo.Name;
+                f.IsWeekBefore = false;
+            f.EndorsedBy = DAL.UserInfo.Name;
+            if (f.Status.Equals("Approved"))
+                f.ApprovalDate = DateTime.Now.ToString();
 
-            if (NotAllSubject.Equals("on"))
-                ssf.NotAllSubject = "True";
+            if (NotAllSubject.Equals("true"))
+                ssf.NotAllSubject = true;
             else
-                ssf.NotAllSubject = "False";
+                ssf.NotAllSubject = false;
             db.Entry(ssf).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index", "Staff");
@@ -177,6 +301,13 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CourseRegForm courseRegForm = db.CourseRegForms.Find(id);
+
+            AllFormModel allFormModels = new AllFormModel()
+            {
+                Form = db.Forms.Find(id),
+                SuspendSubjectForm = db.SuspendSubjectForms.Find(id)
+            };
+
             if (courseRegForm == null)
             {
                 return HttpNotFound();
@@ -187,16 +318,24 @@ namespace FPT_OnlineService.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CourseRegEndorsement([Bind(Include = "FormID")] CourseRegForm courseRegForm, string FormStatus, string isWeekBefore, List<string> CoursesAvailable)
+        public ActionResult CourseRegEndorsement([Bind(Include = "FormID")] CourseRegForm courseRegForm, string FormStatus, string IsWeekBefore, List<string> CoursesAvailable, string TuitionFee)
         {
             CourseRegForm crf = db.CourseRegForms.Find(courseRegForm.FormID);
             Form f = db.Forms.Find(courseRegForm.FormID);
             f.Status = FormStatus;
-            if (isWeekBefore.Equals("on"))
-                f.isWeekBefore = "True";
+            if (IsWeekBefore.Equals("on"))
+                f.IsWeekBefore = true;
             else
-                f.isWeekBefore = "False";
-            f.ApprovedBy = DAL.UserInfo.Name;
+                f.IsWeekBefore = false;
+            f.EndorsedBy = DAL.UserInfo.Name;
+            f.EndorsedBy = DAL.UserInfo.Name;
+            if (f.Status.Equals("Approved"))
+                f.ApprovalDate = DateTime.Now.ToString();
+
+            if (TuitionFee.Equals("true"))
+                crf.TuitionFee = true;
+            else
+                crf.TuitionFee = false;
 
             db.Entry(crf).State = EntityState.Modified;
             db.SaveChanges();
@@ -210,6 +349,13 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             DropOutForm dropOutForm = db.DropOutForms.Find(id);
+
+            AllFormModel allFormModels = new AllFormModel()
+            {
+                Form = db.Forms.Find(id),
+                SuspendSubjectForm = db.SuspendSubjectForms.Find(id)
+            };
+
             if (dropOutForm == null)
             {
                 return HttpNotFound();
@@ -220,22 +366,40 @@ namespace FPT_OnlineService.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DropOutEndorsement([Bind(Include = "FormID")] DropOutForm dropOutForm, string FormStatus, string isWeekBefore, string TuitionFee)
+        public ActionResult DropOutEndorsement([Bind(Include = "FormID")] DropOutForm dropOutForm, string FormStatus, string IsWeekBefore, 
+            string TuitionFee, string AcademicHeadEndorse, string AccountStatus, string LibraryStatus)
         {
             DropOutForm dof = db.DropOutForms.Find(dropOutForm.FormID);
             Form f = db.Forms.Find(dropOutForm.FormID);
             f.Status = FormStatus;
-            if (isWeekBefore.Equals("on"))
-                f.isWeekBefore = "True";
+            if (IsWeekBefore.Equals("on"))
+                f.IsWeekBefore = true;
             else
-                f.isWeekBefore = "False";
-            f.ApprovedBy = DAL.UserInfo.Name;
+                f.IsWeekBefore = false;
+            f.EndorsedBy = DAL.UserInfo.Name;
+            if (f.Status.Equals("Approved"))
+                f.ApprovalDate = DateTime.Now.ToString();
+            dof.AcademicHeadEndorse = AcademicHeadEndorse;
+            dof.AccountStatus = AccountStatus;
+            dof.LibraryStatus = LibraryStatus;
+
+            if (f.Status.Equals("Approved"))
+                f.ApprovalDate = DateTime.Now.ToString();
 
             db.Entry(dof).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index", "Staff");
         }
 
+        public ActionResult Drafts()
+        {
+            return View();
+        }
+        
+        public ActionResult Trash()
+        {
+            return View();
+        }
 
         public ActionResult RequestEndorsement(int? id)
         {
@@ -244,6 +408,13 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             RequestForm requestForm = db.RequestForms.Find(id);
+
+            AllFormModel allFormModels = new AllFormModel()
+            {
+                Form = db.Forms.Find(id),
+                SuspendSubjectForm = db.SuspendSubjectForms.Find(id)
+            };
+
             if (requestForm == null)
             {
                 return HttpNotFound();
@@ -254,16 +425,24 @@ namespace FPT_OnlineService.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RequestEndorsement([Bind(Include = "FormID")] RequestForm requestForm, string FormStatus, string isWeekBefore, string TuitionFee)
+        public ActionResult RequestEndorsement([Bind(Include = "FormID")] RequestForm requestForm, 
+            string FormStatus, string IsWeekBefore, string ReceivedBy, string ToDepartment,
+            string ProcessedBy,string ApprovalReason)
         {
             RequestForm rf = db.RequestForms.Find(requestForm.FormID);
             Form f = db.Forms.Find(requestForm.FormID);
+            rf.ReceivedBy = ReceivedBy;
+            rf.ProcessedBy = ProcessedBy;
+            rf.ToDepartment = ToDepartment;
             f.Status = FormStatus;
-            if (isWeekBefore.Equals("on"))
-                f.isWeekBefore = "True";
+            if (IsWeekBefore.Equals("on"))
+                f.IsWeekBefore = true;
             else
-                f.isWeekBefore = "False";
-            f.ApprovedBy = DAL.UserInfo.Name;
+                f.IsWeekBefore = false;
+            f.EndorsedBy = DAL.UserInfo.Name;
+            if (f.Status.Equals("Approved"))
+                f.ApprovalDate = DateTime.Now.ToString();
+            rf.ApprovalReason = ApprovalReason;
 
             db.Entry(rf).State = EntityState.Modified;
             db.SaveChanges();

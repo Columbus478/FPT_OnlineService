@@ -119,11 +119,3 @@ C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_Onli
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService\obj\Release\FPT_OnlineService.pdb
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService\obj\Release\FPT_OnlineService.Migrations.All.resources
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService\obj\Release\FPT_OnlineService.csproj.GenerateResource.Cache
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService\obj\Release\FPT_OnlineService.Migrations.All1.resources
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService\obj\Release\FPT_OnlineService.Migrations.All2.resources
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService\obj\Release\FPT_OnlineService.Migrations.All3.resources
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService\obj\Release\FPT_OnlineService.Migrations.Tuition.resources
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService\obj\Release\FPT_OnlineService.Migrations.All4.resources
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService\obj\Release\FPT_OnlineService.Migrations.All5.resources
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService\obj\Release\FPT_OnlineService.Migrations.All6.resources
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService\obj\Release\FPT_OnlineService.Migrations.All7.resources

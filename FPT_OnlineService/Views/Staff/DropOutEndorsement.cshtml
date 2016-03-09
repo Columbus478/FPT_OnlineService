@@ -1,4 +1,9 @@
 ﻿@model FPT_OnlineService.Models.DropOutForm
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_StaffLayout.cshtml";
+}
+
 
 <!DOCTYPE html>
 
@@ -24,6 +29,46 @@
             <dd>
                 @Html.DisplayFor(model => model.Form.Type)
             </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Class)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Class)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MethodPayment)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MethodPayment)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DropOutDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DropOutDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Reason)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Reason)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Form.EndorsedBy)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Form.EndorsedBy)
+            </dd>
         </dl>
     </div>
     <p>
@@ -42,9 +87,30 @@
                         <div class="form-group">
                             @Html.Label("Submitted A week before :", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                <input type="checkbox" name="isWeekBefore" checked="checked"/>
+                                <input type="checkbox" name="IsWeekBefore" checked="checked"/>
                             </div>
                         </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LibraryStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.LibraryStatus, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AccountStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.AccountStatus, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AcademicHeadEndorse, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.AcademicHeadEndorse, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             @Html.Label( "Approve/Reject :", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">

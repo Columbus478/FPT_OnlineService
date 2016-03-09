@@ -1,19 +1,11 @@
 ﻿@model IEnumerable<FPT_OnlineService.Models.Form>
 
 @{
-    ViewBag.Title = "Rejected";
-    Layout = "~/Views/Shared/_StaffLayout.cshtml";
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
 }
+<h2>New</h2>
 
-<h2>Rejected</h2>
-
-@using (Html.BeginForm())
-{
-    <p>
-        Find by student rollno: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
-    </p>
-}
 
 <table class="table">
     <tr>
@@ -34,7 +26,7 @@
 
     @foreach (var item in Model)
     {
-        if (item.Status.Equals("Rejected"))
+        if (item.RollNo.Equals(FPT_OnlineService.DAL.UserInfo.Username) && item.Status.Equals("New"))
         {
             <tr>
                 <td>
@@ -50,7 +42,9 @@
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    @Html.ActionLink("Form Details", "StaffEndorsement", "Staff", new { id = item.ID }, null)
+                    @Html.ActionLink("Edit", "Edit", "Forms", new { id = item.ID }, null)|
+                    @Html.ActionLink("Details", "Details", "Forms", new { id = item.ID }, null)|
+                    @Html.ActionLink("Delete", "Delete", "Forms", new { id = item.ID }, null)
                 </td>
             </tr>
         }

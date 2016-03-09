@@ -15,6 +15,7 @@ namespace FPT_OnlineService.Migrations
                         StudentPhone = c.Int(nullable: false),
                         SubjectCode = c.String(nullable: false),
                         Subject = c.String(nullable: false),
+                        TuitionFee = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.FormID)
                 .ForeignKey("dbo.Forms", t => t.FormID)
@@ -30,6 +31,9 @@ namespace FPT_OnlineService.Migrations
                         CurrentDesk = c.String(),
                         Flow = c.String(),
                         Status = c.String(),
+                        IsWeekBefore = c.Boolean(nullable: false),
+                        EndorsedBy = c.String(),
+                        ApprovalDate = c.String(),
                         RollNo = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.ID)
@@ -45,6 +49,9 @@ namespace FPT_OnlineService.Migrations
                         MethodPayment = c.String(nullable: false),
                         DropOutDate = c.String(nullable: false),
                         Reason = c.String(nullable: false),
+                        LibraryStatus = c.String(),
+                        AccountStatus = c.String(),
+                        AcademicHeadEndorse = c.String(),
                     })
                 .PrimaryKey(t => t.FormID)
                 .ForeignKey("dbo.Forms", t => t.FormID)
@@ -57,10 +64,12 @@ namespace FPT_OnlineService.Migrations
                         FormID = c.Int(nullable: false),
                         RequestTitle = c.String(nullable: false),
                         StudentPhone = c.Int(nullable: false),
-                        StudentEmail = c.Int(nullable: false),
                         Class = c.String(nullable: false, maxLength: 10),
-                        Batch = c.String(nullable: false),
                         Description = c.String(nullable: false),
+                        ProcessedBy = c.String(),
+                        ApprovalReason = c.String(),
+                        ToDepartment = c.String(),
+                        ReceivedBy = c.String(),
                     })
                 .PrimaryKey(t => t.FormID)
                 .ForeignKey("dbo.Forms", t => t.FormID)
@@ -158,7 +167,9 @@ namespace FPT_OnlineService.Migrations
                         FormID = c.Int(nullable: false),
                         StudentPhone = c.Int(nullable: false),
                         SemesterSeason = c.String(nullable: false),
-                        SemesterYear = c.String(nullable: false),
+                        TuitionFee = c.Boolean(nullable: false),
+                        PreviousSemester = c.String(),
+                        TwoPrevSemester = c.String(),
                     })
                 .PrimaryKey(t => t.FormID)
                 .ForeignKey("dbo.Forms", t => t.FormID)
@@ -171,7 +182,9 @@ namespace FPT_OnlineService.Migrations
                         FormID = c.Int(nullable: false),
                         StudentPhone = c.Int(nullable: false),
                         SemesterSeason = c.String(nullable: false),
-                        SemesterYear = c.String(nullable: false),
+                        SubjectCode = c.String(nullable: false),
+                        SubjectName = c.String(nullable: false),
+                        NotAllSubject = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.FormID)
                 .ForeignKey("dbo.Forms", t => t.FormID)

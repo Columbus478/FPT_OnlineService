@@ -22,9 +22,12 @@ namespace FPT_OnlineService.Models
 
         public string Status { get; set; }
 
-        public string isWeekBefore { get; set; }
+        public bool IsWeekBefore { get; set; }
 
-        public string ApprovedBy { get; set; }
+        [Display(Name = "Approved / Disapproved By: ")]
+        public string EndorsedBy { get; set; }
+
+        public string ApprovalDate { get; set; }
 
         [ForeignKey("Student")]
         public string RollNo { get; set; }
@@ -66,7 +69,7 @@ namespace FPT_OnlineService.Models
         [Display(Name = "Student Account Status")]
         public string AccountStatus { get; set; }
 
-        [Display(Name = "Accademic Head Endorsement")]
+        [Display(Name = "Accademic Head Note: ")]
         public string AcademicHeadEndorse { get; set; }
         
         public virtual Form Form { get; set; }
@@ -89,11 +92,6 @@ namespace FPT_OnlineService.Models
 
         [Display(Name = "Tuition Fee")]
         public bool TuitionFee { get; set; }
-
-        //2013 2014
-        [Required]
-        [Display(Name = "Semester year")]
-        public string SemesterYear { get; set; }
 
         //Staff Part
         [Display(Name = "Previous semester")]
@@ -130,7 +128,7 @@ namespace FPT_OnlineService.Models
 
 
         [Display(Name = "Not All Subject")]
-        public string NotAllSubject { get; set; }
+        public bool NotAllSubject { get; set; }
 
         public virtual Form Form { get; set; }
 
@@ -160,6 +158,19 @@ namespace FPT_OnlineService.Models
         [Display(Name = "I am requesting for/I would like to explain my problem as followed: ")]
         public string Description { get; set; }
 
+        [Display(Name = "Processed By: ")]
+        public string ProcessedBy { get; set; }
+
+        [Display(Name = "Reasons for approval / disapproval: ")]
+        public string ApprovalReason { get; set; }
+
+
+        [Display(Name = "To department: ")]
+        public string ToDepartment { get; set; }
+
+        [Display(Name = "Received by: ")]
+        public string ReceivedBy { get; set; }
+
         public virtual Form Form { get; set; }
     }
 
@@ -185,9 +196,23 @@ namespace FPT_OnlineService.Models
         public List<string> CoursesAvailable { get; set; }
 
         [Display(Name = "Tuition Fee")]
-        public string TuitionFee { get; set; }
+        public bool TuitionFee { get; set; }
         
         public virtual Form Form { get; set; }
     }
 
+    public class AllFormModel
+    {
+        public Form Form { get; set; }
+
+        public CourseRegForm CourseRegForm { get; set; }
+
+        public SuspendSemesterForm SuspendSemesterForm { get; set; }
+
+        public SuspendSubjectForm SuspendSubjectForm { get; set; }
+
+        public DropOutForm DropOutForm { get; set; }
+
+        public RequestForm RequestForm { get; set; }
+    }
 }

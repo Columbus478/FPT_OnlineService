@@ -177,41 +177,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201603031209034_All.cs" />
-    <Compile Include="Migrations\201603031209034_All.Designer.cs">
-      <DependentUpon>201603031209034_All.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603031424032_All1.cs" />
-    <Compile Include="Migrations\201603031424032_All1.Designer.cs">
-      <DependentUpon>201603031424032_All1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603031847343_All2.cs" />
-    <Compile Include="Migrations\201603031847343_All2.Designer.cs">
-      <DependentUpon>201603031847343_All2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603032013001_All3.cs" />
-    <Compile Include="Migrations\201603032013001_All3.Designer.cs">
-      <DependentUpon>201603032013001_All3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603040627377_Tuition.cs" />
-    <Compile Include="Migrations\201603040627377_Tuition.Designer.cs">
-      <DependentUpon>201603040627377_Tuition.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603040712045_All4.cs" />
-    <Compile Include="Migrations\201603040712045_All4.Designer.cs">
-      <DependentUpon>201603040712045_All4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603040847099_All5.cs" />
-    <Compile Include="Migrations\201603040847099_All5.Designer.cs">
-      <DependentUpon>201603040847099_All5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603041410504_All6.cs" />
-    <Compile Include="Migrations\201603041410504_All6.Designer.cs">
-      <DependentUpon>201603041410504_All6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603050741077_All7.cs" />
-    <Compile Include="Migrations\201603050741077_All7.Designer.cs">
-      <DependentUpon>201603050741077_All7.cs</DependentUpon>
+    <Compile Include="Migrations\201603080810364_All.cs" />
+    <Compile Include="Migrations\201603080810364_All.Designer.cs">
+      <DependentUpon>201603080810364_All.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -226,11 +194,10 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\jquery.chatjs.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="images\banner.png" />
     <Content Include="images\banner625.png" />
     <Content Include="images\contact.jpg" />
@@ -335,6 +302,8 @@
     <Content Include="Views\Student\InProgress.cshtml" />
     <Content Include="Views\Student\Rejected.cshtml" />
     <Content Include="Views\Student\Approved.cshtml" />
+    <Content Include="Views\Student\New.cshtml" />
+    <Content Include="Views\Staff\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -356,32 +325,8 @@
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603031209034_All.resx">
-      <DependentUpon>201603031209034_All.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603031424032_All1.resx">
-      <DependentUpon>201603031424032_All1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603031847343_All2.resx">
-      <DependentUpon>201603031847343_All2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603032013001_All3.resx">
-      <DependentUpon>201603032013001_All3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603040627377_Tuition.resx">
-      <DependentUpon>201603040627377_Tuition.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603040712045_All4.resx">
-      <DependentUpon>201603040712045_All4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603040847099_All5.resx">
-      <DependentUpon>201603040847099_All5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603041410504_All6.resx">
-      <DependentUpon>201603041410504_All6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603050741077_All7.resx">
-      <DependentUpon>201603050741077_All7.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201603080810364_All.resx">
+      <DependentUpon>201603080810364_All.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

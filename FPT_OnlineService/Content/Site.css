@@ -1,302 +1,579 @@
-﻿/* Set padding to keep content from hitting the edges */
-.body-content {
+﻿
+
+    .body {
+    padding: 50px 10px 30px 10px;   
+    margin: 10px 20px 20px 100px;
+    min-width: inherit;
+    max-width: 80%;   
+    background-color: #ccc;     
+    border: 5px solid #dedede;
+    max-height:100%;
+    }
+
+/*MEDIUM CSS*/
+/*Media: Minimum Width CSS*/
+@media (min-width:50px) {
+    /* Set padding to keep content from hitting the edges */
+    .body-content {
     padding-left: 15px;
     padding-right: 15px;
-}
+    padding-top:15px;
+    max-height:100%;
+    }
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
-.dl-horizontal dt {
+    .dl-horizontal dt {
     white-space: normal;
-}
+    }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
+    input,
+    select,
+    textarea {
     max-width: 280px;
+<<<<<<< HEAD
+    }
+=======
 }
 .big-checkbox {width: 30px; height: 30px;}
+>>>>>>> origin/master
 
 
-.body {
-    padding-top: 50px;
-    padding-bottom: 10px;
-    margin: 20px;
+    .form-body{
+    margin: -18% 0 20% 90%;
+    float:right;
+    height:100%;
+    padding: -1% 0 0 3%;
+    width:80%;
+    min-width:inherit;
+    }
+    body {        
+    margin: 10px 20px 20px 100px;
     min-width: inherit;
-        max-width: 80%;
-    /**/
-    background-color: #ccc;
-    margin: 0 auto;
-    padding: 10px;
+    width: 80%;
+    height:100%;   
+    background-color: #ccc;       
+    padding: 50px 10px 30px 10px;
     border: 5px solid #dedede;
-}
-
-@media (min-width:1078px) {
-    body {
-        padding-top: 50px;
-        padding-bottom: 30px;
-        margin: 20px;
-        min-width: inherit;
-        max-width: 80%;
-        /**/
-        background-color: #ccc;
-        margin: 0 auto;
-        padding: 10px;
-        border: 5px solid #dedede;
     }
-}
-
-@media (max-width:1077px) {
-    body {
-        padding-top: 50px;
-        padding-bottom: 30px;
-        margin: 20px;
-        min-width: inherit;
-        max-width: 90%;
-        /**/
-        background-color: white;
-        margin: 0 auto;
-        padding: 10px;
-        border: 5px solid #dedede;
-    }
-}
-
-.displayed-render{
-}
-
-
-
-.bs-pd {
-    padding-left: 30%;
-}
-
-.content-area {
-    float: left;
+    .content-area {
+    float: right;
     width: 750px;
-    margin: 20px 0 20px 0;
+    margin: 20px 0 -20% 0;
     padding: 10px;
-    height: 1080px;
-}
-
-.footer {
-    clear: both;
-    width: auto;
-    height: auto;
-    padding: 10px;
-    border: 3px solid #E3E3E3;
-    text-align: center;
-    color: black;
-    background-image: url('../Images/bar_background.png');
-}
-
-.homebanner {
+    height: 100%;
+    min-width:inherit;
+    }
+    .homebanner {
     background-image: url('../Images/banner.png');
     background-repeat: no-repeat;
     background-size: contain;
     height: 150px;
     border: 3px solid #E3E3E3;
-}
-
-@media (min-width: 1080px) {
-    homebanner {
-        background-image: url('../Images/banner.png');
-        background-repeat: no-repeat;
-        background-size: contain;
-        height: 150px;
-        border: 3px solid #E3E3E3;
     }
-}
-
-@media (max-width:1079px) {
-    homebanner {
-        background-image: url('../Images/banner625.png');
-        background-size: contain;
-        height: 20px;
+     nav.sidebar{
+    margin-left: 0px;
+    float: left;
     }
-}
-
-.homelink {
+    nav.sidebar .forAnimate{
+      opacity: 1;
+    }
+    .home-div{
+    background-color:#dedede;
+    margin: -16% 1% 20% 30%;
+    float:right;
+    height:100%;
+    padding: 0 0 0 19%;
+    width:100%;
+    min-width:inherit;
+    }
+    .contact-section{
+    padding: 0 0 0 0;
+    margin: 0% 0 -0.2% 0;
+    border:2px solid black;
+    height:60%;
+    min-width:inherit;
+    }
+    .system-form {
+    background-color: beige;
+    height:60%;
+    }
+    .h4 {
+    text-decoration:underline; 
+    font-style:italic;
+    font-size:large;    
+    font: bolder 30px italic, verdana;    
+    background-color:white; 
+    text-align:center;  
+    }
+    .online-images {
+    background-color: #e5e5e5;
+    border-style: double;
+    padding-right: 0%;
+    background-size: contain;
+    width: 100%;
+    float:right;
+    min-width:2%;
+    }
+    #home-img {
+    padding: 0 0 0 0;
+    height:12.375em;
+    width:24.375em;
+    min-width:2%;
+   }
+    #nav-logo,#nave-image{
+    width:67.1%;
+    }
+   nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
+    color: #CCC;
+    background-color: transparent;
+    }
+   nav:hover .forAnimate{
+    opacity: 1;
+    }
+   section{ 
+    padding-left: 15px;
+    }  
+    .inline-list {
+    list-style: none;
+    margin-top: 0;
+    float:right;
+    margin-bottom: 1.0625rem;
+    margin-left: 1.375rem;
+    margin-right: 1.375rem;
+    overflow: hidden;
+    padding: 0; 
+    }
+    button #contact-button{
+    background-color:#6E7372;
+    border-style:dashed;
+    min-width:inherit;
+    }
+    .form-body{
+    margin: -18% 0 20% 90%;
+    float:right;
+    height:100%;
+    padding: -1% 0 0 3%;
+    width:80%;
+    min-width:inherit;
+    }
+    tbody tr:nth-child(odd) {
+    background-color: #def9fa;
+    }
+    thead{
+    font-size:200%;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, serif;
+    }
+    .homelink {
     padding-left: 30%;
     background: url('../images/home.png') no-repeat center right;
     width: 100%;
     height: inherit;
     display: block;
-}
-
-
-
-.glyphicon-bell {
+    }
+    .glyphicon-bell {
     font-size: 1.5rem;
-}
-
-.notifications {
-    min-width: 420px;
-}
-
-.notifications-wrapper {
+    }
+   .notifications {
+     min-width: 420px;
+    }
+    .notifications-wrapper {
     overflow: auto;
     max-height: 250px;
-}
-
-.menu-title {
+    }
+    .menu-title {
     color: #ff7788;
     font-size: 1.5rem;
     display: inline-block;
-}
-
-.glyphicon-circle-arrow-right {
+    }
+    .glyphicon-circle-arrow-right {
     margin-left: 10px;
-}
-
-
-.notification-heading, .notification-footer {
+    }
+    .notification-heading, .notification-footer {
     padding: 2px 10px;
-}
-
-
-.dropdown-menu.divider {
+    }
+    .dropdown-menu.divider {
     margin: 5px 0;
-}
-
-.item-title {
-    font-size: 1.3rem;
-    color: #000;
-}
-
-.notifications a.content {
+    }
+    .item-title {
+        font-size: 1.3rem;
+        color: #000;
+    }
+    .notifications a.content {
     text-decoration: none;
     background: #ccc;
-}
-
-.notification-item {
+    }
+    .notification-item {
     padding: 10px;
     margin: 5px;
     background: #ccc;
     border-radius: 4px;
-}
-
-.badge-notify{
-   background:red;
-   position:relative;
-   top: -20px;
-   left: -35px;
-}
-
-  nav.sidebar{
+    }
+    .badge-notify{
+    background:red;
+    position:relative;
+    top: -20px;
+    left: -35px;
+    }
+    nav.sidebar{
     -webkit-transition: margin 200ms ease-out;
-      -moz-transition: margin 200ms ease-out;
-      -o-transition: margin 200ms ease-out;
-      transition: margin 200ms ease-out;
-  }
-
+    -moz-transition: margin 200ms ease-out;
+    -o-transition: margin 200ms ease-out;
+    transition: margin 200ms ease-out;
+    }
     nav.sidebar:hover {
-      margin-left: 200px;
+    margin-left: 200px;
     }
-
     nav.sidebar.navbar.sidebar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
-      margin-left: 0px;
+    margin-left: 0px;
     }
-
     nav.sidebar .navbar-brand, nav.sidebar .navbar-header{
-      text-align: center;
-      width: inherit;
-      margin-left: 0px;
-    }
-    
+    text-align: center;
+    width: inherit;
+   
+    }    
     nav.sidebar a{
-      padding-right: 13px;
+    padding-right: 13px;
     }
-
     nav.sidebar .navbar-nav > li:first-child{
-      border-top: 1px #e5e5e5 solid;
+    border-top: 1px #e5e5e5 solid;
     }
-
     nav.sidebar .navbar-nav > li{
       border-bottom: 1px #e5e5e5 solid;
     }
-
     nav.sidebar .navbar-nav .open .dropdown-menu {
-      position: static;
-      float: none;
-      width: auto;
-      margin-top: 0;
-      background-color: transparent;
-      border: 0;
-      -webkit-box-shadow: none;
-      box-shadow: none;
-    }
-
-    
-
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    } 
     .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
-      color: #777;
+    color: #777;
     }
-
     nav.sidebar{
-      width: 200px;
-      height: 100%;
-      float: left;
-      margin-bottom: 0px;
+    width: 200px;
+    height: 100%;
+    float: left;
+    margin-bottom: 0px;
+    min-width:inherit;
     }
     .sidebar-collapse
     {
-        display:none;
+    display:none;
     }
     nav.sidebar li {
-      width: 100%;
+    width: 100%;
     }
-
     nav.sidebar:hover{
-      margin-left: 0px;
+    margin-left: 0px;
+    }
+   .forAnimate{
+    opacity: 0;
+    }   
+   .footer {
+    clear: both;
+    width: auto;
+    height: auto;    
+    border: 3px solid #E3E3E3;
+    text-align: center; 
+    }
+    .footer-image{
+    background-size:contain;
+    background-repeat:no-repeat;
+    float:left;
+    padding-top:0;
+    min-width:inherit;
+    margin-top:0;
+    } 
+}
+
+/*Media: Maximum Width CSS*/
+@media (max-width:1078px) {
+    /* Set padding to keep content from hitting the edges */
+    .body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top:15px;
+    max-height:100%;
     }
 
-    .forAnimate{
-      opacity: 0;
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+    .dl-horizontal dt {
+    white-space: normal;
     }
-   
-  @media (min-width: 1330px) {
 
+/* Set width on the form input elements since they're 100% wide by default */
+    input,
+    select,
+    textarea {
+    max-width: 280px;
+    }
+
+
+    .form-body{
+    margin: -18% 0 20% 90%;
+    float:right;
+    height:100%;
+    padding: -1% 0 0 3%;
+    width:80%;
+    }
+    body {       
+    margin: 10px 20px 20px 100px;
+    width: inherit;
+    width: 80%;
+    height:100%;    
+    background-color: white;        
+    padding: 50px 10px 30px 10px;
+    border: 5px solid #dedede;
+    }       
+    .bs-pd {
+    padding-left: 30%;
+    }
+    .content-area {
+    float: right;
+    width: 750px;
+    margin: 20px 0 -20% 0;
+    padding: 10px;
+    height: 100%;
+    width:inherit;
+    }
+    .homebanner {
+    background-image: url('../Images/banner.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 150px;
+    border: 3px solid #E3E3E3;
+    }
     nav.sidebar{
-      margin-left: 0px;
-      float: left;
+    margin-left: 0px;
+    float: left;
     }
-
     nav.sidebar .forAnimate{
       opacity: 1;
     }
-  }
-
-  nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
+    .home-div{
+    background-color:#dedede;
+    margin: -16% 1% 20% 30%;
+    float:right;
+    height:100%;
+    padding: 0 0 0 19%;
+    width:100%;
+    min-width:inherit;
+    }
+    .contact-section{
+    padding: 0 0 0 0;
+    margin: 0% 0 -0.2% 0;
+    border:2px solid black;
+    height:60%;
+    min-width:inherit;
+    }
+    .system-form {
+    background-color: beige;
+    height:60%;
+    }
+    .h4 {
+    text-decoration:underline; 
+    font-style:italic;
+    font-size:large;    
+    font: bolder 30px italic, verdana;    
+    background-color:white; 
+    text-align:center;  
+    }
+    .online-images {
+    background-color: #e5e5e5;
+    border-style: double;    
+    background-size: contain;
+    width: 100%;
+    float:right;
+    min-width:2%;
+    padding-bottom:2%;
+    margin-bottom:5%;
+    }
+    #home-img {
+    height:12.375em;
+    width:24.375em;
+    min-width:2%;
+   }
+    #nav-logo, #nav-image{
+    width:66.1%;
+    }
+   nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
     color: #CCC;
     background-color: transparent;
-  }
-
-  nav:hover .forAnimate{
+    }
+   nav:hover .forAnimate{
     opacity: 1;
-  }
-  section{
+    }
+   section{ 
     padding-left: 15px;
-  }
-  
- .inline-list {
-  list-style: none;
-  margin-top: 0;
-  float:right;
-  margin-bottom: 1.0625rem;
-  margin-left: 1.375rem;
-  margin-right: 1.375rem;
-  overflow: hidden;
-  padding: 0; }
+    }  
+    .inline-list {
+    list-style: none;
+    margin-top: 0;
+    float:right;
+    margin-bottom: 1.0625rem;
+    margin-left: 1.375rem;
+    margin-right: 1.375rem;
+    overflow: hidden;
+    padding: 0; 
+    }
+    button #contact-button{
+    background-color:#6E7372;
+    border-style:dashed;
+    min-width:inherit;
+    }
+    .form-body{
+    margin: -18% 0 20% 90%;
+    float:right;
+    height:100%;
+    padding: -1% 0 0 3%;
+    width:80%;
+    min-width:inherit;
+    }
+    tbody tr:nth-child(odd) {
+    background-color: #def9fa;
+    }
+    thead{
+    font-size:200%;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, serif;
+    }
+    .homelink {
+    padding-left: 30%;
+    background: url('../images/home.png') no-repeat center right;
+    width: 100%;
+    height: inherit;
+    display: block;
+    }
+    .glyphicon-bell {
+    font-size: 1.5rem;
+    }
+   .notifications {
+     min-width: 420px;
+    }
+    .notifications-wrapper {
+    overflow: auto;
+    max-height: 250px;
+    }
+    .menu-title {
+    color: #ff7788;
+    font-size: 1.5rem;
+    display: inline-block;
+    }
+    .glyphicon-circle-arrow-right {
+    margin-left: 10px;
+    }
+    .notification-heading, .notification-footer {
+    padding: 2px 10px;
+    }
+    .dropdown-menu.divider {
+    margin: 5px 0;
+    }
+    .item-title {
+        font-size: 1.3rem;
+        color: #000;
+    }
+    .notifications a.content {
+    text-decoration: none;
+    background: #ccc;
+    }
+    .notification-item {
+    padding: 10px;
+    margin: 5px;
+    background: #ccc;
+    border-radius: 4px;
+    }
+    .badge-notify{
+    background:red;
+    position:relative;
+    top: -20px;
+    left: -35px;
+    }
+    nav.sidebar{
+    -webkit-transition: margin 200ms ease-out;
+    -moz-transition: margin 200ms ease-out;
+    -o-transition: margin 200ms ease-out;
+    transition: margin 200ms ease-out;
+    }
+    nav.sidebar:hover {
+    margin-left: 200px;
+    }
+    nav.sidebar.navbar.sidebar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+    margin-left: 0px;
+    }
+    nav.sidebar .navbar-brand, nav.sidebar .navbar-header{
+    text-align: center;
+    width: inherit;
+    
+    }    
+    nav.sidebar a{
+    padding-right: 13px;
+    }
+    nav.sidebar .navbar-nav > li:first-child{
+    border-top: 1px #e5e5e5 solid;
+    }
+    nav.sidebar .navbar-nav > li{
+      border-bottom: 1px #e5e5e5 solid;
+    }
+    nav.sidebar .navbar-nav .open .dropdown-menu {
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    } 
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+    color: #777;
+    }
+    nav.sidebar{
+    width: 200px;
+    height: 100%;
+    float: left;
+    margin-bottom: 0px;
+    min-width:inherit;
+    }
+    .sidebar-collapse
+    {
+    display:none;
+    }
+    nav.sidebar li {
+    width: 100%;
+    }
+    nav.sidebar:hover{
+    margin-left: 0px;
+    }
+   .forAnimate{
+    opacity: 0;
+    } 
+   .footer {
+    clear: both;
+    width: auto;
+    height: auto;    
+    border: 3px solid #E3E3E3;
+    text-align: center; 
+    }
+    .footer-image{
+    background-size:contain;
+    background-repeat:no-repeat;
+    float:left;
+    padding-top:0;
+    min-width:inherit;
+    margin-top:0;
+    }   
+}
 
- /*Added CSS*/
- .home-div{
-  background-color:#dedede;
   
- }
- .contact-section{
-  padding: 0 0 0 15%;
-  margin: 2% 0 2% 0;
-  border:2px solid black;
- }
+
+    
+
+

@@ -325,6 +325,8 @@ namespace FPT_OnlineService.Controllers
         {
             var FullName = "";
             var UserName = "";
+            var STrollNo = "";
+            string str = "";
             string strUsername = "";
             User user = new User();
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
@@ -353,9 +355,19 @@ namespace FPT_OnlineService.Controllers
                 }
 
                 string NumStr = strUsername.Substring(strUsername.Length - 4);
-
+                str = NumStr;
                 if (UserName.Contains("Student"))
                 {
+                    string[] studentRollNo = FullName.Split(' ');
+                    foreach (string rollno in studentRollNo)
+                    {
+                        int i = rollno.Length;
+                        string s = strUsername.Substring(0,i).ToLower();
+                        if(rollno.ToLower().Equals(s))
+                        {
+                            STrollNo = strUsername.Substring(strUsername.Length - i - 1);
+                        }
+                    }
                     Models.User.UserRole = "Student";
                     user.Name = FullName;
                 }
@@ -370,6 +382,8 @@ namespace FPT_OnlineService.Controllers
                     user.Name = FullName;
                 }// + " " + givenNameClaim.ToString();// +" " + phoneClaim.ToString();
             }
+
+
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
@@ -419,7 +433,7 @@ namespace FPT_OnlineService.Controllers
                                     student.UserId = Appuser.Id;
                                     student.Name = user.Name;
                                     student.Email = Appuser.Email;
-                                    student.RollNo = strUsername;
+                                    student.RollNo = STrollNo;
                                     db.Students.Add(student);
                                     db.SaveChanges();
                                     return RedirectToAction("Index", "Student");
@@ -502,6 +516,7 @@ namespace FPT_OnlineService.Controllers
         public ActionResult LogOut()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            FPT_OnlineService.DAL.Users.SetUserNull();
             return RedirectToAction("Index", "Home");
         }
 
