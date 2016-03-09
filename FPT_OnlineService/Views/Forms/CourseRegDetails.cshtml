@@ -4,77 +4,83 @@
     ViewBag.Title = "Details";
 }
 
-<div>
-    <h4>Course Registration Form</h4>
+<link href="~/Content/Site.css" rel="stylesheet" />
+<br />
+<hr />
+<div class="system-form">
+    <h4 class="h4">Course Registration Details.</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayName("Student Name: ")
-        </dt>
+    <div class="jumbotron" style="margin: 0 10% 2% 5%;">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayName("Student Name: ")
+            </dt>
 
-        <dd>
-            @Html.DisplayName(FPT_OnlineService.DAL.UserInfo.Name)
-        </dd>
+            <dd>
+                @Html.DisplayName(FPT_OnlineService.DAL.UserInfo.Name)
+            </dd>
 
 
-        <dt>
-            @Html.DisplayName("Student RollNo: ")
-        </dt>
+            <dt>
+                @Html.DisplayName("Student RollNo: ")
+            </dt>
 
-        <dd>
-            @Html.DisplayName(FPT_OnlineService.DAL.UserInfo.Username)
-        </dd>
+            <dd>
+                @Html.DisplayName(FPT_OnlineService.DAL.UserInfo.Username)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Form.Type)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Form.Type)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Form.Type)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Form.Type)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StudentPhone)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.StudentPhone)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.StudentPhone)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.StudentPhone)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SubjectCode)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.SubjectCode)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SubjectCode)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SubjectCode)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Subject)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Subject)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Subject)
-        </dd>
-        
-    </dl>
-</div>
-<div>
-    <p>
-        @if (!FPT_OnlineService.DAL.UserInfo.Username.Equals(null))
-        {
-            if (FPT_OnlineService.DAL.UserInfo.Role.Equals("Student"))
+            <dd>
+                @Html.DisplayFor(model => model.Subject)
+            </dd>
+
+        </dl>
+    </div>
+    </div>
+
+    <div>
+        <p>
+            @if (!FPT_OnlineService.DAL.UserInfo.Username.Equals(null))
             {
-                @Html.ActionLink("Edit", "Edit","Forms", new { id = Model.FormID }) @:&nbsp;
-                @Html.ActionLink("Back to List", "Index","Student")
+                if (FPT_OnlineService.DAL.UserInfo.Role.Equals("Student"))
+                {
+                    @Html.ActionLink("Edit", "Edit", "Forms", new { id = Model.FormID }) @:&nbsp;
+                    @Html.ActionLink("Back to List", "Index", "Student")
+                }
+                else if (FPT_OnlineService.DAL.UserInfo.Role.Contains("Staff"))
+                {
+                    @Html.ActionLink("Forward", "Forward", "Staff", new { id = Model.FormID }) @:&nbsp;
+                    @Html.ActionLink("Reject", "Reject", "Staff", new { id = Model.FormID }) @:&nbsp;
+                    @Html.ActionLink("Approve", "Approve", "Staff", new { id = Model.FormID }) @:&nbsp;
+                    @Html.ActionLink("Back to List", "Index", "Staff")
+                }
             }
-            else if (FPT_OnlineService.DAL.UserInfo.Role.Contains("Staff"))
-            {
-                @Html.ActionLink("Forward", "Forward","Staff", new { id = Model.FormID }) @:&nbsp;
-                @Html.ActionLink("Reject", "Reject", "Staff", new { id = Model.FormID }) @:&nbsp;
-                @Html.ActionLink("Approve", "Approve", "Staff", new { id = Model.FormID }) @:&nbsp;
-                @Html.ActionLink("Back to List", "Index","Staff")
-            }
-        }
-    </p>
-</div>
+        </p>
+    </div>

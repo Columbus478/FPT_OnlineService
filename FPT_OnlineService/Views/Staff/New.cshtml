@@ -15,7 +15,8 @@
     </p>
 }
 
-<table class="table">
+<table class="table table-hover">
+    <thead>
     <tr>
         <th>
             @Html.ActionLink("Form Type", "Index", new { sortOrder = ViewBag.TypeSortParm })
@@ -31,11 +32,12 @@
         </th>
         <th></th>
     </tr>
-
+</thead>
     @foreach (var item in Model)
     {
         if (item.Status.Equals("New"))
         {
+            <tbody>
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Type)
@@ -53,6 +55,7 @@
                     @Html.ActionLink("Form Details", "StaffEndorsement", "Staff", new { id = item.ID }, null)
                 </td>
             </tr>
+                </tbody>
         }
     }
 </table>

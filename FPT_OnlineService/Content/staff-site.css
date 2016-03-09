@@ -6,6 +6,7 @@
     max-width: 80%;      
     border: 5px solid #dedede;
     max-height:100%;
+    background-color:#f2f2f2;
     }
 
 /*MEDIUM CSS*/
@@ -17,7 +18,7 @@
     padding-right: 15px;
     padding-top:25px;
     max-height:100%;
-    background-color:#dedede;
+    background-color:#f2f2f2;
     }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -41,6 +42,7 @@
     height:100%;            
     padding: 50px 10px 30px 10px;
     border: 5px solid #dedede;
+    background-color:#f2f2f2;
     }
     .content-area {
    
@@ -77,14 +79,14 @@
     }
    .system-form {
     background-color: beige;
-    height:100%;
-    margin:0 0 0 0;
+    height:60%;
+    width:100%;
     }
     .h4 {
     text-decoration:underline; 
     font-style:italic;
-    font-size:large;    
-    font: bolder 30px italic, verdana;    
+    font-size:10%;    
+    font: bolder 10% italic, verdana;    
     background-color:white; 
     text-align:center;  
     }
@@ -303,7 +305,7 @@
         
     body {       
     margin: 0 20px 20px 100px;
-   
+   background-color:#f2f2f2;
     width: 80%;
     height:100%;    
     padding: 50px 10px 30px 10px;
@@ -370,10 +372,10 @@
     width:24.375em;
     min-width:2%;
    }
-    .system-form {
+   .system-form {
     background-color: beige;
-    height:80%;
-    margin:0 10% 2% 0;
+    height:60%;
+    width:100%;
     }
     .h4 {
     text-decoration:underline; 

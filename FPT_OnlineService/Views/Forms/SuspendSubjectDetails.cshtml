@@ -3,7 +3,8 @@
 @{
     
 }
-
+<br />
+<hr />
 <!DOCTYPE html>
 
 <html>
@@ -12,9 +13,10 @@
     <title>Details</title>
 </head>
 <body>
-    <div>
-        <h4>SuspendSubjectForm</h4>
+    <div class="system-form">
+        <h4 class="h4">Suspend Subject Form Details.</h4>
         <hr />
+        <div class="jumbotron" style="margin: 0 10% 2% 5%;">
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayName("Student Name: ")
@@ -76,6 +78,7 @@
             </dd>
 
         </dl>
+            </div>
     </div>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.FormID }) |

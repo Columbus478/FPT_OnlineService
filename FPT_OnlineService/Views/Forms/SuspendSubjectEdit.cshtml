@@ -3,7 +3,8 @@
 @{
     
 }
-
+<br />
+<hr />
 <!DOCTYPE html>
 
 <html>
@@ -15,9 +16,9 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        
+        <div class="system-form">
         <div class="form-horizontal">
-            <h4>SuspendSubjectForm</h4>
+            <h4 class="h4"> Edit Suspend Subject Form.</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.FormID)
@@ -63,6 +64,7 @@
                 </div>
             </div>
         </div>
+            </div>
     }
     
     <div>

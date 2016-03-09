@@ -1,5 +1,6 @@
 ﻿@model FPT_OnlineService.Models.SuspendSubjectForm
-
+<br />
+<hr />
 <!DOCTYPE html>
 
 <html>
@@ -11,9 +12,9 @@
     @using (Html.BeginForm()) 
     {
         @Html.AntiForgeryToken()
-        
+        <div class="system-form">
         <div class="form-horizontal">
-            <h4>Suspend Subject Form</h4>
+            <h4 class="h4">Suspend Subject Form.</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -79,6 +80,7 @@
                 </div>
             </div>
         </div>
+            </div>
     }
     
     <div>

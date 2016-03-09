@@ -5,7 +5,7 @@
     margin: 10px 20px 20px 100px;
     min-width: inherit;
     max-width: 80%;   
-    background-color: #ccc;     
+    background-color: #f2f2f2;
     border: 5px solid #dedede;
     max-height:100%;
     }
@@ -19,6 +19,7 @@
     padding-right: 15px;
     padding-top:15px;
     max-height:100%;
+    background-color: #f2f2f2;
     }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -37,19 +38,17 @@
 
 
     .form-body{
-    margin: -18% 0 20% 90%;
-    float:right;
+    margin: 20% 0 5% 30%;
     height:100%;
     padding: -1% 0 0 3%;
-    width:80%;
-    min-width:inherit;
+    width:80%;   
     }
     body {        
-    margin: 0 20px 20px 100px;
+    margin: 0 20px 20px 160px;
     min-width: inherit;
     width: 80%;
     height:100%;   
-    background-color: #ccc;       
+    background-color:  #f2f2f2;   
     padding: 50px 10px 30px 10px;
     border: 5px solid #dedede;
     }
@@ -66,7 +65,11 @@
     background-repeat: no-repeat;
     background-size: contain;
     height: 150px;
+    margin: -4% 0 2% 0;
     border: 3px solid #E3E3E3;
+    }
+    .homebanner:hover{
+    border-color:#8bf7ed;
     }
      nav.sidebar{
     margin-left: 0px;
@@ -75,15 +78,7 @@
     nav.sidebar .forAnimate{
       opacity: 1;
     }
-    .home-div{
-    background-color:#dedede;
-    margin: -16% 1% 20% 30%;
-    float:right;
-    height:100%;
-    padding: 0 0 0 19%;
-    width:100%;
-    min-width:inherit;
-    }
+    
     .contact-section{
     padding: 0 0 0 0;
     margin: 0% 0 -0.2% 0;
@@ -91,10 +86,21 @@
     height:60%;
     min-width:inherit;
     }
-    .system-form {
+   .system-form {
     background-color: beige;
     height:60%;
+    width:100%;
     }
+   .system-form:hover {
+    
+    border-top: #dedede 15px solid; /*inside part*/
+    border-right: white 15px solid; /*outside part*/
+    
+   
+    -webkit-box-shadow: -5px -2px 5px 5px rgba(0,0,0,0.5);
+    -moz-box-shadow: -5px -2px 5px 5px rgba(0,0,0,0.5);
+    box-shadow: -5px -2px 5px 5px rgba(0,0,0,0.5);
+}
     .h4 {
     text-decoration:underline; 
     font-style:italic;
@@ -155,14 +161,7 @@
     border-style:dashed;
     min-width:inherit;
     }
-    .form-body{
-    margin: -18% 0 20% 90%;
-    float:right;
-    height:100%;
-    padding: -1% 0 0 3%;
-    width:80%;
-    min-width:inherit;
-    }
+   
     tbody tr:nth-child(odd) {
     background-color: #def9fa;
     }
@@ -305,6 +304,7 @@
     padding-right: 15px;
     padding-top:15px;
     max-height:100%;
+    background-color: #f2f2f2;
     }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -322,19 +322,13 @@
     }
 
 
-    .form-body{
-    margin: -18% 0 20% 90%;
-    float:right;
-    height:100%;
-    padding: -1% 0 0 3%;
-    width:80%;
-    }
+    
     body {       
     margin: 0 20px 20px 100px;
     width: inherit;
     width: 80%;
     height:100%;    
-    background-color: white;        
+    background-color:  #f2f2f2;       
     padding: 50px 10px 30px 10px;
     border: 5px solid #dedede;
     }       
@@ -354,7 +348,11 @@
     background-repeat: no-repeat;
     background-size: contain;
     height: 150px;
+    margin: -4% 0 2% 0;
     border: 3px solid #E3E3E3;
+    }
+    .homebanner:hover{
+    border-color:#8bf7ed;
     }
     nav.sidebar{
     margin-left: 0px;
@@ -382,6 +380,7 @@
     .system-form {
     background-color: beige;
     height:60%;
+    width:100%;
     }
     .h4 {
     text-decoration:underline; 

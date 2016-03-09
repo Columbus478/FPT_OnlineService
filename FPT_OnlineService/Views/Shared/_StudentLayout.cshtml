@@ -8,8 +8,10 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-
-    <img src="~/images/banner625.png" />
+    <div class="online-images">
+       <img id="nav-image" src="~/images/banner625.png" height="80" min-width:inherit; />
+       <img id="nav-logo" src="~/images/online_logo.jpg" min-width:inherit; />
+   </div>
     <div class="body-content">
         <div class="row">
             <div class="col">
@@ -50,7 +52,13 @@
 
                 </div>
                 <div class="col-md-9">
-                    <div class="row btn-group" style=" padding-bottom: 10px;">
+                    <div class="row btn-group" style="margin: 2px 15px -2px -16px;">
+                        <button type="button" class="btn btn-default" onclick="window.location.reload();">
+                            <span class="glyphicon glyphicon-refresh"> Refresh</span>
+                        </button>
+
+                    </div>
+                    <div class="row btn-group" style="margin: 0 15px -2px -14px;">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="glyphicon glyphicon-plus"> Request </span>
                         </button>
@@ -68,13 +76,22 @@
                             <li><a href="#">Trash</a></li>
                         </ul>
                     </div>
+                    <div class="row btn-group" style="margin: 0 10px -2px -14px;">
+                        <input type="text" name="Search" placeholder=" Enter what to search..." style="width:600px;height:34px" />
+                        </div>
+                    <div class="row btn-group" style="margin: 2px 15px -2px -16px;">
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"> Search</span>
+                        </button>
+
+                    </div>
                     <div class="row" style="background-color:#dedede;padding-left:10px;">
                         @RenderBody()
                     </div>
                 </div>
                 <hr />
                 <footer>
-                    <p>&copy; @DateTime.Now.Year -FU Online Student Service Application</p>
+                    <p style="text-align:right;">&copy; @DateTime.Now.Year -FU Online Student Service Application</p>
                 </footer>
             </div>
             @Scripts.Render("~/bundles/jquery")
