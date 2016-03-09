@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 
 namespace FPT_OnlineService.Controllers
 {
+    [Authorize(Roles="Student")]
     public class StudentController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

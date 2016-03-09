@@ -373,6 +373,16 @@ namespace FPT_OnlineService.Controllers
                 }
                 else if(NumStr.All(char.IsDigit))
                 {
+                    string[] studentRollNo = FullName.Split(' ');
+                    foreach (string rollno in studentRollNo)
+                    {
+                        int i = rollno.Length;
+                        string s = strUsername.Substring(0, i).ToLower();
+                        if (rollno.ToLower().Equals(s))
+                        {
+                            STrollNo = strUsername.Substring(strUsername.Length - i - 1);
+                        }
+                    }
                     Models.User.UserRole = "Student";
                     user.Name = FullName;
                 }
@@ -516,7 +526,7 @@ namespace FPT_OnlineService.Controllers
         public ActionResult LogOut()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            FPT_OnlineService.DAL.Users.SetUserNull();
+            //FPT_OnlineService.DAL.Users.SetUserNull();
             return RedirectToAction("Index", "Home");
         }
 

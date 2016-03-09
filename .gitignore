@@ -48,3 +48,7 @@ Temporary Items
 *.config
 FPT_OnlineService/Web.config
 *.config
+*.dll
+*.pdb
+*.dll
+*.pdb

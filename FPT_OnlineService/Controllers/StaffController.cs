@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace FPT_OnlineService.Controllers
 {
+    [Authorize(Roles = "FPT-Staff")]
     public class StaffController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
