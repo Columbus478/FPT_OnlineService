@@ -3,9 +3,7 @@
     .body {
     padding: 50px 10px 30px 10px;   
     margin: 10px 20px 20px 100px;
-    min-width: inherit;
-    max-width: 80%;   
-    background-color: #ccc;     
+    max-width: 80%;      
     border: 5px solid #dedede;
     max-height:100%;
     }
@@ -17,8 +15,9 @@
     .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    padding-top:15px;
+    padding-top:25px;
     max-height:100%;
+    background-color:#dedede;
     }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -36,28 +35,18 @@
     }
 
 
-    .form-body{
-    margin: -18% 0 20% 90%;
-    float:right;
-    height:100%;
-    padding: -1% 0 0 3%;
-    width:80%;
-    min-width:inherit;
-    }
     body {        
-    margin: 0 20px 20px 100px;
-    min-width: inherit;
+    margin: 0 20px 20px 100px;    
     width: 80%;
-    height:100%;   
-    background-color: #ccc;       
+    height:100%;            
     padding: 50px 10px 30px 10px;
     border: 5px solid #dedede;
     }
     .content-area {
-    float: right;
+   
     width: 750px;
     margin: 20px 0 -20% 0;
-    padding: 10px;
+    padding: 20px;
     height: 100%;
     min-width:inherit;
     }
@@ -68,6 +57,9 @@
     height: 150px;
     border: 3px solid #E3E3E3;
     }
+    .homebanner:hover {
+    border-color:#defbfb;
+    }
      nav.sidebar{
     margin-left: 0px;
     float: left;
@@ -75,15 +67,7 @@
     nav.sidebar .forAnimate{
       opacity: 1;
     }
-    .home-div{
-    background-color:#dedede;
-    margin: -16% 1% 20% 30%;
-    float:right;
-    height:100%;
-    padding: 0 0 0 19%;
-    width:100%;
-    min-width:inherit;
-    }
+    
     .contact-section{
     padding: 0 0 0 0;
     margin: 0% 0 -0.2% 0;
@@ -91,9 +75,10 @@
     height:60%;
     min-width:inherit;
     }
-    .system-form {
+   .system-form {
     background-color: beige;
-    height:60%;
+    height:100%;
+    margin:0 0 0 0;
     }
     .h4 {
     text-decoration:underline; 
@@ -104,18 +89,24 @@
     text-align:center;  
     }
     .online-images {
-    background-color: #e5e5e5;
     border-style: double;
-    margin: -4% 0 3% 0;
+    padding-right: 0%;
     background-size: contain;
     width: 100%;
     float:right;
     min-width:2%;
+    margin: -6% 0 2% 0;
     }
-    .home-images {
+    .online-images:hover {
+        border-color:#defbfb;
+    }
+    #home-img:hover {
+        border-color:#defbfb;
+    }
+     .home-images {
     background-color: #e5e5e5;
     border-style: double;
-    margin: 2% 0 3% 0;
+    margin: 2% 0% 3% 10%;
     background-size: contain;
     width: 100%;
     float:right;
@@ -155,12 +146,8 @@
     border-style:dashed;
     min-width:inherit;
     }
-    .form-body{
-    margin: -18% 0 20% 90%;
-    float:right;
-    height:100%;
-    padding: -1% 0 0 3%;
-    width:80%;
+   
+    table {
     min-width:inherit;
     }
     tbody tr:nth-child(odd) {
@@ -283,18 +270,11 @@
    .footer {
     clear: both;
     width: auto;
-    height: auto;    
+    height: 20%;    
     border: 3px solid #E3E3E3;
     text-align: center; 
     }
-    .footer-image{
-    background-size:contain;
-    background-repeat:no-repeat;
-    float:left;
-    padding-top:0;
-    min-width:inherit;
-    margin-top:0;
-    } 
+   
 }
 
 /*Media: Maximum Width CSS*/
@@ -320,21 +300,12 @@
     textarea {
     max-width: 280px;
     }
-
-
-    .form-body{
-    margin: -18% 0 20% 90%;
-    float:right;
-    height:100%;
-    padding: -1% 0 0 3%;
-    width:80%;
-    }
+        
     body {       
     margin: 0 20px 20px 100px;
-    width: inherit;
+   
     width: 80%;
     height:100%;    
-    background-color: white;        
     padding: 50px 10px 30px 10px;
     border: 5px solid #dedede;
     }       
@@ -345,7 +316,7 @@
     float: right;
     width: 750px;
     margin: 20px 0 -20% 0;
-    padding: 10px;
+    padding: 20px;
     height: 100%;
     width:inherit;
     }
@@ -356,6 +327,9 @@
     height: 150px;
     border: 3px solid #E3E3E3;
     }
+    .homebanner:hover {
+    border-color:#defbfb;
+    }
     nav.sidebar{
     margin-left: 0px;
     float: left;
@@ -363,25 +337,43 @@
     nav.sidebar .forAnimate{
       opacity: 1;
     }
-    .home-div{
-    background-color:#dedede;
-    margin: -16% 1% 20% 30%;
-    float:right;
-    height:100%;
-    padding: 0 0 0 19%;
-    width:100%;
-    min-width:inherit;
-    }
-    .contact-section{
+   .contact-section{
     padding: 0 0 0 0;
-    margin: 0% 0 -0.2% 0;
+    margin: 0 0 -0.2% 0;
     border:2px solid black;
     height:60%;
-    min-width:inherit;
+   
     }
+   .online-images {
+    border-style: double;
+    background-size: contain;
+    width: 100%;
+    float:right;
+    min-width:2%;
+    margin: -6% 0 2% 0;
+    }
+    .online-images:hover {
+    border-color:#defbfb;
+    }
+     .home-images {
+    background-color: #e5e5e5;
+    border-style: double;
+    margin: 2% 10% 3% 10%;
+    background-size: contain;
+    width: 100%;
+    float:right;
+    min-width:2%;
+    }
+    #home-img {
+    padding: 0 0 0 0;
+    height:12.375em;
+    width:24.375em;
+    min-width:2%;
+   }
     .system-form {
     background-color: beige;
-    height:60%;
+    height:80%;
+    margin:0 10% 2% 0;
     }
     .h4 {
     text-decoration:underline; 
@@ -391,21 +383,8 @@
     background-color:white; 
     text-align:center;  
     }
-    .online-images {
-    background-color: #e5e5e5;
-    border-style: double;    
-    background-size: contain;
-    width: 100%;
-    float:right;
-    min-width:2%;
-    padding-bottom:2%;
-    margin-bottom:5%;
-    }
-    #home-img {
-    height:12.375em;
-    width:24.375em;
-    min-width:2%;
-   }
+  
+   
     #nav-logo, #nav-image{
     width:66.1%;
     }
@@ -434,13 +413,8 @@
     border-style:dashed;
     min-width:inherit;
     }
-    .form-body{
-    margin: -18% 0 20% 90%;
-    float:right;
-    height:100%;
-    padding: -1% 0 0 3%;
-    width:80%;
-    min-width:inherit;
+    table {
+    max-width:inherit;
     }
     tbody tr:nth-child(odd) {
     background-color: #def9fa;
@@ -562,18 +536,11 @@
    .footer {
     clear: both;
     width: auto;
-    height: auto;    
+    height: 20%; 
     border: 3px solid #E3E3E3;
     text-align: center; 
     }
-    .footer-image{
-    background-size:contain;
-    background-repeat:no-repeat;
-    float:left;
-    padding-top:0;
-    min-width:inherit;
-    margin-top:0;
-    }   
+   
 }
 
   
