@@ -7,54 +7,63 @@
 <br />
 <hr />
 <div class="system-form">
-   
-<h2 class="h4">Form Activity logs</h2>
+
+    <h2 class="h4">Form Activity logs</h2>
 
 
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th>
-            @Html.ActionLink("Form Type", "Index", new { sortOrder = ViewBag.TypeSortParm })
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RollNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.ActionLink("Submission Date", "Index", new { sortOrder = ViewBag.DateSortParm })
-        </th>
-        <th></th>
-    </tr>
-        </thead>
-    @foreach (var item in Model)
-    {
-        if (item.RollNo.Equals(FPT_OnlineService.DAL.UserInfo.Username))
-        {
-            <tbody>
+    <table class="table table-hover">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RollNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "Forms", new { id = item.ID }, null)|
-                    @Html.ActionLink("Details", "Details", "Forms", new { id = item.ID }, null)|
-                    @Html.ActionLink("Delete", "Delete", "Forms", new { id = item.ID }, null)
-                </td>
+                <th>
+                    @Html.DisplayName("# ")
+                </th>
+                <th>
+                    @Html.ActionLink("Form Type", "Index", new { sortOrder = ViewBag.TypeSortParm })
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RollNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.ActionLink("Submission Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+                </th>
+                <th></th>
             </tr>
+        </thead>
+        @{int i = 1;}
+        @foreach (var item in Model)
+        {
+            string count = i+" ";
+            if (item.RollNo.Equals(FPT_OnlineService.DAL.UserInfo.Username))
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayName(count)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RollNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Forms", new { id = item.ID }, null)|
+                            @Html.ActionLink("Details", "Details", "Forms", new { id = item.ID }, null)|
+                            @Html.ActionLink("Delete", "Delete", "Forms", new { id = item.ID }, null)
+                        </td>
+                    </tr>
                 </tbody>
+            }
+            i++;
         }
-    }
-</table>
-    </div>
+    </table>
+</div>
