@@ -35,3 +35,7 @@ $(function () {
         adapter: new DemoAdapter()
     });
 });
+/* slider speed.*/
+$('.carousel').carousel({
+    interval: 3000 //changes the speed
+});

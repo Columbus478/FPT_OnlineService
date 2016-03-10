@@ -6,13 +6,77 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-</head>
+    <link href="~/Content/half-slider.css" rel="stylesheet" />
+   </head>
 <body>
-    <div class="online-images">
-       <img id="nav-image" src="~/images/banner625.png" height="80" min-width:inherit; />
-       <img id="nav-logo" src="~/images/online_logo.jpg" min-width:inherit; />
-   </div>
-    <div class="body-content">
+    <!-- Half Page Image Background Carousel Header -->
+    <header id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+            <li data-target="#myCarousel" data-slide-to="5"></li>
+            
+         </ol>
+        <!-- Wrapper for Slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <!-- Set the first background image using inline CSS below. -->
+                <div class="fill"><img id="nav-image" src="~/images/banner625.png" width="900" height="250"/></div>
+                <div class="carousel-caption">
+                    <h2>Caption 1</h2>
+                </div>
+            </div>
+             <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill"><img id="nav-logo" src="~/images/online_logo.jpg" height="300" /></div>
+                <div class="carousel-caption">
+                    <h2>Caption 2</h2>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill"><img id="nav-logo" src="~/images/student service center.jpg" width="500"/></div>
+                <div class="carousel-caption">
+                    <h2>Caption 3</h2>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill"><img id="nav-logo" src="~/images/tech.png" width="500" /></div>
+                <div class="carousel-caption">
+                    <h2>Caption 4</h2>
+                </div>
+            </div>
+           
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill"><img id="nav-logo" src="~/images/int'l student.jpg" width="500" height="600" /></div>
+                <div class="carousel-caption">
+                    <h2>Caption 5</h2>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill"><img id="nav-logo" src="~/images/fpt mega building.jpg" width="200" height="350" /></div>
+                <div class="carousel-caption">
+                    <h2>Caption 6</h2>
+                </div>
+            </div>
+           
+        </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+    </header>
+        <div class="body-content">
         <div class="row">
             <div class="col">
                     @Html.Partial("_LoginPartial")
@@ -99,5 +163,10 @@
             @RenderSection("scripts", required: false)
         </div>
     </div>
-</body>
+    <script>
+    $('.carousel').carousel({
+        interval: 3000 //changes the speed
+    })
+    </script>
+  </body>
 </html>
