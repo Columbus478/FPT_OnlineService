@@ -6,80 +6,24 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link href="~/Content/half-slider.css" rel="stylesheet" />
-   </head>
+</head>
 <body>
-    <!-- Half Page Image Background Carousel Header -->
-    <header id="myCarousel" class="carousel slide">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-            <li data-target="#myCarousel" data-slide-to="3"></li>
-            <li data-target="#myCarousel" data-slide-to="4"></li>
-            <li data-target="#myCarousel" data-slide-to="5"></li>
-            
-         </ol>
-        <!-- Wrapper for Slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <!-- Set the first background image using inline CSS below. -->
-                <div class="fill"><img id="nav-image" src="~/images/banner625.png" width="900" height="250"/></div>
-                <div class="carousel-caption">
-                    <h2>Caption 1</h2>
-                </div>
-            </div>
-             <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill"><img id="nav-logo" src="~/images/online_logo.jpg" height="300" /></div>
-                <div class="carousel-caption">
-                    <h2>Caption 2</h2>
-                </div>
-            </div>
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill"><img id="nav-logo" src="~/images/student service center.jpg" width="500"/></div>
-                <div class="carousel-caption">
-                    <h2>Caption 3</h2>
-                </div>
-            </div>
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill"><img id="nav-logo" src="~/images/tech.png" width="500" /></div>
-                <div class="carousel-caption">
-                    <h2>Caption 4</h2>
-                </div>
-            </div>
-           
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill"><img id="nav-logo" src="~/images/int'l student.jpg" width="500" height="600" /></div>
-                <div class="carousel-caption">
-                    <h2>Caption 5</h2>
-                </div>
-            </div>
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill"><img id="nav-logo" src="~/images/fpt mega building.jpg" width="200" height="350" /></div>
-                <div class="carousel-caption">
-                    <h2>Caption 6</h2>
-                </div>
-            </div>
-           
+    <div class="body-content">
+        <div class="row" style="width:100%; padding-left:10px;">
+            <img src="/images/FPT-Header.png">
         </div>
-        <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
-    </header>
-        <div class="body-content">
-        <div class="row">
-            <div class="col">
+        <div class="navbar navbar-custom">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
                     @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
         <div class="container body-content">
@@ -97,33 +41,26 @@
                             </div>
                             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                                 <ul class="nav navbar-nav">
-                                    <li class="active"><a href="/">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Request's <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+                                    <li class="active dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="My">My Request's <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                                         <ul class="dropdown-menu forAnimate" role="menu">
-                                            <li><a href="/Student/">All</a></li>
+                                            <li><a href="/Student">All</a></li>
                                             <li><a href="/Student/New">New</a></li>
                                             <li><a href="/Student/Approved">Approved</a></li>
                                             <li><a href="/Student/Rejected">Rejected</a></li>
                                             <li><a href="/Student/InProgress">In-Progress</a></li>
                                         </ul>
-                                    <li><a href="/Staff/Drafts">Drafts<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>
-                                    <li><a href="/Staff/Trash">Trash<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tags"></span></a></li>
+                                    <li><a href="/Student/Drafts">Drafts<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>
+                                    <li><a href="/Student/Trash">Trash<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tags"></span></a></li>
                                 </ul>
                             </div>
                         </div>
                     </nav>
 
                 </div>
-                <div class="col-md-9">
-                    <div class="row btn-group" style="margin: 2px 15px -2px -16px;">
-                        <button type="button" class="btn btn-default" onclick="window.location.reload();">
-                            <span class="glyphicon glyphicon-refresh"> Refresh</span>
-                        </button>
-
-                    </div>
-                    <div class="row btn-group" style="margin: 0 15px -2px -14px;">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <div class="row col-md-9">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown" aria-expanded="false">
                             <span class="glyphicon glyphicon-plus"> Request </span>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu">
@@ -132,41 +69,29 @@
                             <li><a href="/Forms/SuspendSubjectCreate">Suspend Subject</a></li>
                             <li><a href="/Forms/RequestCreate">General Request</a></li>
                             <li><a href="/Forms/DropOutCreate">Drop Out</a></li>
-                            <li><a href="#">Form 6</a></li>
-                            <li><a href="#">Form 7</a></li>
-                            <li><a href="#">Form 8</a></li>
-                            <li><a href="#">Form 9</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Trash</a></li>
-                        </ul>
-                    </div>
-                    <div class="row btn-group" style="margin: 0 10px -2px -14px;">
-                        <input type="text" name="Search" placeholder=" Enter what to search..." style="width:600px;height:34px" />
-                        </div>
-                    <div class="row btn-group" style="margin: 2px 15px -2px -16px;">
-                        <button type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-search"> Search</span>
-                        </button>
 
+                        </ul>
+                    </div> &nbsp;
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" onclick="window.location.reload();">
+                            <span class="glyphicon glyphicon-refresh"></span>
+                        </button>
                     </div>
-                    <div class="row" style="background-color:#dedede;padding-left:10px;">
+                </div>
+                <div class="col-sm-9">
+                    <div class="row">
                         @RenderBody()
                     </div>
                 </div>
-                <hr />
-                <footer>
-                    <p style="text-align:right;">&copy; @DateTime.Now.Year -FU Online Student Service Application</p>
-                </footer>
             </div>
+            <hr />
+            <footer>
+                <p style="text-align:right;">&copy; @DateTime.Now.Year -FU Online Student Service Application</p>
+            </footer>
             @Scripts.Render("~/bundles/jquery")
             @Scripts.Render("~/bundles/bootstrap")
             @RenderSection("scripts", required: false)
         </div>
     </div>
-    <script>
-    $('.carousel').carousel({
-        interval: 3000 //changes the speed
-    })
-    </script>
-  </body>
+</body>
 </html>

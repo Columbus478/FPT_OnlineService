@@ -12,26 +12,26 @@
     @using (Html.BeginForm()) 
     {
         @Html.AntiForgeryToken()
-        <div class="system-form">
+        <div class="">
         <div class="form-horizontal">
             <h4 class="h4">Suspend Subject Form.</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="form-group">
-                @Html.Label(FPT_OnlineService.DAL.UserInfo.Name, "Student Name :", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label(FPT_OnlineService.DAL.UserInfo.Name, "Student Name :", htmlAttributes: new { @class = "control-label col-md-2 required" })
                 <div class="col-md-10">
                     <input class="form-control" type="text" readonly value="@FPT_OnlineService.DAL.UserInfo.Name" />
                 </div>
             </div>
             <div class="form-group">
-                @Html.Label(FPT_OnlineService.DAL.UserInfo.Username, "Student RollNo :", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label(FPT_OnlineService.DAL.UserInfo.Username, "Student RollNo :", htmlAttributes: new { @class = "control-label col-md-2 required" })
                 <div class="col-md-10">
                     <input class="form-control" type="text" readonly value="@FPT_OnlineService.DAL.UserInfo.Username" />
                 </div>
             </div>
             <div class="form-group">
-                @Html.Label(FPT_OnlineService.DAL.UserInfo.Email, "Student Email :", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label(FPT_OnlineService.DAL.UserInfo.Email, "Student Email :", htmlAttributes: new { @class = "control-label col-md-2 required" })
                 <div class="col-md-10">
                     <input class="form-control" type="text" readonly value="@FPT_OnlineService.DAL.UserInfo.Email" />
                 </div>
@@ -39,7 +39,7 @@
 
     
             <div class="form-group">
-                @Html.LabelFor(model => model.StudentPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.StudentPhone, htmlAttributes: new { @class = "control-label col-md-2 required" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.StudentPhone, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.StudentPhone, "", new { @class = "text-danger" })
@@ -47,19 +47,15 @@
             </div>
     
             <div class="form-group">
-                @Html.LabelFor(model => model.SemesterSeason, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">                    
-                    @Html.DropDownListFor(model => model.SemesterSeason, new SelectList(new List<Object>{
-                        new { value = "Spring"+@DateTime.Now.Year , text = "Spring "+@DateTime.Now.Year  },
-                        new { value = "Summer"+@DateTime.Now.Year , text = "Summer"+@DateTime.Now.Year },
-                        new { value = "Fall"+@DateTime.Now.Year , text = "Fall"+@DateTime.Now.Year}, }, "value", "text"),
-                        htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.SemesterSeason, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.SemesterName, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.SemesterName, ViewBag.SemesterName as SelectList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SemesterName, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.SubjectCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.SubjectCode, htmlAttributes: new { @class = "control-label col-md-2 required" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.SubjectCode, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.SubjectCode, "", new { @class = "text-danger" })
@@ -67,7 +63,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.SubjectName, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.SubjectName, htmlAttributes: new { @class = "control-label col-md-2 required" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.SubjectName, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.SubjectName, "", new { @class = "text-danger" })
@@ -76,7 +72,7 @@
     
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Submit" class="btn btn-default" />
                 </div>
             </div>
         </div>

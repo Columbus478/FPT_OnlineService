@@ -306,22 +306,16 @@ table {
 }
 
 html {
-    font-size: 62.5%;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    background-color: white;
-   background-image: url('../images/globe2.jpg');
-   background-repeat: repeat-x;
+  font-size: 62.5%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.428571429;
-    color: #333333;
-    background-color: #d4cece;
-    padding-bottom: 10px;
-    height:100%;
-    
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #333333;
+  background-color: #ffffff;
 }
 
 input,
@@ -426,9 +420,7 @@ p {
 small {
   font-size: 85%;
 }
-#nav-lighup:hover{
-    border-color:#8bf7ed;
-}
+
 cite {
   font-style: normal;
 }
@@ -1593,9 +1585,6 @@ table th[class*="col-"] {
 }
 
 @media (max-width: 768px) {
-    #nav-lighup:hover{
-    border-color:#8bf7ed;
-}
   .table-responsive {
     width: 100%;
     margin-bottom: 15px;
@@ -3835,7 +3824,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eeeeee;
+  background-color: #f7941d;
 }
 
 .nav > li.disabled > a {
@@ -3853,7 +3842,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
-  background-color: #eeeeee;
+  background-color: ##CC6600;
   border-color: #428bca;
 }
 
@@ -4797,7 +4786,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .pager li > a:hover,
 .pager li > a:focus {
   text-decoration: none;
-  background-color: #eeeeee;
+  background-color: #CC6600;
 }
 
 .pager .next > a,
@@ -4941,9 +4930,9 @@ a.list-group-item.active > .badge,
 .jumbotron {
   padding: 30px;
   margin-bottom: 30px;
-  font-size: 15px;
+  font-size: 21px;
   font-weight: 200;
-  line-height: 1.1428571435;
+  line-height: 2.1428571435;
   color: inherit;
   background-color: #eeeeee;
 }

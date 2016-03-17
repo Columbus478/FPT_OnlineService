@@ -55,3 +55,7 @@ FPT_OnlineService/Web.config
 FPT_OnlineService/Web.config
 FPT_OnlineService/Web.config
 FPT_OnlineService/Web.config
+*.pdb
+*.pdb
+FPT_OnlineService/bin/Entity.dll
+FPT_OnlineService/Web.config

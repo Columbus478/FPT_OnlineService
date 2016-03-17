@@ -1,4 +1,6 @@
-﻿@model IEnumerable<FPT_OnlineService.Models.Form>
+﻿@model PagedList.IPagedList<FPT_OnlineService.Models.Form>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "In Progress";
@@ -7,10 +9,11 @@
 
 <h2>In Progress</h2>
 
-@using (Html.BeginForm())
+
+@using (Html.BeginForm("InProgress", "Staff", FormMethod.Get))
 {
     <p class="h4">
-        Find by student rollno: @Html.TextBox("SearchString")
+        Find by student rollno: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input class="btn btn-default" type="submit" value="Search" />
     </p>
 }
@@ -19,24 +22,52 @@
     <thead>
     <tr>
         <th>
-            @Html.ActionLink("Form Type", "Index", new { sortOrder = ViewBag.TypeSortParm })
+            @Html.DisplayName("S/N ")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RollNo)
+            @Html.DisplayName("Form Details")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayName("Student RollNo")
         </th>
         <th>
-            @Html.ActionLink("Submission Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+            @Html.DisplayName("Form Status")
+        </th>
+        <th>
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
-</thead>
-    @foreach (var item in Model)
+</thead>    @{int i = 1;
+string date = "";
+DateTime today = DateTime.Now;}
+@foreach (var item in Model)
+{
+    if (item.Date.Year.Equals(today.Date.Year))
     {
-        if (item.Status.Equals("InProgress"))
+        if (item.Date.Month.Equals(today.Month))
         {
+            if (item.Date.Day.Equals(today.Day))
+            {
+                date = item.Date.ToString("HH:MM tt");
+            }
+            else
+            {
+                date = item.Date.ToString("M");
+            }
+        }
+        else
+        {
+            date = item.Date.ToString("M");
+        }
+    }
+    else
+    {
+        date = item.Date.Month + " " + item.Date.Year;
+    }
+    if (item.Status.Equals("InProgress"))
+    {
+        string count = i + " ";
             <tbody>
             <tr>
                 <td>
@@ -49,7 +80,7 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Date)
+                    @Html.DisplayName(date)
                 </td>
                 <td>
                     @Html.ActionLink("Form Details", "StaffEndorsement", "Staff", new { id = item.ID }, null)
@@ -59,3 +90,9 @@
         }
     }
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("InProgress",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+

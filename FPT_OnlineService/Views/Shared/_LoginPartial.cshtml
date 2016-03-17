@@ -1,86 +1,22 @@
-﻿@using FPT_OnlineService.Models
-@using Microsoft.AspNet.Identity
+﻿@using Microsoft.AspNet.Identity
 @using Microsoft.Owin.Security
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
-    }
+}
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
-
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
-                    <i class="glyphicon glyphicon-bell"></i>
-                    <span class="badge badge-notify">3</span>
-                </a>
-                <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
-
-                    <div class="notification-heading">
-                        <h4 class="menu-title">Notifications</h4><h4 class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
-                    </div>
-                    <li class="divider"></li>
-                    <div class="notifications-wrapper">
-                        <a class="content" href="#">
-
-                            <div class="notification-item">
-                                <h4 class="item-title">Evaluation Deadline 1 · day ago</h4>
-                                <p class="item-info">Marketing 101, Video Assignment</p>
-                            </div>
-
-                        </a>
-                        <a class="content" href="#">
-                            <div class="notification-item">
-                                <h4 class="item-title">Evaluation Deadline 1 · day ago</h4>
-                                <p class="item-info">Marketing 101, Video Assignment</p>
-                            </div>
-                        </a>
-                        <a class="content" href="#">
-                            <div class="notification-item">
-                                <h4 class="item-title">Evaluation Deadline 1 • day ago</h4>
-                                <p class="item-info">Marketing 101, Video Assignment</p>
-                            </div>
-                        </a>
-                        <a class="content" href="#">
-                            <div class="notification-item">
-                                <h4 class="item-title">Evaluation Deadline 1 • day ago</h4>
-                                <p class="item-info">Marketing 101, Video Assignment</p>
-                            </div>
-
-                        </a>
-                        <a class="content" href="#">
-                            <div class="notification-item">
-                                <h4 class="item-title">Evaluation Deadline 1 • day ago</h4>
-                                <p class="item-info">Marketing 101, Video Assignment</p>
-                            </div>
-                        </a>
-                        <a class="content" href="#">
-                            <div class="notification-item">
-                                <h4 class="item-title">Evaluation Deadline 1 • day ago</h4>
-                                <p class="item-info">Marketing 101, Video Assignment</p>
-                            </div>
-                        </a>
-
-                    </div>
-                    <li class="divider"></li>
-                    <a href="#" class="notification-footer menu-title">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle" href="#">Account<b class="caret"></b></a>
-                <ul role="menu" class="dropdown-menu">
-                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
-                    <li>@Html.ActionLink("Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
-                </ul>
-            </li>
-        </ul>
+    <ul class="nav navbar-custom navbar-nav navbar-right">
+        <li>@Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
+    </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-custom navbar-nav navbar-right">
         <li>@Html.ActionLink("Login using email fpt.edu.vn", "ExternalLogin", "Account")</li>
         <li>
         </li>

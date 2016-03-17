@@ -33,11 +33,26 @@ namespace FPT_OnlineService.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+        protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder) {
+        base.OnModelCreating(modelBuilder);
+
+
+        modelBuilder.Entity<IdentityUser>().ToTable("Users", "dbo");
+        modelBuilder.Entity<IdentityRole>().ToTable("Roles", "dbo");
+        modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles", "dbo");
+        modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims", "dbo");
+        modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins", "dbo");
+        }
+
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<FPT_OnlineService.Models.Semester> Semesters { get; set; }
+
+        public System.Data.Entity.DbSet<FPT_OnlineService.Models.Notification> Notifications { get; set; }
 
         public System.Data.Entity.DbSet<FPT_OnlineService.Models.Student> Students { get; set; }
 

@@ -5,6 +5,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Data;
+using System.Data.Entity;
+using System.Net;
+using PagedList;
 
 namespace FPT_OnlineService.Controllers
 {
@@ -14,7 +18,34 @@ namespace FPT_OnlineService.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         //GET All Forms
-        public ActionResult Index(string sortOrder)
+        public ViewResult Index(string sortOrder, string currentFilter, int? page)
+        {
+            string id = User.Identity.GetUserId();
+            ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            var forms = from f in db.Forms orderby f.ID descending
+                        select f ;
+            switch (sortOrder)
+            {
+                case "type_desc":
+                    forms = forms.OrderByDescending(f => f.Type);
+                    break;
+                case "Date":
+                    forms = forms.OrderByDescending(f => f.Date);
+                    break;
+                case "date_desc":
+                    forms = forms.OrderByDescending(f => f.Date);
+                    break;
+                default:
+                    forms = forms.OrderByDescending(f => f.Date);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(forms.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ViewResult Drafts(string sortOrder, string currentFilter, int? page)
         {
             string id = User.Identity.GetUserId();
             ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
@@ -28,29 +59,21 @@ namespace FPT_OnlineService.Controllers
                     forms = forms.OrderByDescending(f => f.Type);
                     break;
                 case "Date":
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
                 case "date_desc":
                     forms = forms.OrderByDescending(f => f.Date);
                     break;
                 default:
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
             }
-            return View(forms.ToList());
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(forms.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult Drafts()
-        {
-            return View();
-        }
-
-        public ActionResult Trash()
-        {
-            return View();
-        }
-
-        public ActionResult Approved(string sortOrder)
+        public ViewResult Trash(string sortOrder, string currentFilter, int? page)
         {
             string id = User.Identity.GetUserId();
             ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
@@ -64,19 +87,21 @@ namespace FPT_OnlineService.Controllers
                     forms = forms.OrderByDescending(f => f.Type);
                     break;
                 case "Date":
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
                 case "date_desc":
                     forms = forms.OrderByDescending(f => f.Date);
                     break;
                 default:
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
             }
-            return View(forms.ToList());
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(forms.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult Rejected(string sortOrder)
+        public ViewResult Approved(string sortOrder, string currentFilter, int? page)
         {
             string id = User.Identity.GetUserId();
             ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
@@ -90,19 +115,21 @@ namespace FPT_OnlineService.Controllers
                     forms = forms.OrderByDescending(f => f.Type);
                     break;
                 case "Date":
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
                 case "date_desc":
                     forms = forms.OrderByDescending(f => f.Date);
                     break;
                 default:
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
             }
-            return View(forms.ToList());
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(forms.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult InProgress(string sortOrder)
+        public ViewResult Rejected(string sortOrder, string currentFilter, int? page)
         {
             string id = User.Identity.GetUserId();
             ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
@@ -116,19 +143,21 @@ namespace FPT_OnlineService.Controllers
                     forms = forms.OrderByDescending(f => f.Type);
                     break;
                 case "Date":
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
                 case "date_desc":
                     forms = forms.OrderByDescending(f => f.Date);
                     break;
                 default:
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
             }
-            return View(forms.ToList());
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(forms.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult New(string sortOrder)
+        public ViewResult InProgress(string sortOrder, string currentFilter, int? page)
         {
             string id = User.Identity.GetUserId();
             ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
@@ -142,16 +171,52 @@ namespace FPT_OnlineService.Controllers
                     forms = forms.OrderByDescending(f => f.Type);
                     break;
                 case "Date":
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
                 case "date_desc":
                     forms = forms.OrderByDescending(f => f.Date);
                     break;
                 default:
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
             }
-            return View(forms.ToList());
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(forms.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ViewResult New(string sortOrder, string currentFilter, int? page)
+        {
+            string id = User.Identity.GetUserId();
+            ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            var forms = from f in db.Forms
+                        select f;
+
+            switch (sortOrder)
+            {
+                case "type_desc":
+                    forms = forms.OrderByDescending(f => f.Type);
+                    break;
+                case "Date":
+                    forms = forms.OrderByDescending(f => f.Date);
+                    break;
+                case "date_desc":
+                    forms = forms.OrderByDescending(f => f.Date);
+                    break;
+                default:
+                    forms = forms.OrderByDescending(f => f.Date);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(forms.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult Notifications()
+        {
+            var notifications = db.Notifications.Include(n => n.Form).Include(n => n.Staff).Include(n => n.Student);
+            return View(notifications.ToList());
         }
     }
 }

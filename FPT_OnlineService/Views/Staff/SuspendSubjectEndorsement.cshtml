@@ -17,7 +17,7 @@
     {
         @Html.AntiForgeryToken()
 
-    <div class="system-form">
+    <div class="">
         <h4 class="h4">Suspend Subject Form.</h4>
         <hr />
         <dl class="dl-horizontal">            
@@ -39,11 +39,11 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.SemesterSeason)
+                @Html.DisplayNameFor(model => model.Semester)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.SemesterSeason)
+                @Html.DisplayFor(model => model.Semester)
             </dd>
 
             <dt>
@@ -94,19 +94,19 @@
                         <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            @Html.Label("Submitted A week before :", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.Label("Submitted A week before :", htmlAttributes: new { @class = "control-label col-md-2 required" })
                             <div class="col-md-10">
                                 <input type="checkbox" name="IsWeekBefore" class="big-checkbox"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.Label("Not All Subject :", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.Label("Not All Subject :", htmlAttributes: new { @class = "control-label col-md-2 required" })
                             <div class="col-md-10">
                                 @Html.CheckBoxFor(model => model.NotAllSubject, htmlAttributes: new { @class = "big-checkbox" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.Label( "Approve/Reject :", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.Label( "Approve/Reject :", htmlAttributes: new { @class = "control-label col-md-2 required" })
                             <div class="col-md-10">
                                 <select class="form-control" id="FormStatus" name="FormStatus">
                                     <option value="Rejected">Reject</option>

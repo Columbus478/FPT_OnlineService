@@ -48,7 +48,7 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FormID,StudentPhone,SemesterNo,SemesterSeason,SemesterYear")] SuspendSemesterForm suspendSemesterForm)
+        public ActionResult Create([Bind(Include = "FormID,StudentPhone,TuitionFee,PreviousSemester,TwoPrevSemester")] SuspendSemesterForm suspendSemesterForm)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FormID,StudentPhone,SemesterNo,SemesterSeason,SemesterYear")] SuspendSemesterForm suspendSemesterForm)
+        public ActionResult Edit([Bind(Include = "FormID,StudentPhone,TuitionFee,PreviousSemester,TwoPrevSemester")] SuspendSemesterForm suspendSemesterForm)
         {
             if (ModelState.IsValid)
             {

@@ -7,13 +7,13 @@ namespace FPT_OnlineService.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class All : IMigrationMetadata
+    public sealed partial class All11 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(All));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(All11));
         
         string IMigrationMetadata.Id
         {
-            get { return "201603080810364_All"; }
+            get { return "201603161807384_All11"; }
         }
         
         string IMigrationMetadata.Source

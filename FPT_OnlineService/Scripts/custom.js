@@ -19,6 +19,9 @@ Skype.ui({
 //        adapter: new DemoAdapter()
 //    });
 //});
+$(function () {
+    $('.dropdown-menu').dropdown('toggle');
+});
 
 $(function () {
     $.chat({

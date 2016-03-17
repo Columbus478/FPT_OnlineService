@@ -9,6 +9,7 @@ using System.Data.Entity;
 using System.Net;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace FPT_OnlineService.Controllers
 {
@@ -18,12 +19,25 @@ namespace FPT_OnlineService.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         //GET All Forms
-        public ActionResult Index(string sortOrder, string searchString)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             string id = User.Identity.GetUserId();
             //DAL.DALUser.GetStudent(User.Identity.GetUserId(), User.Identity.GetUserName());
             ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            
             var forms = from f in db.Forms
                         select f;
             if (!String.IsNullOrEmpty(searchString))
@@ -36,24 +50,39 @@ namespace FPT_OnlineService.Controllers
                     forms = forms.OrderByDescending(f => f.Type);
                     break;
                 case "Date":
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
                 case "date_desc":
                     forms = forms.OrderByDescending(f => f.Date);
                     break;
                 default:
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
             }
-            return View(forms.ToList());
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(forms.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult New(string sortOrder, string searchString)
+        public ViewResult New(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             string id = User.Identity.GetUserId();
             //DAL.DALUser.GetStudent(User.Identity.GetUserId(), User.Identity.GetUserName());
             ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString; 
             var forms = from f in db.Forms
                         select f;
             if (!String.IsNullOrEmpty(searchString))
@@ -66,24 +95,39 @@ namespace FPT_OnlineService.Controllers
                     forms = forms.OrderByDescending(f => f.Type);
                     break;
                 case "Date":
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
                 case "date_desc":
                     forms = forms.OrderByDescending(f => f.Date);
                     break;
                 default:
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
             }
-            return View(forms.ToList());
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(forms.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult Approved(string sortOrder, string searchString)
+        public ViewResult Approved(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             string id = User.Identity.GetUserId();
             //DAL.DALUser.GetStudent(User.Identity.GetUserId(), User.Identity.GetUserName());
             ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
             var forms = from f in db.Forms
                         select f;
             if (!String.IsNullOrEmpty(searchString))
@@ -96,24 +140,39 @@ namespace FPT_OnlineService.Controllers
                     forms = forms.OrderByDescending(f => f.Type);
                     break;
                 case "Date":
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
                 case "date_desc":
                     forms = forms.OrderByDescending(f => f.Date);
                     break;
                 default:
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
             }
-            return View(forms.ToList());
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(forms.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult Rejected(string sortOrder, string searchString)
+        public ViewResult Rejected(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             string id = User.Identity.GetUserId();
             //DAL.DALUser.GetStudent(User.Identity.GetUserId(), User.Identity.GetUserName());
             ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString; 
             var forms = from f in db.Forms
                         select f;
             if (!String.IsNullOrEmpty(searchString))
@@ -126,24 +185,39 @@ namespace FPT_OnlineService.Controllers
                     forms = forms.OrderByDescending(f => f.Type);
                     break;
                 case "Date":
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
                 case "date_desc":
                     forms = forms.OrderByDescending(f => f.Date);
                     break;
                 default:
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
             }
-            return View(forms.ToList());
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(forms.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult InProgress(string sortOrder, string searchString)
+        public ViewResult InProgress(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             string id = User.Identity.GetUserId();
             //DAL.DALUser.GetStudent(User.Identity.GetUserId(), User.Identity.GetUserName());
             ViewBag.TypeSortParm = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString; 
             var forms = from f in db.Forms
                         select f;
             if (!String.IsNullOrEmpty(searchString))
@@ -156,16 +230,19 @@ namespace FPT_OnlineService.Controllers
                     forms = forms.OrderByDescending(f => f.Type);
                     break;
                 case "Date":
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
                 case "date_desc":
                     forms = forms.OrderByDescending(f => f.Date);
                     break;
                 default:
-                    forms = forms.OrderBy(f => f.Date);
+                    forms = forms.OrderByDescending(f => f.Date);
                     break;
             }
-            return View(forms.ToList());
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(forms.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult StaffEndorsement(int? id)
@@ -450,5 +527,116 @@ namespace FPT_OnlineService.Controllers
             return RedirectToAction("Index", "Staff");
         }
 
+
+        // GET: Semesters
+        public ActionResult Semester()
+        {
+            return View(db.Semesters.ToList());
+        }
+
+        // GET: Semesters/Details/5
+        public ActionResult SemesterDetails(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Semester semester = db.Semesters.Find(id);
+            if (semester == null)
+            {
+                return HttpNotFound();
+            }
+            return View(semester);
+        }
+
+        // GET: Semesters/Create
+        public ActionResult CreateSemester()
+        {
+            return View();
+        }
+
+        // POST: Semesters/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSemester([Bind(Include = "StartDate,EndDate,Year,NoOfWeeks,NoOfMonths,Season")] Semester semester)
+        {
+            if (ModelState.IsValid)
+            {
+                semester.Name = semester.Season+" " + semester.Year;
+                db.Semesters.Add(semester);
+                db.SaveChanges();
+                return RedirectToAction("Semester");
+            }
+
+            return View(semester);
+        }
+
+        // GET: Semesters/Edit/5
+        public ActionResult EditSemester(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Semester semester = db.Semesters.Find(id);
+            if (semester == null)
+            {
+                return HttpNotFound();
+            }
+            return View(semester);
+        }
+
+        // POST: Semesters/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSemester([Bind(Include = "StartDate,EndDate,Year,NoOfWeeks,NoOfMonths,Season")] Semester semester)
+        {
+            if (ModelState.IsValid)
+            {
+                semester.Name = semester.Season + " " + semester.Year;
+                db.Entry(semester).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Semester");
+            }
+            return View(semester);
+        }
+
+        // GET: Semesters/Delete/5
+        public ActionResult DeleteSemester(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Semester semester = db.Semesters.Find(id);
+            if (semester == null)
+            {
+                return HttpNotFound();
+            }
+            return View(semester);
+        }
+
+        // POST: Semesters/Delete/5
+        [HttpPost, ActionName("DeleteSemester")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            Semester semester = db.Semesters.Find(id);
+            db.Semesters.Remove(semester);
+            db.SaveChanges();
+            return RedirectToAction("Semester");
+        }
+
+
+        public ActionResult Notifications()
+        {
+            var notifications = db.Notifications.Include(n => n.Form).Include(n => n.Staff).Include(n => n.Student);
+            return View(notifications.ToList());
+        }
+        
     }
 }

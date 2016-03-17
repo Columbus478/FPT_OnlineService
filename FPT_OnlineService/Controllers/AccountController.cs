@@ -446,7 +446,10 @@ namespace FPT_OnlineService.Controllers
                                     student.RollNo = STrollNo;
                                     db.Students.Add(student);
                                     db.SaveChanges();
-                                    return RedirectToAction("Index", "Student");
+                                    //return RedirectToAction("Index", "Student");
+                                    string provider = "Google";
+                                    // Request a redirect to the external login provider
+                                    return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
                                 }
                                 else if (Models.User.UserRole.Equals("FPT-Staff"))
                                 {
@@ -461,7 +464,10 @@ namespace FPT_OnlineService.Controllers
                                     staff.StaffRole = "FPT-Staff";
                                     db.Staffs.Add(staff);
                                     db.SaveChanges();
-                                    return RedirectToAction("Index", "Staff");
+                                    //return RedirectToAction("Index", "Staff");
+                                    string provider = "Google";
+                                    // Request a redirect to the external login provider
+                                    return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
                                 }
 
                             }

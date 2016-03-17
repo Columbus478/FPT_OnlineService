@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.WebPages.Html;
 
 namespace FPT_OnlineService.Models
 {
@@ -22,6 +24,8 @@ namespace FPT_OnlineService.Models
 
         public string Status { get; set; }
 
+        public string FormDetails { get; set; }
+
         public bool IsWeekBefore { get; set; }
 
         [Display(Name = "Approved / Disapproved By: ")]
@@ -30,6 +34,7 @@ namespace FPT_OnlineService.Models
         public string ApprovalDate { get; set; }
 
         [ForeignKey("Student")]
+        [Display(Name="Student RollNo")]
         public string RollNo { get; set; }
 
         public virtual Student Student { get; set; }
@@ -86,10 +91,11 @@ namespace FPT_OnlineService.Models
         public int StudentPhone { get; set; }
 
         //Spring Fall Summer
+        [ForeignKey("Semester")]
         [Required]
-        [Display(Name = "Semester season")]
-        public string SemesterSeason { get; set; }
-
+        [Display(Name = "Semester's")]
+        public string SemesterName { get; set; }
+        
         [Display(Name = "Tuition Fee")]
         public bool TuitionFee { get; set; }
 
@@ -99,8 +105,9 @@ namespace FPT_OnlineService.Models
 
         [Display(Name = "Semester before the last")]
         public string TwoPrevSemester { get; set; }
-        
+
         public virtual Form Form { get; set; }
+        public virtual Semester Semester { get; set; }
     }
 
     public class SuspendSubjectForm
@@ -114,9 +121,11 @@ namespace FPT_OnlineService.Models
         public int StudentPhone { get; set; }
 
         //Spring Fall Summer
+        [ForeignKey("Semester")]
         [Required]
-        [Display(Name = "Semester season")]
-        public string SemesterSeason { get; set; }
+        [Display(Name = "Semester's")]
+        public string SemesterName { get; set; }
+
 
         [Required]
         [Display(Name = "Subject code")]
@@ -131,6 +140,7 @@ namespace FPT_OnlineService.Models
         public bool NotAllSubject { get; set; }
 
         public virtual Form Form { get; set; }
+        public virtual Semester Semester { get; set; }
 
     }
 
@@ -155,6 +165,7 @@ namespace FPT_OnlineService.Models
 
         [Required]
         [DataType(DataType.MultilineText)]
+        [StringLength(500, ErrorMessage = "Field cannot be longer than 500 characters.")]
         [Display(Name = "I am requesting for/I would like to explain my problem as followed: ")]
         public string Description { get; set; }
 
@@ -193,7 +204,7 @@ namespace FPT_OnlineService.Models
         public string Subject { get; set; }
 
         [Display(Name = "Courses available")]
-        public List<string> CoursesAvailable { get; set; }
+        public string CoursesAvailable { get; set; }
 
         [Display(Name = "Tuition Fee")]
         public bool TuitionFee { get; set; }
@@ -214,5 +225,24 @@ namespace FPT_OnlineService.Models
         public DropOutForm DropOutForm { get; set; }
 
         public RequestForm RequestForm { get; set; }
+
+        public Notification Notification { get; set; }
+    }
+
+    public class ListOfForms
+    {
+        public List<Form> Forms { get; set; }
+
+        public List<CourseRegForm> CourseRegForms { get; set; }
+
+        public List<SuspendSemesterForm> SuspendSemesterForms { get; set; }
+
+        public List<SuspendSubjectForm> SuspendSubjectForms { get; set; }
+
+        public List<DropOutForm> DropOutForms { get; set; }
+
+        public List<RequestForm> RequestForms { get; set; }
+
+        public List<Notification> Notifications { get; set; }
     }
 }

@@ -41,7 +41,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SqlServer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SqlServer.2.2.0\lib\net45\Microsoft.AspNet.SignalR.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -167,19 +187,54 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Delete\RequestFormsController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\Delete\SuspendSemesterFormsController.cs" />
     <Compile Include="Controllers\Delete\SuspendSubjectFormsController.cs" />
+    <Compile Include="Controllers\SuspendSemesterFormsController.cs" />
     <Compile Include="DAL\DALUser.cs" />
+    <Compile Include="DAL\Forms.cs" />
     <Compile Include="DAL\UserInfo.cs" />
     <Compile Include="DAL\Users.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201603080810364_All.cs" />
-    <Compile Include="Migrations\201603080810364_All.Designer.cs">
-      <DependentUpon>201603080810364_All.cs</DependentUpon>
+    <Compile Include="Helper\Help.cs" />
+    <Compile Include="Migrations\201603151405112_All.cs" />
+    <Compile Include="Migrations\201603151405112_All.Designer.cs">
+      <DependentUpon>201603151405112_All.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603151552329_All1.cs" />
+    <Compile Include="Migrations\201603151552329_All1.Designer.cs">
+      <DependentUpon>201603151552329_All1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603151620524_All2.cs" />
+    <Compile Include="Migrations\201603151620524_All2.Designer.cs">
+      <DependentUpon>201603151620524_All2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603151650274_All3.cs" />
+    <Compile Include="Migrations\201603151650274_All3.Designer.cs">
+      <DependentUpon>201603151650274_All3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603161807384_All11.cs" />
+    <Compile Include="Migrations\201603161807384_All11.Designer.cs">
+      <DependentUpon>201603161807384_All11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603161820045_All21.cs" />
+    <Compile Include="Migrations\201603161820045_All21.Designer.cs">
+      <DependentUpon>201603161820045_All21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603161840367_All31.cs" />
+    <Compile Include="Migrations\201603161840367_All31.Designer.cs">
+      <DependentUpon>201603161840367_All31.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603161917455_Ass.cs" />
+    <Compile Include="Migrations\201603161917455_Ass.Designer.cs">
+      <DependentUpon>201603161917455_Ass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603170714231_Asr.cs" />
+    <Compile Include="Migrations\201603170714231_Asr.Designer.cs">
+      <DependentUpon>201603170714231_Asr.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -187,6 +242,8 @@
     <Compile Include="Models\FormsViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NotificationModel.cs" />
+    <Compile Include="Models\SemesterModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -194,8 +251,9 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\half-slider.css" />
-    <Content Include="Content\staff-site.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Controllers\Delete\half-slider.css" />
+    <Content Include="Controllers\Delete\staff-site.css" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -208,6 +266,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -299,6 +359,26 @@
     <Content Include="Views\Student\Approved.cshtml" />
     <Content Include="Views\Student\New.cshtml" />
     <Content Include="Views\Staff\New.cshtml" />
+    <Content Include="Views\Staff\Notifications.cshtml" />
+    <Content Include="Views\Student\Notifications.cshtml" />
+    <Content Include="Views\Notifications\Create.cshtml" />
+    <Content Include="Views\Notifications\Delete.cshtml" />
+    <Content Include="Views\Notifications\Details.cshtml" />
+    <Content Include="Views\Notifications\Edit.cshtml" />
+    <Content Include="Views\Notifications\Index.cshtml" />
+    <Content Include="Views\Shared\_Notifications.cshtml" />
+    <Content Include="Views\Semesters\CreateSemester.cshtml" />
+    <Content Include="Views\Semesters\DeleteSemester.cshtml" />
+    <Content Include="Views\Semesters\SemesterDetails.cshtml" />
+    <Content Include="Views\Semesters\EditSemester.cshtml" />
+    <Content Include="Views\Semesters\Semester.cshtml" />
+    <Content Include="Views\Staff\CreateSemester.cshtml" />
+    <Content Include="Views\Staff\DeleteSemester.cshtml" />
+    <Content Include="Views\Staff\EditSemester.cshtml" />
+    <Content Include="Views\Staff\Semester.cshtml" />
+    <Content Include="Views\Staff\SemesterDetails.cshtml" />
+    <Content Include="Views\Student\Drafts.cshtml" />
+    <Content Include="Views\Student\Trash.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -320,8 +400,32 @@
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603080810364_All.resx">
-      <DependentUpon>201603080810364_All.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201603151405112_All.resx">
+      <DependentUpon>201603151405112_All.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603151552329_All1.resx">
+      <DependentUpon>201603151552329_All1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603151620524_All2.resx">
+      <DependentUpon>201603151620524_All2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603151650274_All3.resx">
+      <DependentUpon>201603151650274_All3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603161807384_All11.resx">
+      <DependentUpon>201603161807384_All11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603161820045_All21.resx">
+      <DependentUpon>201603161820045_All21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603161840367_All31.resx">
+      <DependentUpon>201603161840367_All31.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603161917455_Ass.resx">
+      <DependentUpon>201603161917455_Ass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603170714231_Asr.resx">
+      <DependentUpon>201603170714231_Asr.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

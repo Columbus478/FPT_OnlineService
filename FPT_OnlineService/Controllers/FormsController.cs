@@ -11,6 +11,7 @@ using FPT_OnlineService.DAL;
 
 namespace FPT_OnlineService.Controllers
 {
+    [Authorize(Roles="Student,FPT-Staff")]
     public class FormsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -72,6 +73,9 @@ namespace FPT_OnlineService.Controllers
             Form form = db.Forms.Find(id);
             string formType = form.Type;
 
+            if (!form.Status.Equals("New"))
+                return RedirectToAction("Details", new { id = id });
+
             switch (formType)
             {
                 case ("Course Registration"):
@@ -82,7 +86,7 @@ namespace FPT_OnlineService.Controllers
                     return RedirectToAction("SuspendSemesterEdit", new { id = id });
                 case ("Drop Out"):
                     return RedirectToAction("DropOutEdit", new { id = id });
-                case ("General Request"):
+                case ("Request"):
                     return RedirectToAction("RequestEdit", new { id = id });
                 default:
                     break;
@@ -100,6 +104,8 @@ namespace FPT_OnlineService.Controllers
             //string formType = CheckFormType(id);
             Form form = db.Forms.Find(id);
             string formType = form.Type;
+            if (!form.Status.Equals("New"))
+                return RedirectToAction("Details", new { id = id });
 
             switch (formType)
             {
@@ -143,6 +149,7 @@ namespace FPT_OnlineService.Controllers
                 form.Date = DateTime.Now;
                 form.CurrentDesk = "Academic Staff";
                 form.Flow = "AcademicStaff,";
+                form.FormDetails = "Course Registration: "+courseRegForm.Subject+" ("+courseRegForm.SubjectCode+")";
                 form.RollNo = UserInfo.Username;
                 form.Status = "New";
                 db.Forms.Add(form);
@@ -180,6 +187,9 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CourseRegForm courseRegForm = db.CourseRegForms.Find(id);
+            Form form = db.Forms.Find(id);
+            if (!form.Status.Equals("New"))
+                return RedirectToAction("Details", new { id = id });
             if (courseRegForm == null)
             {
                 return HttpNotFound();
@@ -214,29 +224,6 @@ namespace FPT_OnlineService.Controllers
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult StaffEndorsement([Bind(Include = "FormID,PreviousSemester,TwoPrevSemester")] SuspendSemesterForm suspendSemesterForm)
-        {
-            if (ModelState.IsValid)
-            {
-                SuspendSemesterForm ssf = db.SuspendSemesterForms.Find(suspendSemesterForm.FormID);
-                ssf.PreviousSemester = suspendSemesterForm.PreviousSemester;
-                ssf.TwoPrevSemester = suspendSemesterForm.TwoPrevSemester;
-                db.Entry(ssf).State = EntityState.Modified;
-                db.SaveChanges();
-                if (DAL.UserInfo.Role.Equals("Student"))
-                    return RedirectToAction("Index", "Student");
-                else if (DAL.UserInfo.Role.Contains("Staff"))
-                    return RedirectToAction("Index", "Staff");
-                else
-                    return RedirectToAction("Index", "Home");
-            }
-
-            ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", suspendSemesterForm.FormID);
-            return View(suspendSemesterForm);
-        }
-
         // GET: CourseRegForms/Delete/5
         public ActionResult CourseRegDelete(int? id)
         {
@@ -245,6 +232,9 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CourseRegForm courseRegForm = db.CourseRegForms.Find(id);
+            Form form = db.Forms.Find(id);
+            if (!form.Status.Equals("New"))
+                return RedirectToAction("Details", new { id = id });
             if (courseRegForm == null)
             {
                 return HttpNotFound();
@@ -290,6 +280,7 @@ namespace FPT_OnlineService.Controllers
         public ActionResult SuspendSubjectCreate()
         {
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type");
+            ViewBag.SemesterName = new SelectList(db.Semesters, "Name", "Name");
             return View();
         }
 
@@ -298,7 +289,7 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuspendSubjectCreate([Bind(Include = "StudentPhone,SemesterSeason,SubjectCode,SubjectName")] SuspendSubjectForm suspendSubjectForm)
+        public ActionResult SuspendSubjectCreate([Bind(Include = "FormID,StudentPhone,SubjectName,SubjectCode,SemesterName")] SuspendSubjectForm suspendSubjectForm)
         {
             if (ModelState.IsValid)
             {
@@ -307,6 +298,7 @@ namespace FPT_OnlineService.Controllers
                 form.Date = DateTime.Now;
                 form.CurrentDesk = "Academic Staff";
                 form.Flow = "AcademicStaff,";
+                form.FormDetails = "Suspend Subject: "+suspendSubjectForm.SubjectName+" ("+suspendSubjectForm.SubjectCode+")";
                 form.RollNo = UserInfo.Username;
                 form.Status = "New";
                 db.Forms.Add(form);
@@ -318,6 +310,7 @@ namespace FPT_OnlineService.Controllers
             }
 
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", suspendSubjectForm.FormID);
+            ViewBag.SemesterName = new SelectList(db.Semesters, "Name", "Name");
             return View(suspendSubjectForm);
         }
 
@@ -329,10 +322,14 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SuspendSubjectForm suspendSubjectForm = db.SuspendSubjectForms.Find(id);
+            Form form = db.Forms.Find(id);
+            if (!form.Status.Equals("New"))
+                return RedirectToAction("Details", new { id = id });
             if (suspendSubjectForm == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.SemesterName = new SelectList(db.Semesters, "Name", "Name");
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", suspendSubjectForm.FormID);
             return View(suspendSubjectForm);
         }
@@ -342,7 +339,7 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuspendSubjectEdit([Bind(Include = "FormID,StudentPhone,SemesterNo,BlockNo,SemesterSeason,SemesterYear")] SuspendSubjectForm suspendSubjectForm)
+        public ActionResult SuspendSubjectEdit([Bind(Include = "FormID,StudentPhone,SubjectName,SubjectCode,SemesterName")] SuspendSubjectForm suspendSubjectForm)
         {
             if (ModelState.IsValid)
             {
@@ -355,6 +352,7 @@ namespace FPT_OnlineService.Controllers
                 else
                     return RedirectToAction("Index", "Home");
             }
+            ViewBag.SemesterName = new SelectList(db.Semesters, "Name", "Name");
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", suspendSubjectForm.FormID);
             return View(suspendSubjectForm);
         }
@@ -367,6 +365,9 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SuspendSubjectForm suspendSubjectForm = db.SuspendSubjectForms.Find(id);
+            Form form = db.Forms.Find(id);
+            if (!form.Status.Equals("New"))
+                return RedirectToAction("Details", new { id = id });
             if (suspendSubjectForm == null)
             {
                 return HttpNotFound();
@@ -401,6 +402,9 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SuspendSemesterForm suspendSemesterForm = db.SuspendSemesterForms.Find(id);
+            Form form = db.Forms.Find(id);
+            if (!form.Status.Equals("New"))
+                return RedirectToAction("Details", new { id = id });
             if (suspendSemesterForm == null)
             {
                 return HttpNotFound();
@@ -412,6 +416,13 @@ namespace FPT_OnlineService.Controllers
         public ActionResult SuspendSemesterCreate()
         {
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type");
+            ViewBag.SemesterName = new SelectList(db.Semesters,"Name","Name");
+            //var semesters = db.Semesters.Select(s => new SelectListItem
+            //    {
+            //        Value = s.Name,
+            //        Text = s.Name
+            //    });
+            //ViewBag.Semesters = semesters.AsEnumerable();
             return View();
         }
 
@@ -420,7 +431,7 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuspendSemesterCreate([Bind(Include = "StudentPhone,SemesterSeason,SemesterYear")] SuspendSemesterForm suspendSemesterForm)
+        public ActionResult SuspendSemesterCreate([Bind(Include = "StudentPhone,SemesterName")] SuspendSemesterForm suspendSemesterForm)
         {
             if (ModelState.IsValid)
             {
@@ -429,6 +440,7 @@ namespace FPT_OnlineService.Controllers
                 form.Date = DateTime.Now;
                 form.CurrentDesk = "Academic Staff";
                 form.Flow = "AcademicStaff,";
+                form.FormDetails = "Suspend Semester: " + suspendSemesterForm.SemesterName;
                 form.RollNo = UserInfo.Username;
                 form.Status = "New";
                 db.Forms.Add(form);
@@ -440,6 +452,7 @@ namespace FPT_OnlineService.Controllers
             }
 
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", suspendSemesterForm.FormID);
+            ViewBag.SemesterName = new SelectList(db.Semesters, "Name", "Name");
             return View(suspendSemesterForm);
         }
 
@@ -451,10 +464,14 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SuspendSemesterForm suspendSemesterForm = db.SuspendSemesterForms.Find(id);
+            Form form = db.Forms.Find(id);
+            if (!form.Status.Equals("New"))
+                return RedirectToAction("Details", new { id = id });
             if (suspendSemesterForm == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.SemesterName = new SelectList(db.Semesters, "Name", "Name");
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", suspendSemesterForm.FormID);
             return View(suspendSemesterForm);
         }
@@ -464,7 +481,7 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuspendSemesterEdit([Bind(Include = "FormID,StudentPhone,SemesterNo,SemesterSeason,SemesterYear")] SuspendSemesterForm suspendSemesterForm)
+        public ActionResult SuspendSemesterEdit([Bind(Include = "FormID,StudentPhone,SemesterName")] SuspendSemesterForm suspendSemesterForm)
         {
             if (ModelState.IsValid)
             {
@@ -477,6 +494,7 @@ namespace FPT_OnlineService.Controllers
                 else
                     return RedirectToAction("Index", "Home");
             }
+            ViewBag.SemesterName = new SelectList(db.Semesters, "Name", "Name");
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", suspendSemesterForm.FormID);
             return View(suspendSemesterForm);
         }
@@ -489,6 +507,9 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SuspendSemesterForm suspendSemesterForm = db.SuspendSemesterForms.Find(id);
+            Form form = db.Forms.Find(id);
+            if (!form.Status.Equals("New"))
+                return RedirectToAction("Details", new { id = id });
             if (suspendSemesterForm == null)
             {
                 return HttpNotFound();
@@ -523,6 +544,9 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             RequestForm requestForm = db.RequestForms.Find(id);
+            Form form = db.Forms.Find(id);
+            if (!form.Status.Equals("New"))
+                return RedirectToAction("Details", new { id = id });
             if (requestForm == null)
             {
                 return HttpNotFound();
@@ -547,10 +571,11 @@ namespace FPT_OnlineService.Controllers
             if (ModelState.IsValid)
             {
                 Form form = new Form();
-                form.Type = "General Request";
+                form.Type = "Request";
                 form.Date = DateTime.Now;
                 form.CurrentDesk = "Academic Staff";
                 form.Flow = "AcademicStaff,";
+                form.FormDetails = "Request: " + requestForm.RequestTitle;
                 form.RollNo = UserInfo.Username;
                 form.Status = "New";
                 db.Forms.Add(form);
@@ -611,6 +636,9 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             RequestForm requestForm = db.RequestForms.Find(id);
+            Form form = db.Forms.Find(id);
+            if (!form.Status.Equals("New"))
+                return RedirectToAction("Details", new { id = id });
             if (requestForm == null)
             {
                 return HttpNotFound();
@@ -644,6 +672,9 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             DropOutForm dropOutForm = db.DropOutForms.Find(id);
+            Form form = db.Forms.Find(id);
+            if (!form.Status.Equals("New"))
+                return RedirectToAction("Details", new { id = id });
             if (dropOutForm == null)
             {
                 return HttpNotFound();
@@ -673,6 +704,7 @@ namespace FPT_OnlineService.Controllers
                 form.CurrentDesk = "Academic Staff";
                 form.Flow = "AcademicStaff,";
                 form.RollNo = UserInfo.Username;
+                form.FormDetails = "Drop Out: "+dropOutForm.Reason;
                 form.Status = "New";
                 db.Forms.Add(form);
                 db.SaveChanges();
@@ -732,6 +764,9 @@ namespace FPT_OnlineService.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             DropOutForm dropOutForm = db.DropOutForms.Find(id);
+            Form form = db.Forms.Find(id);
+            if (!form.Status.Equals("New"))
+                return RedirectToAction("Details", new { id = id });
             if (dropOutForm == null)
             {
                 return HttpNotFound();
@@ -756,8 +791,7 @@ namespace FPT_OnlineService.Controllers
             else
                 return RedirectToAction("Index", "Home");
         }
-
-
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)
