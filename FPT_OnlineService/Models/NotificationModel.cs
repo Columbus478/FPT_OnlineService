@@ -13,7 +13,7 @@ namespace FPT_OnlineService.Models
         public int ID { get; set; }
 
         [ForeignKey("Student")]
-        public string StudentRollNo { get; set; }
+        public string StudentStudentRollNo { get; set; }
 
         [ForeignKey("Form")]
         public int FormID { get; set; }

@@ -100,6 +100,7 @@ C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_Onli
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Release\Microsoft.Owin.Security.Cookies.dll
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Release\Microsoft.Owin.Security.Google.dll
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Release\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Release\PagedList.dll
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Release\FPT_OnlineService.pdb
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Release\Newtonsoft.Json.xml
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Release\System.Web.Helpers.xml
@@ -118,8 +119,7 @@ C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_Onli
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Release\Microsoft.Owin.Security.Cookies.xml
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Release\Microsoft.Owin.Security.Google.xml
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Release\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Release\PagedList.xml
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\obj\Release\FPT_OnlineService.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\obj\Release\FPT_OnlineService.Tests.dll
 C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\obj\Release\FPT_OnlineService.Tests.pdb
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Release\PagedList.dll
-C:\Users\Samuel\Documents\Visual Studio 2013\Projects\FPT_OnlineService\FPT_OnlineService.Tests\bin\Release\PagedList.xml

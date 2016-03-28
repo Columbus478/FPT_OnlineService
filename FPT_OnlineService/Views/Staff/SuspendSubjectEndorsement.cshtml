@@ -13,120 +13,156 @@
     <title>Details</title>
 </head>
 <body>
-    @using(Html.BeginForm())
+    @using (Html.BeginForm(new { }))
     {
         @Html.AntiForgeryToken()
 
-    <div class="">
-        <h4 class="h4">Suspend Subject Form.</h4>
-        <hr />
-        <dl class="dl-horizontal">            
-            @Html.HiddenFor(model => model.FormID)
-            <dt>
-                @Html.DisplayNameFor(model => model.Form.Type)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Form.Type)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.StudentPhone)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.StudentPhone)
-            </dd>
+        <div class="">
+            <h4 class="h4">Suspend Subject Form.</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                @Html.HiddenFor(model => model.FormID)
+                <dt>
+                    @Html.DisplayNameFor(model => model.Form.Type)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Semester)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Form.Type)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Semester)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Form.StudentPhone)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.SubjectCode)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Form.StudentPhone)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.SubjectCode)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SemesterName)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.SubjectName)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SemesterName)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.SubjectName)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SubjectCode)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.NotAllSubject)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SubjectCode)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.NotAllSubject)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SubjectName)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Form.EndorsedBy)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SubjectName)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Form.EndorsedBy)
-            </dd>
-        </dl>
-    </div>
-    <p>
-        @if (!FPT_OnlineService.DAL.UserInfo.Username.Equals(null))
-        {
-            if (FPT_OnlineService.DAL.UserInfo.Role.Equals("Student"))
+                <dt>
+                    @Html.DisplayNameFor(model => model.NotAllSubject)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NotAllSubject)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Form.ApprovalBy)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Form.ApprovalBy)
+                </dd>
+            </dl>
+        </div>
+        <p>
+            @if (!FPT_OnlineService.DAL.UserInfo.Username.Equals(null))
             {
-                @Html.ActionLink("Edit", "Edit","Forms", new { id = Model.FormID }) @:&nbsp;
-                @Html.ActionLink("Back to List", "Index", "Student")
-            }
-            else if (FPT_OnlineService.DAL.UserInfo.Role.Contains("Staff"))
-            {
+                if (FPT_OnlineService.DAL.UserInfo.Role.Equals("Student"))
+                {
+                    @Html.ActionLink("Edit", "Edit", "Forms", new { id = Model.FormID }) @:&nbsp;
+                    @Html.ActionLink("Back to List", "Index", "Student")
+                }
+                else if (FPT_OnlineService.DAL.UserInfo.Role.Contains("Staff"))
+                {
+                    if (!Model.Form.Status.Equals("Approved"))
+                    {
 
-                    <div class="form-horizontal">
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
-                            @Html.Label("Submitted A week before :", htmlAttributes: new { @class = "control-label col-md-2 required" })
-                            <div class="col-md-10">
-                                <input type="checkbox" name="IsWeekBefore" class="big-checkbox"/>
+                        if (!Model.Form.Status.Equals("Rejected"))
+                        {
+                        <div class="form-horizontal">
+
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.Label("Submitted A week before :", htmlAttributes: new { @class = "control-label col-md-2 required" })
+                                <div class="col-md-10">
+                                    <input type="checkbox" name="IsWeekBefore" class="big-checkbox" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Not All Subject :", htmlAttributes: new { @class = "control-label col-md-2 required" })
+                                <div class="col-md-10">
+                                    @Html.CheckBoxFor(model => model.NotAllSubject, htmlAttributes: new { @class = "big-checkbox" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Comment / Note", htmlAttributes: new { @class = "control-label col-md-2 required" })
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" name="formComment" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Approve/Reject :", htmlAttributes: new { @class = "control-label col-md-2 required" })
+                                <div class="col-md-10">
+                                    <select class="form-control" id="FormStatus" name="FormStatus">
+                                        <option value="">--- Select ---</option>
+                                        <option value="Rejected">Reject</option>
+                                        <option value="Approved">Approve</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="openModal" class="modalDialog">
+                                <div class="active dropdown">
+                                    <a href="#close" title="Close" class="close">X</a>
+                                    <div class="form-group">
+                                        @Html.Label("Forward to: ", htmlAttributes: new { @class = "control-label col-md-2 required" })
+                                        <div class="col-md-10">
+                                            <select class="form-control" id="ForwardTo" name="ForwardTo">
+                                                <option value="">--- Select ---</option>
+                                                <option value="7">Academic Staff</option>
+                                                <option value="4">Head of Academic Department</option>
+                                                <option value="5">Academic Head</option>
+                                                <option value="6">Campus Director</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Endorse" class="btn btn-default" />
+                                            <a href="#openModal" class="btn btn-default">Forward</a> 
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            @Html.Label("Not All Subject :", htmlAttributes: new { @class = "control-label col-md-2 required" })
-                            <div class="col-md-10">
-                                @Html.CheckBoxFor(model => model.NotAllSubject, htmlAttributes: new { @class = "big-checkbox" })
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Endorse" class="btn btn-default" />
+                                <a href="#openModal" class="btn btn-default">Forward</a> 
                             </div>
                         </div>
-                        <div class="form-group">
-                            @Html.Label( "Approve/Reject :", htmlAttributes: new { @class = "control-label col-md-2 required" })
-                            <div class="col-md-10">
-                                <select class="form-control" id="FormStatus" name="FormStatus">
-                                    <option value="Rejected">Reject</option>
-                                    <option value="Approved">Approve</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Endorse" class="btn btn-default" />
-                        </div>
-                    </div>
             }
-        }
-</p>
-    @Html.ActionLink("Forward", "Forward", "Staff", new { id = Model.FormID }) @:&nbsp;
-    @Html.ActionLink("Reject", "Reject", "Staff", new { id = Model.FormID }) @:&nbsp;
-    @Html.ActionLink("Approve", "Approve", "Staff", new { id = Model.FormID }) @:&nbsp;
+                    }
+                }
+            }
+        </p>
     @Html.ActionLink("Back to List", "Index", "Staff")
     }
 </body>

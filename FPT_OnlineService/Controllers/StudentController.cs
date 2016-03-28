@@ -213,10 +213,10 @@ namespace FPT_OnlineService.Controllers
             return View(forms.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult Notifications()
-        {
-            var notifications = db.Notifications.Include(n => n.Form).Include(n => n.Staff).Include(n => n.Student);
-            return View(notifications.ToList());
-        }
+        //public ActionResult Notifications()
+        //{
+        //   // var notifications = db.Notifications.Include(n => n.Form).Include(n => n.Staff).Include(n => n.Student);
+        //    return View(notifications.ToList());
+        //}
     }
 }

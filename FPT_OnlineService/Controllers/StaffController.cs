@@ -10,10 +10,12 @@ using System.Net;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using PagedList;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace FPT_OnlineService.Controllers
 {
-    [Authorize(Roles = "FPT-Staff")]
+    [Authorize(Roles = "FPT-Staff,HeadOfAcademicDepartment-Staff,AcademicHead-Staff,CampusDirector-Staff,Academic-Staff")]
     public class StaffController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -42,7 +44,7 @@ namespace FPT_OnlineService.Controllers
                         select f;
             if (!String.IsNullOrEmpty(searchString))
             {
-                forms = forms.Where(f => f.RollNo.Contains(searchString));
+                forms = forms.Where(f => f.StudentRollNo.Contains(searchString));
             }
             switch (sortOrder)
             {
@@ -87,7 +89,7 @@ namespace FPT_OnlineService.Controllers
                         select f;
             if (!String.IsNullOrEmpty(searchString))
             {
-                forms = forms.Where(f => f.RollNo.Contains(searchString));
+                forms = forms.Where(f => f.StudentRollNo.Contains(searchString));
             }
             switch (sortOrder)
             {
@@ -132,7 +134,7 @@ namespace FPT_OnlineService.Controllers
                         select f;
             if (!String.IsNullOrEmpty(searchString))
             {
-                forms = forms.Where(f => f.RollNo.Contains(searchString));
+                forms = forms.Where(f => f.StudentRollNo.Contains(searchString));
             }
             switch (sortOrder)
             {
@@ -177,7 +179,7 @@ namespace FPT_OnlineService.Controllers
                         select f;
             if (!String.IsNullOrEmpty(searchString))
             {
-                forms = forms.Where(f => f.RollNo.Contains(searchString));
+                forms = forms.Where(f => f.StudentRollNo.Contains(searchString));
             }
             switch (sortOrder)
             {
@@ -222,7 +224,7 @@ namespace FPT_OnlineService.Controllers
                         select f;
             if (!String.IsNullOrEmpty(searchString))
             {
-                forms = forms.Where(f => f.RollNo.Contains(searchString));
+                forms = forms.Where(f => f.StudentRollNo.Contains(searchString));
             }
             switch (sortOrder)
             {
@@ -265,7 +267,7 @@ namespace FPT_OnlineService.Controllers
                     return RedirectToAction("SuspendSemesterEndorsement", new { id = id });
                 case ("Drop Out"):
                     return RedirectToAction("DropOutEndorsement", new { id = id });
-                case ("General Request"):
+                case ("Request"):
                     return RedirectToAction("RequestEndorsement", new { id = id });
                 /*
             case (""):
@@ -300,27 +302,56 @@ namespace FPT_OnlineService.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuspendSemesterEndorsement([Bind(Include = "FormID,Status,PreviousSemester,TwoPrevSemester")] SuspendSemesterForm suspendSemesterForm, string IsWeekBefore, string FormStatus, string TuitionFee)
+        public async Task<ActionResult> SuspendSemesterEndorsement([Bind(Include = "FormID,PreviousSemester,TuitionFee,TwoPrevSemester")] 
+            SuspendSemesterForm suspendSemesterForm, FormCollection collection)
         {
+            string ForwardTo = collection["ForwardTo"];
+            string IsWeekBefore = collection["IsWeekBefore"];
+            string FormStatus = collection["FormStatus"];
+            string Life = collection["Life"];
+            //string TuitionFee = collection["TuitionFee"];
+            string formComment = collection["formComment"];
             SuspendSemesterForm ssf = db.SuspendSemesterForms.Find(suspendSemesterForm.FormID);
             Form f = db.Forms.Find(suspendSemesterForm.FormID);
-            f.Status = FormStatus;
+            FormComment fC = new FormComment();
+            fC.FormID = suspendSemesterForm.FormID;
+            fC.Comment = formComment;
+            fC.RoleID = Helper.Help.GetRoleId(DAL.UserInfo.Role);
+            if (FormStatus.Equals(""))
+                f.Status = "Inprogress";
+            else
+                f.Status = FormStatus;
+            string getCurrentDesk = Helper.Help.GetCurrentDesk(Int32.Parse(ForwardTo));
+            if (getCurrentDesk.Length > 4)
+            {
+                f.CurrentDesk = getCurrentDesk;
+                f.Flow = f.Flow + f.CurrentDesk + ",";
+            }
             if (IsWeekBefore.Equals("on"))
-                f.IsWeekBefore = true;
+                ssf.IsWeekBefore = true;
             else
-                f.IsWeekBefore = false;
-            f.EndorsedBy = DAL.UserInfo.Name;
-            if (f.Status.Equals("Approved"))
-                f.ApprovalDate = DateTime.Now.ToString();
+                ssf.IsWeekBefore = false;
+            
+                
 
-            if (TuitionFee.Equals("true"))
-                ssf.TuitionFee = true;
-            else
-                ssf.TuitionFee = false;
+            //if (TuitionFee.Equals("true"))
+            //    ssf.TuitionFee = true;
+            //else
+            //    ssf.TuitionFee = false;
             ssf.PreviousSemester = suspendSemesterForm.PreviousSemester;
             ssf.TwoPrevSemester = suspendSemesterForm.TwoPrevSemester;
             db.Entry(ssf).State = EntityState.Modified;
+            db.FormComments.Add(fC);
             db.SaveChanges();
+            if (f.Status.Equals("Approved") || f.Status.Equals("Rejected"))
+            {
+                f.ApprovalDate = DateTime.Now.ToString();
+                f.ApprovalBy = DAL.UserInfo.Role;
+                Helper.Notify notify = new Helper.Notify();
+
+                string notifyMessage = "Your " + f.Type + " for " + ssf.SemesterName + " has been " + f.Status;
+                await SendNotification(notifyMessage, DAL.UserInfo.Email, f.StudentRollNo);
+            }
             return RedirectToAction("Index", "Staff");
         }
 
@@ -350,25 +381,51 @@ namespace FPT_OnlineService.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuspendSubjectEndorsement([Bind(Include = "FormID")] SuspendSubjectForm suspendSubjectForm, string FormStatus, string IsWeekBefore, string NotAllSubject)
+        public async Task<ActionResult> SuspendSubjectEndorsement([Bind(Include = "FormID,NotAllSubject")] 
+            SuspendSubjectForm suspendSubjectForm, FormCollection collection)
         {
+            string ForwardTo = collection["ForwardTo"];            
+            string FormStatus = collection["FormStatus"];
+            string IsWeekBefore = collection["IsWeekBefore"];
+            //string NotAllSubject = collection["NotAllSubject"];
+            string formComment = collection["formComment"];
             SuspendSubjectForm ssf = db.SuspendSubjectForms.Find(suspendSubjectForm.FormID);
             Form f = db.Forms.Find(suspendSubjectForm.FormID);
-            f.Status = FormStatus;
+            FormComment fC = new FormComment();
+            fC.FormID = suspendSubjectForm.FormID;
+            fC.Comment = formComment;
+            fC.RoleID = Helper.Help.GetRoleId(DAL.UserInfo.Role);
+            if (FormStatus.Equals(""))
+                f.Status = "Inprogress";
+            else
+                f.Status = FormStatus;
+            string getCurrentDesk = Helper.Help.GetCurrentDesk(Int32.Parse(ForwardTo));
+            if (getCurrentDesk.Length > 4)
+            {
+                f.CurrentDesk = getCurrentDesk;
+                f.Flow = f.Flow + f.CurrentDesk + ",";
+            }
             if (IsWeekBefore.Equals("on"))
-                f.IsWeekBefore = true;
+                ssf.IsWeekBefore = true;
             else
-                f.IsWeekBefore = false;
-            f.EndorsedBy = DAL.UserInfo.Name;
-            if (f.Status.Equals("Approved"))
-                f.ApprovalDate = DateTime.Now.ToString();
+                ssf.IsWeekBefore = false;
 
-            if (NotAllSubject.Equals("true"))
-                ssf.NotAllSubject = true;
-            else
-                ssf.NotAllSubject = false;
+            //if (NotAllSubject.Equals("true"))
+            //    ssf.NotAllSubject = true;
+            //else
+            //    ssf.NotAllSubject = false;
             db.Entry(ssf).State = EntityState.Modified;
+            db.FormComments.Add(fC);
             db.SaveChanges();
+            if(f.Status.Equals("Approved") || f.Status.Equals("Rejected"))
+            {
+                f.ApprovalDate = DateTime.Now.ToString();
+                f.ApprovalBy = DAL.UserInfo.Role;
+                Helper.Notify notify = new Helper.Notify();
+                
+                string notifyMessage = "Your " +f.Type+" for "+ ssf.SubjectName + " has been "+f.Status;
+                await SendNotification(notifyMessage, DAL.UserInfo.Email, f.StudentRollNo);
+            }
             return RedirectToAction("Index", "Staff");
         }
 
@@ -396,27 +453,56 @@ namespace FPT_OnlineService.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CourseRegEndorsement([Bind(Include = "FormID")] CourseRegForm courseRegForm, string FormStatus, string IsWeekBefore, List<string> CoursesAvailable, string TuitionFee)
+        public async Task<ActionResult> CourseRegEndorsement([Bind(Include = "FormID,TuitionFee")] 
+            CourseRegForm courseRegForm, FormCollection collection)
         {
+            string ForwardTo = collection["ForwardTo"];
+            string FormStatus = collection["FormStatus"];
+            string IsWeekBefore = collection["IsWeekBefore"];
+            string NotAllSubject = collection["NotAllSubject"];
+            string formComment = collection["formComment"];
+            //string TuitionFee = collection["TuitionFee"];
+            string CoursesAvailable = collection["CoursesAvailable"];
+
             CourseRegForm crf = db.CourseRegForms.Find(courseRegForm.FormID);
             Form f = db.Forms.Find(courseRegForm.FormID);
-            f.Status = FormStatus;
+            FormComment fC = new FormComment();
+            fC.FormID = courseRegForm.FormID;
+            fC.Comment = formComment;
+            fC.RoleID = Helper.Help.GetRoleId(DAL.UserInfo.Role);
+            if (FormStatus.Equals(""))
+                f.Status = "Inprogress";
+            else
+                f.Status = FormStatus;
+            string getCurrentDesk = Helper.Help.GetCurrentDesk(Int32.Parse(ForwardTo));
+            if (getCurrentDesk.Length > 4)
+            {
+                f.CurrentDesk = getCurrentDesk;
+                f.Flow = f.Flow + f.CurrentDesk + ",";
+            }
             if (IsWeekBefore.Equals("on"))
-                f.IsWeekBefore = true;
+                crf.IsWeekBefore = true;
             else
-                f.IsWeekBefore = false;
-            f.EndorsedBy = DAL.UserInfo.Name;
-            f.EndorsedBy = DAL.UserInfo.Name;
-            if (f.Status.Equals("Approved"))
-                f.ApprovalDate = DateTime.Now.ToString();
+                crf.IsWeekBefore = false;
+            
 
-            if (TuitionFee.Equals("true"))
-                crf.TuitionFee = true;
-            else
-                crf.TuitionFee = false;
-
+            //if (TuitionFee.Equals("true"))
+            //    crf.TuitionFee = true;
+            //else
+            //    crf.TuitionFee = false;
+            crf.CoursesAvailable = CoursesAvailable;
             db.Entry(crf).State = EntityState.Modified;
+            db.FormComments.Add(fC);
             db.SaveChanges();
+            if (f.Status.Equals("Approved") || f.Status.Equals("Rejected"))
+            {
+                f.ApprovalDate = DateTime.Now.ToString();
+                f.ApprovalBy = DAL.UserInfo.Role;
+                Helper.Notify notify = new Helper.Notify();
+
+                string notifyMessage = "Your " + f.Type + " for " + crf.Subject + " has been " + f.Status;
+                await SendNotification(notifyMessage, DAL.UserInfo.Email, f.StudentRollNo);
+            }
             return RedirectToAction("Index", "Staff");
         }
 
@@ -444,19 +530,34 @@ namespace FPT_OnlineService.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DropOutEndorsement([Bind(Include = "FormID")] DropOutForm dropOutForm, string FormStatus, string IsWeekBefore, 
-            string TuitionFee, string AcademicHeadEndorse, string AccountStatus, string LibraryStatus)
+        public async Task<ActionResult> DropOutEndorsement([Bind(Include = "FormID")] 
+            DropOutForm dropOutForm, FormCollection collection)
         {
+            string ForwardTo = collection["ForwardTo"];
+            string FormStatus = collection["FormStatus"];
+            string IsWeekBefore = collection["IsWeekBefore"];
+            string AcademicHeadEndorse = collection["AcademicHeadEndorse"];
+            string formComment = collection["formComment"];
+            string TuitionFee = collection["TuitionFee"];
+            string AccountStatus = collection["AccountStatus"];
+            string LibraryStatus = collection["LibraryStatus"];
             DropOutForm dof = db.DropOutForms.Find(dropOutForm.FormID);
             Form f = db.Forms.Find(dropOutForm.FormID);
-            f.Status = FormStatus;
-            if (IsWeekBefore.Equals("on"))
-                f.IsWeekBefore = true;
+            FormComment fC = new FormComment();
+            fC.FormID = dropOutForm.FormID;
+            fC.Comment = formComment;
+            fC.RoleID = Helper.Help.GetRoleId(DAL.UserInfo.Role);
+            if (FormStatus.Equals(""))
+                f.Status = "Inprogress";
             else
-                f.IsWeekBefore = false;
-            f.EndorsedBy = DAL.UserInfo.Name;
-            if (f.Status.Equals("Approved"))
-                f.ApprovalDate = DateTime.Now.ToString();
+                f.Status = FormStatus;
+            string getCurrentDesk = Helper.Help.GetCurrentDesk(Int32.Parse(ForwardTo));
+            if (getCurrentDesk.Length > 4)
+            {
+                f.CurrentDesk = getCurrentDesk;
+                f.Flow = f.Flow + f.CurrentDesk + ",";
+            }
+            
             dof.AcademicHeadEndorse = AcademicHeadEndorse;
             dof.AccountStatus = AccountStatus;
             dof.LibraryStatus = LibraryStatus;
@@ -465,7 +566,17 @@ namespace FPT_OnlineService.Controllers
                 f.ApprovalDate = DateTime.Now.ToString();
 
             db.Entry(dof).State = EntityState.Modified;
+            db.FormComments.Add(fC);
             db.SaveChanges();
+            if (f.Status.Equals("Approved") || f.Status.Equals("Rejected"))
+            {
+                f.ApprovalDate = DateTime.Now.ToString();
+                f.ApprovalBy = DAL.UserInfo.Role;
+                Helper.Notify notify = new Helper.Notify();
+
+                string notifyMessage = "Your " + f.Type + " has been " + f.Status;
+                await SendNotification(notifyMessage, DAL.UserInfo.Email, f.StudentRollNo);
+            }
             return RedirectToAction("Index", "Staff");
         }
 
@@ -503,27 +614,50 @@ namespace FPT_OnlineService.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RequestEndorsement([Bind(Include = "FormID")] RequestForm requestForm, 
-            string FormStatus, string IsWeekBefore, string ReceivedBy, string ToDepartment,
-            string ProcessedBy,string ApprovalReason)
+        public async Task<ActionResult> RequestEndorsement([Bind(Include = "FormID")] 
+            RequestForm requestForm, FormCollection collection)
         {
+            string ForwardTo = collection["ForwardTo"];
+            string FormStatus = collection["FormStatus"];
+            string ReceivedBy = collection["ReceivedBy"];
+            string formComment = collection["formComment"];
+            string ToDepartment = collection["ToDepartment"];
+            string ProcessedBy = collection["ProcessedBy"];
+            string ApprovalReason = collection["ApprovalReason"];
             RequestForm rf = db.RequestForms.Find(requestForm.FormID);
             Form f = db.Forms.Find(requestForm.FormID);
+            FormComment fC = new FormComment();
+            fC.FormID = requestForm.FormID;
+            fC.Comment = formComment;
+            fC.RoleID = Helper.Help.GetRoleId(DAL.UserInfo.Role);
             rf.ReceivedBy = ReceivedBy;
             rf.ProcessedBy = ProcessedBy;
             rf.ToDepartment = ToDepartment;
-            f.Status = FormStatus;
-            if (IsWeekBefore.Equals("on"))
-                f.IsWeekBefore = true;
+            if (FormStatus.Equals(""))
+                f.Status = "Inprogress";
             else
-                f.IsWeekBefore = false;
-            f.EndorsedBy = DAL.UserInfo.Name;
-            if (f.Status.Equals("Approved"))
-                f.ApprovalDate = DateTime.Now.ToString();
+                f.Status = FormStatus;
+            string getCurrentDesk = Helper.Help.GetCurrentDesk(Int32.Parse(ForwardTo));
+            if (getCurrentDesk.Length > 4)
+            {
+                f.CurrentDesk = getCurrentDesk;
+                f.Flow = f.Flow + f.CurrentDesk + ",";
+            }
+            
             rf.ApprovalReason = ApprovalReason;
 
             db.Entry(rf).State = EntityState.Modified;
+            db.FormComments.Add(fC);
             db.SaveChanges();
+            if (f.Status.Equals("Approved") || f.Status.Equals("Rejected"))
+            {
+                f.ApprovalDate = DateTime.Now.ToString();
+                f.ApprovalBy = DAL.UserInfo.Role;
+                Helper.Notify notify = new Helper.Notify();
+
+                string notifyMessage = "Your " + f.Type + " for " + rf.RequestTitle + " has been " + f.Status;
+                await SendNotification(notifyMessage, DAL.UserInfo.Email, f.StudentRollNo);
+            }
             return RedirectToAction("Index", "Staff");
         }
 
@@ -564,7 +698,7 @@ namespace FPT_OnlineService.Controllers
         {
             if (ModelState.IsValid)
             {
-                semester.Name = semester.Season+" " + semester.Year;
+                semester.Name = " " + semester.Year;
                 db.Semesters.Add(semester);
                 db.SaveChanges();
                 return RedirectToAction("Semester");
@@ -597,7 +731,7 @@ namespace FPT_OnlineService.Controllers
         {
             if (ModelState.IsValid)
             {
-                semester.Name = semester.Season + " " + semester.Year;
+                semester.Name = " "+semester.Year;
                 db.Entry(semester).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Semester");
@@ -631,12 +765,32 @@ namespace FPT_OnlineService.Controllers
             return RedirectToAction("Semester");
         }
 
-
-        public ActionResult Notifications()
+        public async Task<ActionResult> SendNotification(string NotificationMessage, string NotifyFrom, string NotifyTo)
         {
-            var notifications = db.Notifications.Include(n => n.Form).Include(n => n.Staff).Include(n => n.Student);
-            return View(notifications.ToList());
+            var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+            var message = new MailMessage();
+            string ToEmail = DAL.Users.GetStudent(NotifyTo);
+            message.To.Add(new MailAddress(ToEmail));  // replace with valid value 
+            //message.Bcc.Add(new MailAddress(NotifyFrom + "@fpt.edu.vn"));
+            message.From = new MailAddress("fuonlineservice2016@gmail.com");  // replace with valid value
+            message.Subject = "FU - Notification";
+            message.Body = string.Format(body, "FU - Online Service", "fuonlineservice2016@gmail.com", NotificationMessage);
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = "fuonlineservice2016@gmail.com",  // replace with valid value
+                    Password = "ATS3...."  // replace with valid value
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                await smtp.SendMailAsync(message);
+            }
+            return RedirectToAction("Index", "Staff");
         }
-        
     }
 }

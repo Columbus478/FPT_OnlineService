@@ -33,16 +33,23 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@{int i = 1;
+        string sdate = "";
+        string edate = "";
+        DateTime today = DateTime.Now;}
+@foreach (var item in Model)
+    {
+        sdate = FPT_OnlineService.Helper.Help.GetDate(item.StartDate);
+        edate = FPT_OnlineService.Helper.Help.GetDate(item.EndDate);
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
+            @Html.DisplayName(sdate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
+            @Html.DisplayName(edate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Year)

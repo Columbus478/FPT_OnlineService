@@ -19,12 +19,11 @@ namespace FPT_OnlineService.Models
             return userIdentity;
         }
 
+        public string Name { get; set; }
+
         [Column(Order=2)]
         public override string UserName { get; set; }
 
-        public virtual ICollection<Staff> Staff { get; set; }
-
-        public virtual ICollection<Student> Student { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -37,7 +36,7 @@ namespace FPT_OnlineService.Models
         base.OnModelCreating(modelBuilder);
 
 
-        modelBuilder.Entity<IdentityUser>().ToTable("Users", "dbo");
+        modelBuilder.Entity<ApplicationUser>().ToTable("Users", "dbo");
         modelBuilder.Entity<IdentityRole>().ToTable("Roles", "dbo");
         modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles", "dbo");
         modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims", "dbo");
@@ -50,13 +49,9 @@ namespace FPT_OnlineService.Models
             return new ApplicationDbContext();
         }
 
+        public System.Data.Entity.DbSet<FPT_OnlineService.Models.FormComment> FormComments { get; set; }
+
         public System.Data.Entity.DbSet<FPT_OnlineService.Models.Semester> Semesters { get; set; }
-
-        public System.Data.Entity.DbSet<FPT_OnlineService.Models.Notification> Notifications { get; set; }
-
-        public System.Data.Entity.DbSet<FPT_OnlineService.Models.Student> Students { get; set; }
-
-        public System.Data.Entity.DbSet<FPT_OnlineService.Models.Staff> Staffs { get; set; }
 
         public System.Data.Entity.DbSet<FPT_OnlineService.Models.Form> Forms { get; set; }
 

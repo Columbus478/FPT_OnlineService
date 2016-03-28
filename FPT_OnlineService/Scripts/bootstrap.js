@@ -2028,3 +2028,18 @@ $(document).ready(function () {
     })
 
 }(window.jQuery);
+
+//$(function () {
+//    $('#FormStatus').change(function () {
+//        if ($(this).val() === "Forward") {
+//            //code for opening popup
+//            alert("Hello There!");
+//        }
+//        else if ($(this).val() === "Forward") {
+//            alert("Hello There!");
+//        }
+//        else
+//            alert("Hello There!");
+//    });
+//});
+

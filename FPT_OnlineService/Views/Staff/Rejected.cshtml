@@ -43,48 +43,28 @@
     DateTime today = DateTime.Now;}
     @foreach (var item in Model)
     {
-        if (item.Date.Year.Equals(today.Date.Year))
-        {
-            if (item.Date.Month.Equals(today.Month))
-            {
-                if (item.Date.Day.Equals(today.Day))
-                {
-                    date = item.Date.ToString("HH:MM tt");
-                }
-                else
-                {
-                    date = item.Date.ToString("M");
-                }
-            }
-            else
-            {
-                date = item.Date.ToString("M");
-            }
-        }
-        else
-        {
-            date = item.Date.Month + " " + item.Date.Year;
-        }
-        if (item.Status.Equals("Rejected"))
+        date = FPT_OnlineService.Helper.Help.GetDate(item.Date);
+        if (item.Status.Equals("Rejected") && item.Flow.Contains(FPT_OnlineService.DAL.UserInfo.Role))
         {
             string count = i + " ";
             <tbody>
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Type)
+                        @Html.DisplayName(count)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.RollNo)
+                        @Html.DisplayFor(modelItem => item.FormDetails)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>item.StudentRollNo)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)
                     </td>
                     <td>
                         @Html.DisplayName(date)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Form Details", "StaffEndorsement", "Staff", new { id = item.ID }, null)
-                    </td>
+                    </td>                    
+                    <td></td>
                 </tr>
             </tbody>
         }

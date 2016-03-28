@@ -22,7 +22,7 @@ namespace FPT_OnlineService.DAL
             //get User from DB
             SqlConnection conn = new SqlConnection(connString);
             conn.Open();
-            string sql = "Select Name,RollNo,Email from Students where UserId ='" + UserId + "'";
+            string sql = "Select Name,Username,Email from Users where Id ='" + UserId + "'";
             SqlCommand cmd = new SqlCommand(sql, conn);
 
             SqlDataReader dr = cmd.ExecuteReader();
@@ -37,12 +37,32 @@ namespace FPT_OnlineService.DAL
             conn.Close();
         }
 
+        public static string GetStudent(string StudentRollNo)
+        {
+            //get User from DB
+            string Email = "";
+            SqlConnection conn = new SqlConnection(connString);
+            conn.Open();
+            string sql = "Select Email from Students where StudentRollNo ='" + StudentRollNo + "'";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                Email = dr.GetString(0).Trim();
+            }
+            conn.Close();
+            return Email;
+        }
+
         public static void GetStaff()
         {
             //get User from DB
             SqlConnection conn = new SqlConnection(connString);
             conn.Open();
-            string sql = "Select Name,Username,Email,StaffRole from Staffs where UserId ='" + UserId + "'";
+            string sql = "SELECT U.Name,U.Username,U.Email,R.Name FROM users u INNER JOIN "
+            +"UserRoles ur ON ur.userid = u.id LEFT OUTER JOIN Roles r ON r.id = ur.roleid WHERE u.id = '" + UserId + "'";
+
             SqlCommand cmd = new SqlCommand(sql, conn);
 
             SqlDataReader dr = cmd.ExecuteReader();
@@ -55,6 +75,27 @@ namespace FPT_OnlineService.DAL
                 UserInfo.Role = dr.GetString(3).Trim();
             }
             conn.Close();
+        }
+
+
+        public static string GetUserRole()
+        {
+            //get User from DB
+            string userRole = "";
+            SqlConnection conn = new SqlConnection(connString);
+            conn.Open();
+            string sql = "select roles.Name from roles, userroles "
+                            +" where roles.Id = userroles.RoleId "
+                            +" and userroles.UserId = '" + UserId + "'";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                userRole = dr.GetString(0).Trim();
+            }
+            conn.Close();
+            return userRole;
         }
 
         public static void SetUserNull()

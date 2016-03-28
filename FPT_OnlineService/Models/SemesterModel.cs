@@ -22,7 +22,5 @@ namespace FPT_OnlineService.Models
         public int NoOfWeeks { get; set; }
 
         public int NoOfMonths { get; set; }
-
-        public string Season { get; set; }
     }
 }

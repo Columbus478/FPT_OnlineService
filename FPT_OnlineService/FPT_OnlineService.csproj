@@ -181,16 +181,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\Delete\CourseRegFormsController.cs" />
-    <Compile Include="Controllers\Delete\DropOutFormsController.cs" />
+    <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\Delete\RequestFormsController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\Delete\SuspendSubjectFormsController.cs" />
     <Compile Include="Controllers\SuspendSemesterFormsController.cs" />
     <Compile Include="DAL\DALUser.cs" />
     <Compile Include="DAL\Forms.cs" />
@@ -200,41 +197,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Help.cs" />
-    <Compile Include="Migrations\201603151405112_All.cs" />
-    <Compile Include="Migrations\201603151405112_All.Designer.cs">
-      <DependentUpon>201603151405112_All.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603151552329_All1.cs" />
-    <Compile Include="Migrations\201603151552329_All1.Designer.cs">
-      <DependentUpon>201603151552329_All1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603151620524_All2.cs" />
-    <Compile Include="Migrations\201603151620524_All2.Designer.cs">
-      <DependentUpon>201603151620524_All2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603151650274_All3.cs" />
-    <Compile Include="Migrations\201603151650274_All3.Designer.cs">
-      <DependentUpon>201603151650274_All3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603161807384_All11.cs" />
-    <Compile Include="Migrations\201603161807384_All11.Designer.cs">
-      <DependentUpon>201603161807384_All11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603161820045_All21.cs" />
-    <Compile Include="Migrations\201603161820045_All21.Designer.cs">
-      <DependentUpon>201603161820045_All21.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603161840367_All31.cs" />
-    <Compile Include="Migrations\201603161840367_All31.Designer.cs">
-      <DependentUpon>201603161840367_All31.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603161917455_Ass.cs" />
-    <Compile Include="Migrations\201603161917455_Ass.Designer.cs">
-      <DependentUpon>201603161917455_Ass.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603170714231_Asr.cs" />
-    <Compile Include="Migrations\201603170714231_Asr.Designer.cs">
-      <DependentUpon>201603170714231_Asr.cs</DependentUpon>
+    <Compile Include="Helper\Notify.cs" />
+    <Compile Include="Migrations\201603270855403_All.cs" />
+    <Compile Include="Migrations\201603270855403_All.Designer.cs">
+      <DependentUpon>201603270855403_All.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -252,8 +218,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Controllers\Delete\half-slider.css" />
-    <Content Include="Controllers\Delete\staff-site.css" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -343,7 +307,6 @@
     <Content Include="Views\Forms\SuspendSubjectEdit.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Forms\Details.cshtml" />
     <Content Include="Views\Request.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CheckBoxListItem.cshtml" />
     <Content Include="Views\Staff\SuspendSemesterEndorsement.cshtml" />
@@ -379,9 +342,15 @@
     <Content Include="Views\Staff\SemesterDetails.cshtml" />
     <Content Include="Views\Student\Drafts.cshtml" />
     <Content Include="Views\Student\Trash.cshtml" />
+    <Content Include="Views\Admins\Create.cshtml" />
+    <Content Include="Views\Admins\Delete.cshtml" />
+    <Content Include="Views\Admins\Details.cshtml" />
+    <Content Include="Views\Admins\Edit.cshtml" />
+    <Content Include="Views\Admins\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -400,32 +369,8 @@
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603151405112_All.resx">
-      <DependentUpon>201603151405112_All.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603151552329_All1.resx">
-      <DependentUpon>201603151552329_All1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603151620524_All2.resx">
-      <DependentUpon>201603151620524_All2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603151650274_All3.resx">
-      <DependentUpon>201603151650274_All3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603161807384_All11.resx">
-      <DependentUpon>201603161807384_All11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603161820045_All21.resx">
-      <DependentUpon>201603161820045_All21.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603161840367_All31.resx">
-      <DependentUpon>201603161840367_All31.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603161917455_Ass.resx">
-      <DependentUpon>201603161917455_Ass.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603170714231_Asr.resx">
-      <DependentUpon>201603170714231_Asr.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201603270855403_All.resx">
+      <DependentUpon>201603270855403_All.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

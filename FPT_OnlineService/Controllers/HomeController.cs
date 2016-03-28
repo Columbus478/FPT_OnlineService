@@ -15,7 +15,9 @@ namespace FPT_OnlineService.Controllers
             string role = "";
             if (!string.IsNullOrEmpty(FPT_OnlineService.Models.User.UserRole))
                 role = FPT_OnlineService.Models.User.UserRole;
-            if(User.IsInRole("FPT-Staff") || role.Equals("FPT-Staff"))
+            if (User.IsInRole("FPT-Staff") || role.Contains("Staff")
+                || User.IsInRole("HeadOfAcademicDepartment-Staff") || User.IsInRole("AcademicHead-Staff")
+                || User.IsInRole("CampusDirector-Staff") || User.IsInRole("Academic-Staff"))
                 return RedirectToAction("Index", "Staff");
             else if (User.IsInRole("Student") || role.Equals("Student"))
                 return RedirectToAction("Index", "Student");

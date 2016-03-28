@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FPT_OnlineService.Models;
+using FPT_OnlineService.DAL;
 
 namespace FPT_OnlineService.Controllers
 {
@@ -59,7 +60,20 @@ namespace FPT_OnlineService.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
+            string role = "";
+            if (User.Identity.IsAuthenticated)
+            {
+                role = FPT_OnlineService.Models.User.UserRole;
+                if (role == null) 
+                {
+                    role = DAL.Users.GetUserRole();
+                }
+                if (role.Equals("FPT-Staff") || role.Contains("Staff"))
+                    return RedirectToAction("Index", "Staff");
+                else if (role.Equals("Student"))
+                    return RedirectToAction("Index", "Student");
+                ViewBag.ReturnUrl = returnUrl;
+            }
             return View();
         }
 
@@ -325,7 +339,7 @@ namespace FPT_OnlineService.Controllers
         {
             var FullName = "";
             var UserName = "";
-            var STrollNo = "";
+            var STStudentRollNo = "";
             string str = "";
             string strUsername = "";
             User user = new User();
@@ -348,49 +362,48 @@ namespace FPT_OnlineService.Controllers
 
 
                 strUsername = mailClaim.Value.ToString();
+                if(!strUsername.Contains("@fpt.edu.vn"))
+                {
+                    if (!strUsername.Equals("fuacadhead@gmail.com"))
+                        if (!strUsername.Equals("fucampdirector@gmail.com"))
+                            if (!strUsername.Equals("fuheadofacaddept@gmail.com"))
+                                if (!strUsername.Equals("fustudentserviceofficer@gmail.com"))
+                                    return RedirectToAction("Login");
+                }
+
                 int index = strUsername.IndexOf('@');
                 if(index > 0 )
                 {
                     strUsername = strUsername.Substring(0, index);
                 }
 
-                string NumStr = strUsername.Substring(strUsername.Length - 4);
+                string NumStr = strUsername.Substring(strUsername.Length - 5);
                 str = NumStr;
-                if (UserName.Contains("Student"))
+                if(NumStr.All(char.IsDigit))
                 {
-                    string[] studentRollNo = FullName.Split(' ');
-                    foreach (string rollno in studentRollNo)
+                    string[] studentStudentRollNo = FullName.Split(' ');
+                    foreach (string StudentRollNo in studentStudentRollNo)
                     {
-                        int i = rollno.Length;
-                        string s = strUsername.Substring(0,i).ToLower();
-                        if(rollno.ToLower().Equals(s))
-                        {
-                            STrollNo = strUsername.Substring(strUsername.Length - i - 1);
-                        }
-                    }
-                    Models.User.UserRole = "Student";
-                    user.Name = FullName;
-                }
-                else if(NumStr.All(char.IsDigit))
-                {
-                    string[] studentRollNo = FullName.Split(' ');
-                    foreach (string rollno in studentRollNo)
-                    {
-                        int i = rollno.Length;
+                        int i = StudentRollNo.Length;
                         string s = strUsername.Substring(0, i).ToLower();
-                        if (rollno.ToLower().Equals(s))
+                        if (StudentRollNo.ToLower().Equals(s))
                         {
-                            STrollNo = strUsername.Substring(strUsername.Length - i - 1);
+                            STStudentRollNo = strUsername.Substring(strUsername.Length - i - 1);
                         }
                     }
-                    Models.User.UserRole = "Student";
+                    UserInfo.Role = "Student";
                     user.Name = FullName;
                 }
                 else
                 {
-                    Models.User.UserRole = "FPT-Staff";
+                    UserInfo.Role = "FPT-Staff";
                     user.Name = FullName;
                 }// + " " + givenNameClaim.ToString();// +" " + phoneClaim.ToString();
+
+                UserInfo.Name = FullName;
+                UserInfo.Username = strUsername;
+                UserInfo.Email = mailClaim.Value.ToString();
+                //UserInfo.Role = 
             }
 
 
@@ -423,7 +436,7 @@ namespace FPT_OnlineService.Controllers
                         {
                             return View("ExternalLoginFailure");
                         }
-                        var Appuser = new ApplicationUser { UserName = strUsername, Email = model.Email };
+                        var Appuser = new ApplicationUser {UserName = strUsername, Name = FullName,  Email = model.Email };
                         var result1 = await UserManager.CreateAsync(Appuser);
 
                         if (result1.Succeeded)
@@ -433,43 +446,12 @@ namespace FPT_OnlineService.Controllers
                             {
                                 await SignInManager.SignInAsync(Appuser, isPersistent: false, rememberBrowser: false);
 
-
-                                if (Models.User.UserRole.Equals("Student"))
-                                {
-                                    //Assign user role
-                                    await this.UserManager.AddToRoleAsync(Appuser.Id, "Student");
-                                    //Add new student
-                                    Student student = new Student();
-                                    student.UserId = Appuser.Id;
-                                    student.Name = user.Name;
-                                    student.Email = Appuser.Email;
-                                    student.RollNo = STrollNo;
-                                    db.Students.Add(student);
-                                    db.SaveChanges();
-                                    //return RedirectToAction("Index", "Student");
-                                    string provider = "Google";
-                                    // Request a redirect to the external login provider
-                                    return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
-                                }
-                                else if (Models.User.UserRole.Equals("FPT-Staff"))
-                                {
-                                    //Assign user role
-                                    await this.UserManager.AddToRoleAsync(Appuser.Id, "FPT-Staff");
-                                    //Add new staff
-                                    Staff staff = new Staff();
-                                    staff.UserId = Appuser.Id;
-                                    staff.Name = user.Name;
-                                    staff.Email = Appuser.Email;
-                                    staff.UserName = strUsername;
-                                    staff.StaffRole = "FPT-Staff";
-                                    db.Staffs.Add(staff);
-                                    db.SaveChanges();
-                                    //return RedirectToAction("Index", "Staff");
-                                    string provider = "Google";
-                                    // Request a redirect to the external login provider
-                                    return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
-                                }
-
+                                await this.UserManager.AddToRoleAsync(Appuser.Id, UserInfo.Role);
+                                db.SaveChanges();
+                                string provider = "Google";
+                                // Request a redirect to the external login provider
+                                return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+                                
                             }
                         }
                         AddErrors(result1);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,18 +27,24 @@ namespace FPT_OnlineService.Models
 
         public string FormDetails { get; set; }
 
-        public bool IsWeekBefore { get; set; }
-
         [Display(Name = "Approved / Disapproved By: ")]
-        public string EndorsedBy { get; set; }
+        public string ApprovalBy { get; set; }
 
+        [Display(Name = "Approval date: ")]
         public string ApprovalDate { get; set; }
 
-        [ForeignKey("Student")]
-        [Display(Name="Student RollNo")]
-        public string RollNo { get; set; }
+        [Display(Name="Student StudentRollNo: ")]
+        public string StudentRollNo { get; set; }
+        
+        [Display(Name = "Student Name: ")]
+        public string StudentName { get; set; }
 
-        public virtual Student Student { get; set; }
+        [Display(Name = "Student Email: ")]
+        public string StudentEmail { get; set; }
+
+        [Display(Name = "Student Phone: ")]
+        public string StudentPhone { get; set; }
+
         public virtual CourseRegForm CourseRegForm { get; set; }
         public virtual DropOutForm DropOutForm { get; set; }
         public virtual SuspendSemesterForm SuspendSemesterForm { get; set; }
@@ -52,7 +59,7 @@ namespace FPT_OnlineService.Models
         public int FormID { get; set; }
 
         [Required]
-        [StringLength(10, ErrorMessage = "Please input your correct rollno", MinimumLength = 6)]
+        [StringLength(10, ErrorMessage = "Please input your correct StudentRollNo", MinimumLength = 6)]
         [Display(Name = "Student Class (Lớp)")]
         public string Class { get; set; }
 
@@ -86,10 +93,6 @@ namespace FPT_OnlineService.Models
         [ForeignKey("Form")]
         public int FormID { get; set; }
 
-        [Required]
-        [Display(Name = "Phone(Số điện thoại)")]
-        public int StudentPhone { get; set; }
-
         //Spring Fall Summer
         [ForeignKey("Semester")]
         [Required]
@@ -106,6 +109,8 @@ namespace FPT_OnlineService.Models
         [Display(Name = "Semester before the last")]
         public string TwoPrevSemester { get; set; }
 
+        public bool IsWeekBefore { get; set; }
+
         public virtual Form Form { get; set; }
         public virtual Semester Semester { get; set; }
     }
@@ -115,10 +120,6 @@ namespace FPT_OnlineService.Models
         [Key]
         [ForeignKey("Form")]
         public int FormID { get; set; }
-
-        [Required]
-        [Display(Name = "Phone(Số điện thoại)")]
-        public int StudentPhone { get; set; }
 
         //Spring Fall Summer
         [ForeignKey("Semester")]
@@ -139,6 +140,8 @@ namespace FPT_OnlineService.Models
         [Display(Name = "Not All Subject")]
         public bool NotAllSubject { get; set; }
 
+        public bool IsWeekBefore { get; set; }
+
         public virtual Form Form { get; set; }
         public virtual Semester Semester { get; set; }
 
@@ -153,10 +156,6 @@ namespace FPT_OnlineService.Models
         [Required]
         [Display(Name = "Request Title: ")]
         public string RequestTitle { get; set; }
-        
-        [Required]
-        [Display(Name = "Phone(Số điện thoại): ")]
-        public int StudentPhone { get; set; }
 
         [Required]
         [StringLength(10, ErrorMessage = "Please input your correct details", MinimumLength = 6)]
@@ -190,10 +189,6 @@ namespace FPT_OnlineService.Models
         [Key]
         [ForeignKey("Form")]
         public int FormID { get; set; }
-        
-        [Required]
-        [Display(Name = "Phone(Số điện thoại)")]
-        public int StudentPhone { get; set; }
 
         [Required]
         [Display(Name = "Subject Code(Mã môn)")]
@@ -208,7 +203,26 @@ namespace FPT_OnlineService.Models
 
         [Display(Name = "Tuition Fee")]
         public bool TuitionFee { get; set; }
+
+        public bool IsWeekBefore { get; set; }
         
+        public virtual Form Form { get; set; }
+    }
+
+    public class FormComment
+    {
+        [Key]
+        public int ID { get; set; }
+
+        [ForeignKey("Form")]
+        public int FormID { get; set; }
+
+        [ForeignKey("IdentityRole")]
+        public string RoleID { get; set; }
+
+        public string Comment { get; set; }
+
+        public virtual IdentityRole IdentityRole { get; set; }
         public virtual Form Form { get; set; }
     }
 

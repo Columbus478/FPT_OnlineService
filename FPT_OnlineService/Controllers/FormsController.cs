@@ -22,7 +22,7 @@ namespace FPT_OnlineService.Controllers
             string role = "";
             if (!string.IsNullOrEmpty(FPT_OnlineService.Models.User.UserRole))
                 role = FPT_OnlineService.Models.User.UserRole;
-            if (User.IsInRole("FPT-Staff") || role.Equals("FPT-Staff"))
+            if (User.IsInRole("FPT-Staff") || role.Equals("FPT-Staff") || role.Contains("Staff"))
                 return RedirectToAction("Index", "Staff");
             else if (User.IsInRole("Student") || role.Equals("Student"))
                 return RedirectToAction("Index", "Student");
@@ -51,7 +51,7 @@ namespace FPT_OnlineService.Controllers
                     return RedirectToAction("SuspendSemesterDetails", new { id = id });
                 case ("Drop Out"):
                     return RedirectToAction("DropOutDetails", new { id = id });
-                case ("General Request"):
+                case ("Request"):
                     return RedirectToAction("RequestDetails", new { id = id });
                 /*
             case (""):
@@ -117,7 +117,7 @@ namespace FPT_OnlineService.Controllers
                     return RedirectToAction("SuspendSemesterDelete", new { id = id });
                 case ("Drop Out"):
                     return RedirectToAction("DropOutDelete", new { id = id });
-                case ("General Request"):
+                case ("Request"):
                     return RedirectToAction("RequestDelete", new { id = id });
                 /*
             case (""):
@@ -140,17 +140,19 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CourseRegCreate([Bind(Include = "StudentPhone,SubjectCode,Subject,Status,Class")] CourseRegForm courseRegForm)
+        public ActionResult CourseRegCreate([Bind(Include = "StudentPhone,SubjectCode,Subject,Status,Class")] CourseRegForm courseRegForm,Form form)
         {
             if (ModelState.IsValid)
             {
-                Form form = new Form();
+                //Form form = new Form();
                 form.Type = "Course Registration";
                 form.Date = DateTime.Now;
-                form.CurrentDesk = "Academic Staff";
-                form.Flow = "AcademicStaff,";
+                form.CurrentDesk = "Academic-Staff";
+                form.Flow = "Academic-Staff,";
                 form.FormDetails = "Course Registration: "+courseRegForm.Subject+" ("+courseRegForm.SubjectCode+")";
-                form.RollNo = UserInfo.Username;
+                form.StudentRollNo = UserInfo.Username;
+                form.StudentEmail = UserInfo.Email;
+                form.StudentName = UserInfo.Name;
                 form.Status = "New";
                 db.Forms.Add(form);
                 db.SaveChanges();
@@ -203,12 +205,12 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CourseRegEdit([Bind(Include = "FormID,StudentPhone,SubjectCode,Subject")] CourseRegForm courseRegForm)
+        public ActionResult CourseRegEdit([Bind(Include = "FormID,StudentPhone,SubjectCode,Subject")] CourseRegForm courseRegForm, Form form)
         {
             if (ModelState.IsValid)
             {
                 CourseRegForm crf = db.CourseRegForms.Find(courseRegForm.FormID);
-                crf.StudentPhone = courseRegForm.StudentPhone;
+                //crf.StudentPhone = courseRegForm.StudentPhone;
                 crf.SubjectCode = courseRegForm.SubjectCode;
                 db.Entry(crf).State = EntityState.Modified;
                 db.SaveChanges();
@@ -289,17 +291,17 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuspendSubjectCreate([Bind(Include = "FormID,StudentPhone,SubjectName,SubjectCode,SemesterName")] SuspendSubjectForm suspendSubjectForm)
+        public ActionResult SuspendSubjectCreate([Bind(Include = "FormID,StudentPhone,SubjectName,SubjectCode,SemesterName")] SuspendSubjectForm suspendSubjectForm, Form form)
         {
             if (ModelState.IsValid)
             {
-                Form form = new Form();
+                //Form form = new Form();
                 form.Type = "Suspend Subject";
                 form.Date = DateTime.Now;
-                form.CurrentDesk = "Academic Staff";
-                form.Flow = "AcademicStaff,";
+                form.CurrentDesk = "Academic-Staff";
+                form.Flow = "Academic-Staff,";
                 form.FormDetails = "Suspend Subject: "+suspendSubjectForm.SubjectName+" ("+suspendSubjectForm.SubjectCode+")";
-                form.RollNo = UserInfo.Username;
+                form.StudentRollNo = UserInfo.Username;
                 form.Status = "New";
                 db.Forms.Add(form);
                 db.SaveChanges();
@@ -339,7 +341,7 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuspendSubjectEdit([Bind(Include = "FormID,StudentPhone,SubjectName,SubjectCode,SemesterName")] SuspendSubjectForm suspendSubjectForm)
+        public ActionResult SuspendSubjectEdit([Bind(Include = "FormID,StudentPhone,SubjectName,SubjectCode,SemesterName")] SuspendSubjectForm suspendSubjectForm, Form form)
         {
             if (ModelState.IsValid)
             {
@@ -403,8 +405,6 @@ namespace FPT_OnlineService.Controllers
             }
             SuspendSemesterForm suspendSemesterForm = db.SuspendSemesterForms.Find(id);
             Form form = db.Forms.Find(id);
-            if (!form.Status.Equals("New"))
-                return RedirectToAction("Details", new { id = id });
             if (suspendSemesterForm == null)
             {
                 return HttpNotFound();
@@ -431,17 +431,17 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuspendSemesterCreate([Bind(Include = "StudentPhone,SemesterName")] SuspendSemesterForm suspendSemesterForm)
+        public ActionResult SuspendSemesterCreate([Bind(Include = "StudentPhone,SemesterName")] SuspendSemesterForm suspendSemesterForm, Form form)
         {
             if (ModelState.IsValid)
             {
-                Form form = new Form();
+                //Form form = new Form();
                 form.Type = "Suspend Semester";
                 form.Date = DateTime.Now;
-                form.CurrentDesk = "Academic Staff";
-                form.Flow = "AcademicStaff,";
+                form.CurrentDesk = "Academic-Staff";
+                form.Flow = "Academic-Staff,";
                 form.FormDetails = "Suspend Semester: " + suspendSemesterForm.SemesterName;
-                form.RollNo = UserInfo.Username;
+                form.StudentRollNo = UserInfo.Username;
                 form.Status = "New";
                 db.Forms.Add(form);
                 db.SaveChanges();
@@ -481,7 +481,7 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuspendSemesterEdit([Bind(Include = "FormID,StudentPhone,SemesterName")] SuspendSemesterForm suspendSemesterForm)
+        public ActionResult SuspendSemesterEdit([Bind(Include = "FormID,StudentPhone,SemesterName")] SuspendSemesterForm suspendSemesterForm, Form form)
         {
             if (ModelState.IsValid)
             {
@@ -545,8 +545,6 @@ namespace FPT_OnlineService.Controllers
             }
             RequestForm requestForm = db.RequestForms.Find(id);
             Form form = db.Forms.Find(id);
-            if (!form.Status.Equals("New"))
-                return RedirectToAction("Details", new { id = id });
             if (requestForm == null)
             {
                 return HttpNotFound();
@@ -566,17 +564,17 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RequestCreate([Bind(Include = "RequestTitle,StudentPhone,Class,Description")] RequestForm requestForm)
+        public ActionResult RequestCreate([Bind(Include = "RequestTitle,StudentPhone,Class,Description")] RequestForm requestForm, Form form)
         {
             if (ModelState.IsValid)
             {
-                Form form = new Form();
+                //Form form = new Form();
                 form.Type = "Request";
                 form.Date = DateTime.Now;
-                form.CurrentDesk = "Academic Staff";
-                form.Flow = "AcademicStaff,";
+                form.CurrentDesk = "Academic-Staff";
+                form.Flow = "Academic-Staff,";
                 form.FormDetails = "Request: " + requestForm.RequestTitle;
-                form.RollNo = UserInfo.Username;
+                form.StudentRollNo = UserInfo.Username;
                 form.Status = "New";
                 db.Forms.Add(form);
                 db.SaveChanges();
@@ -611,7 +609,7 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RequestEdit([Bind(Include = "FormID,RequestTitle,StudentPhone,StudentEmail,Class,Batch,Description")] RequestForm requestForm)
+        public ActionResult RequestEdit([Bind(Include = "FormID,RequestTitle,StudentPhone,StudentEmail,Class,Batch,Description")] RequestForm requestForm, Form form)
         {
             if (ModelState.IsValid)
             {
@@ -673,8 +671,6 @@ namespace FPT_OnlineService.Controllers
             }
             DropOutForm dropOutForm = db.DropOutForms.Find(id);
             Form form = db.Forms.Find(id);
-            if (!form.Status.Equals("New"))
-                return RedirectToAction("Details", new { id = id });
             if (dropOutForm == null)
             {
                 return HttpNotFound();
@@ -694,16 +690,16 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DropOutCreate([Bind(Include = "Class,MethodPayment,DropOutDate,Reason")] DropOutForm dropOutForm)
+        public ActionResult DropOutCreate([Bind(Include = "Class,MethodPayment,DropOutDate,Reason")] DropOutForm dropOutForm, Form form)
         {
             if (ModelState.IsValid)
             {
-                Form form = new Form();
+                //Form form = new Form();
                 form.Type = "Drop Out";
                 form.Date = DateTime.Now;
-                form.CurrentDesk = "Academic Staff";
-                form.Flow = "AcademicStaff,";
-                form.RollNo = UserInfo.Username;
+                form.CurrentDesk = "Academic-Staff";
+                form.Flow = "Academic-Staff,";
+                form.StudentRollNo = UserInfo.Username;
                 form.FormDetails = "Drop Out: "+dropOutForm.Reason;
                 form.Status = "New";
                 db.Forms.Add(form);
@@ -739,7 +735,7 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DropOutEdit([Bind(Include = "FormID,Class,MethodPayment,DropOutDate,Reason")] DropOutForm dropOutForm)
+        public ActionResult DropOutEdit([Bind(Include = "FormID,Class,MethodPayment,DropOutDate,Reason")] DropOutForm dropOutForm, Form form)
         {
             if (ModelState.IsValid)
             {

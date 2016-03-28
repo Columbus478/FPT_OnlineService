@@ -27,7 +27,7 @@ namespace FPT_OnlineService.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string RollNo { get; set; }
+        public string StudentRollNo { get; set; }
 
         [ForeignKey("ApplicationUser"), Column(Order = 2)]
         public string UserId { get; set; }
@@ -35,7 +35,7 @@ namespace FPT_OnlineService.Models
         public virtual ICollection<Form> Form { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
-     
+
     public class Staff : User
     {
         [Key]
@@ -44,8 +44,20 @@ namespace FPT_OnlineService.Models
 
         [ForeignKey("ApplicationUser"), Column(Order = 2)]
         public string UserId { get; set; }
-        
+
         public string StaffRole { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+    }
+
+    public class Admin : User
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string UserName { get; set; }
+
+        [ForeignKey("ApplicationUser"), Column(Order = 2)]
+        public string UserId { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
     }

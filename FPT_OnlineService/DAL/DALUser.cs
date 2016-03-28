@@ -17,23 +17,23 @@ namespace FPT_OnlineService.DAL
         private ApplicationDbContext db = new ApplicationDbContext();
 
         private static string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
-
+        /*
         public Student GetStudent()
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();
 
-            var st = db.Students.Where(s => s.UserId == userId).Select(s => new Student
+            var st = db.Users.Where(s => s.UserId == userId).Select(s => new Student
                 {
                     UserId = s.UserId,
                     Name = s.Name,
-                    RollNo = s.RollNo,
+                    StudentRollNo = s.StudentRollNo,
                 }).Single();
 
             Student student = new Student();
             student = (Student)st;
             //student.UserId = st.UserId;
             //student.Name = st.Name;
-            //student.RollNo = st.RollNo;
+            //student.StudentRollNo = st.StudentRollNo;
 
             return student;
         }
@@ -44,13 +44,13 @@ namespace FPT_OnlineService.DAL
                 
             SqlConnection conn = new SqlConnection(connString);
 
-            String query = "insert into Students (UserId,RollNo,Name,Major,Email) " +
-                                " values(@UserId,@RollNo,@Name,@Major,@Email)";
+            String query = "insert into Students (UserId,StudentRollNo,Name,Major,Email) " +
+                                " values(@UserId,@StudentRollNo,@Name,@Major,@Email)";
             SqlCommand cmd = new SqlCommand(query, conn);
             conn.Open();
 
             cmd.Parameters.AddWithValue("@UserId", id);
-            cmd.Parameters.AddWithValue("@RollNo", StudentInfo.RollNo);
+            cmd.Parameters.AddWithValue("@StudentRollNo", StudentInfo.StudentRollNo);
             cmd.Parameters.AddWithValue("@Name", StudentInfo.Name);
             cmd.Parameters.AddWithValue("@Major", StudentInfo.Major);
             cmd.Parameters.AddWithValue("@Email", StudentInfo.Email);
@@ -83,13 +83,13 @@ namespace FPT_OnlineService.DAL
            //get User from DB
             SqlConnection conn = new SqlConnection(connString);
             conn.Open();
-            string sql = "Select RollNo,Name,Major from Students where UserId ='" + id + "'";
+            string sql = "Select StudentRollNo,Name,Major from Students where UserId ='" + id + "'";
             SqlCommand cmd = new SqlCommand(sql, conn);
 
             SqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
-                StudentInfo.RollNo = dr.GetString(0).Trim();
+                StudentInfo.StudentRollNo = dr.GetString(0).Trim();
                 StudentInfo.Name = dr.GetString(1).Trim();
                 StudentInfo.Major = dr.GetString(2).Trim();
                 StudentInfo.Email = email;
@@ -97,13 +97,13 @@ namespace FPT_OnlineService.DAL
             conn.Close();
         }
 
-        public static void GetStudentForms(string rollNo)
+        public static void GetStudentForms(string StudentRollNo)
         {
             //get User from DB
             SqlConnection conn = new SqlConnection(connString);
             conn.Open();
 
-            string sql = "SELECT type,date,currentdesk,flow,status FROM Forms INNER JOIN StudentForms ON Forms.ID=StudentForms.FormID where studentrollNo = '" + rollNo + "'";
+            string sql = "SELECT type,date,currentdesk,flow,status FROM Forms INNER JOIN StudentForms ON Forms.ID=StudentForms.FormID where studentStudentRollNo = '" + StudentRollNo + "'";
             SqlCommand cmd = new SqlCommand(sql, conn);
 
             SqlDataReader dr = cmd.ExecuteReader();
@@ -114,7 +114,7 @@ namespace FPT_OnlineService.DAL
                 Requests.CurrentDesk = dr.GetString(2).Trim();
                 Requests.Flow = dr.GetString(3).Trim();
                 Requests.Status = dr.GetString(4).Trim();
-                Requests.StudentRollNo = dr.GetString(5).Trim();
+                Requests.StudentStudentRollNo = dr.GetString(5).Trim();
                 //StudentInfo.Email = email;
             }
             conn.Close();

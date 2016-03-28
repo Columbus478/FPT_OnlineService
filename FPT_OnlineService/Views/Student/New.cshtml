@@ -34,30 +34,9 @@
     @foreach (var item in Model)
     {
         string count = i + " ";
-        if (item.RollNo.Equals(FPT_OnlineService.DAL.UserInfo.Username) && item.Status.Equals("New"))
+        if (item.StudentRollNo.Equals(FPT_OnlineService.DAL.UserInfo.Username) && item.Status.Equals("New"))
         {
-            if (item.Date.Year.Equals(today.Date.Year))
-            {
-                if (item.Date.Month.Equals(today.Month))
-                {
-                    if (item.Date.Day.Equals(today.Day))
-                    {
-                        date = item.Date.ToString("HH:MM tt");
-                    }
-                    else
-                    {
-                        date = item.Date.ToString("M");
-                    }
-                }
-                else
-                {
-                    date = item.Date.ToString("M");
-                }
-            }
-            else
-            {
-                date = item.Date.Month + " " + item.Date.Year;
-            }
+            date = FPT_OnlineService.Helper.Help.GetDate(item.Date);
             <tbody>
                 <tr>
                     <td>

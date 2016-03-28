@@ -13,7 +13,7 @@ namespace FPT_OnlineService.Controllers
     public class NotificationsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        /*
         // GET: Notifications
         public ActionResult Index()
         {
@@ -41,7 +41,7 @@ namespace FPT_OnlineService.Controllers
         {
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type");
             ViewBag.StaffUsername = new SelectList(db.Staffs, "UserName", "UserId");
-            ViewBag.StudentRollNo = new SelectList(db.Students, "RollNo", "UserId");
+            ViewBag.StudentStudentRollNo = new SelectList(db.Students, "StudentRollNo", "UserId");
             return View();
         }
 
@@ -50,7 +50,7 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,StudentRollNo,FormID,StaffUsername,Message")] Notification notification)
+        public ActionResult Create([Bind(Include = "ID,StudentStudentRollNo,FormID,StaffUsername,Message")] Notification notification)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace FPT_OnlineService.Controllers
 
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", notification.FormID);
             ViewBag.StaffUsername = new SelectList(db.Staffs, "UserName", "UserId", notification.StaffUsername);
-            ViewBag.StudentRollNo = new SelectList(db.Students, "RollNo", "UserId", notification.StudentRollNo);
+            ViewBag.StudentStudentRollNo = new SelectList(db.Students, "StudentRollNo", "UserId", notification.StudentStudentRollNo);
             return View(notification);
         }
 
@@ -79,7 +79,7 @@ namespace FPT_OnlineService.Controllers
             }
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", notification.FormID);
             ViewBag.StaffUsername = new SelectList(db.Staffs, "UserName", "UserId", notification.StaffUsername);
-            ViewBag.StudentRollNo = new SelectList(db.Students, "RollNo", "UserId", notification.StudentRollNo);
+            ViewBag.StudentStudentRollNo = new SelectList(db.Students, "StudentRollNo", "UserId", notification.StudentStudentRollNo);
             return View(notification);
         }
 
@@ -88,7 +88,7 @@ namespace FPT_OnlineService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,StudentRollNo,FormID,StaffUsername,Message")] Notification notification)
+        public ActionResult Edit([Bind(Include = "ID,StudentStudentRollNo,FormID,StaffUsername,Message")] Notification notification)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace FPT_OnlineService.Controllers
             }
             ViewBag.FormID = new SelectList(db.Forms, "ID", "Type", notification.FormID);
             ViewBag.StaffUsername = new SelectList(db.Staffs, "UserName", "UserId", notification.StaffUsername);
-            ViewBag.StudentRollNo = new SelectList(db.Students, "RollNo", "UserId", notification.StudentRollNo);
+            ViewBag.StudentStudentRollNo = new SelectList(db.Students, "StudentRollNo", "UserId", notification.StudentStudentRollNo);
             return View(notification);
         }
 
@@ -135,6 +135,6 @@ namespace FPT_OnlineService.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
     }
 }
